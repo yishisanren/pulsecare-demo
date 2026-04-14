@@ -527,8 +527,11 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">问卷评估</div>
+      <div class="sidebar-item" data-page="assess-consent" onclick="showPage(this)">
+        <span class="dot blue"></span>知情同意页
+      </div>
       <div class="sidebar-item" data-page="assess-select" onclick="showPage(this)">
-        <span class="dot blue"></span>模块筛选
+        <span class="dot blue"></span>筛选与路由
       </div>
       <div class="sidebar-item" data-page="assess-q-incont" onclick="showPage(this)">
         <span class="dot blue"></span>问卷填写 · 尿失禁
@@ -749,14 +752,14 @@ const h = {
     <svg width="120" height="40" viewBox="0 0 120 40"><polyline points="5,35 25,28 45,24 65,18 85,14 105,10" fill="none" stroke="#e8d0d0" stroke-width="2" stroke-linecap="round"/><circle cx="5" cy="35" r="3" fill="#e8e0e0"/><circle cx="25" cy="28" r="3" fill="#e0d8d8"/><circle cx="45" cy="24" r="3.5" fill="#dcc8c8"/><circle cx="65" cy="18" r="3.5" fill="#d4b8b8"/><circle cx="85" cy="14" r="4" fill="#cca0a0"/><circle cx="105" cy="10" r="5" fill="#c4787a"/></svg>
     </div></div>`,
 
-  assessmentCTA: () => `<div class="assessment-cta" onclick="goTo('assess-select')" style="cursor:pointer">
+  assessmentCTA: () => `<div class="assessment-cta" onclick="goTo('assess-consent')" style="cursor:pointer">
     <div class="cta-text"><div class="cta-title">Pelvic Floor Assessment</div><div class="cta-desc">Comprehensive pelvic floor health assessment</div><div class="cta-link">Take now <i data-lucide="chevron-right" style="width:14px;height:14px"></i></div></div>
     <div class="cta-illust"><i data-lucide="clipboard-check" style="width:32px;height:32px;color:#c4787a"></i></div>
   </div>`,
 
   emptySchedule: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span></div>
     <div class="empty-box"><div class="empty-icon"><i data-lucide="calendar-x" style="width:32px;height:32px;color:#ccc"></i></div>
-    <div class="empty-text">No active schedule.<br>Complete an assessment to get started.</div><div class="empty-btn" onclick="goTo('assess-select')">Take Assessment</div></div></div>`,
+    <div class="empty-text">No active schedule.<br>Complete an assessment to get started.</div><div class="empty-btn" onclick="goTo('assess-consent')">Take Assessment</div></div></div>`,
 
   restDay: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link" onclick="goTo('sched-home')">View Schedule</span></div>
     <div class="rest-box"><div class="rest-emoji">🌿</div><div class="rest-text">Rest day today.<br>Your next session is <b>Wednesday</b>.</div></div></div>`,
@@ -899,64 +902,121 @@ const pages = {
       `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div></div>`;
   },
 
-  'assess-select': () => h.statusBar() + `<div class="q-nav">
+  'assess-consent': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('home-connected')">Cancel</span>
-    <span class="q-step-label">Step 1 of 3</span>
+    <span class="q-step-label"></span>
     <div style="width:50px"></div>
   </div>
   <div class="assess-page">
     <div class="assess-body">
-      <div class="assess-subtitle">Select Your Concerns</div>
-      <div class="assess-desc">Choose the areas you'd like to assess. You can select multiple modules.</div>
-      <div class="module-option sel" onclick="this.classList.toggle('sel')">
-        <div class="mo-icon" style="background:#fce4ec"><i data-lucide="droplets" style="width:22px;height:22px;color:#c4787a"></i></div>
-        <div class="mo-info"><div class="mo-name">Incontinence</div><div class="mo-desc">ICIQ Questionnaire · 6 questions</div></div>
-        <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+      <div class="assess-subtitle" style="font-size:17px;margin-bottom:16px">Assessment Information &amp; Informed Consent</div>
+
+      <div style="background:#f8f8f8;border-radius:12px;padding:14px 16px;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:6px">About This Assessment</div>
+        <div style="font-size:12px;color:#666;line-height:1.6">This questionnaire evaluates pelvic floor symptoms including urinary incontinence, pelvic pain, and related functional limitations. It takes approximately 5-10 minutes to complete. Your responses will be used to generate a personalized rehabilitation training plan.</div>
       </div>
-      <div class="module-option sel" onclick="this.classList.toggle('sel')">
-        <div class="mo-icon" style="background:#fff3e0"><i data-lucide="flame" style="width:22px;height:22px;color:#e65100"></i></div>
-        <div class="mo-info"><div class="mo-name">Pain</div><div class="mo-desc">Pain Scale · 4 questions</div></div>
-        <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+
+      <div style="background:#f8f8f8;border-radius:12px;padding:14px 16px;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:6px">Non-Diagnostic Disclaimer</div>
+        <div style="font-size:12px;color:#666;line-height:1.6">This assessment is <b>not</b> a medical diagnosis. Results are for informational purposes only and should not replace professional medical advice. If you experience severe symptoms, please consult a healthcare provider.</div>
       </div>
-      <div class="module-option" onclick="this.classList.toggle('sel')">
-        <div class="mo-icon" style="background:#e8f5e9"><i data-lucide="footprints" style="width:22px;height:22px;color:#2e7d32"></i></div>
-        <div class="mo-info"><div class="mo-name">Hip & Leg Function</div><div class="mo-desc">PGQ Questionnaire · 5 questions</div></div>
-        <div class="mo-check"></div>
+
+      <div style="background:#f8f8f8;border-radius:12px;padding:14px 16px;margin-bottom:12px">
+        <div style="font-size:13px;font-weight:600;color:#1a1a1a;margin-bottom:6px">Privacy &amp; Data Handling</div>
+        <div style="font-size:12px;color:#666;line-height:1.6">Your assessment data is stored locally on your device and used solely to generate training recommendations. Data is not shared with third parties. You may delete your data at any time from Settings.</div>
       </div>
-      <div class="module-none">I have none of these concerns</div>
+
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:14px 0;cursor:pointer" onclick="const cb=this.querySelector('.consent-cb');cb.classList.toggle('checked');const btn=document.getElementById('consent-start-btn');btn.disabled=!cb.classList.contains('checked')">
+        <div class="consent-cb" style="width:20px;height:20px;border-radius:4px;border:2px solid #ddd;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all 0.15s"></div>
+        <span style="font-size:12px;color:#333;line-height:1.5">I have read and understood the above information, and I consent to proceed with this assessment.</span>
+      </label>
     </div>
     <div class="assess-footer">
-      <button class="btn-primary" onclick="goTo('assess-q-incont')">Start Assessment</button>
+      <button id="consent-start-btn" class="btn-primary" disabled onclick="goTo('assess-select')">Start Assessment</button>
     </div>
-  </div>`,
+  </div>
+  <style>.consent-cb.checked{border-color:#c4787a !important;background:#c4787a !important}.consent-cb.checked::after{content:'\\2713';color:#fff;font-size:13px;font-weight:700}</style>`,
+
+  'assess-select': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel" onclick="goTo('home-connected')">Cancel</span>
+    <span class="q-step-label">Screening</span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="assess-page">
+    <div class="assess-body">
+      <div class="assess-subtitle">Screening &amp; Routing</div>
+      <div class="assess-desc">Please select all that apply to you. This helps us choose the right questionnaire modules.</div>
+      <div id="screen-opts">
+        <div class="module-option sel" data-screen="A" onclick="handleScreenOpt(this)">
+          <div class="mo-icon" style="background:#fce4ec"><i data-lucide="droplets" style="width:22px;height:22px;color:#c4787a"></i></div>
+          <div class="mo-info"><div class="mo-name">A. Urinary Leakage</div><div class="mo-desc">I experience involuntary urine leakage during daily activities, exercise, coughing, or sneezing</div></div>
+          <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+        </div>
+        <div class="module-option sel" data-screen="B" onclick="handleScreenOpt(this)">
+          <div class="mo-icon" style="background:#fff3e0"><i data-lucide="flame" style="width:22px;height:22px;color:#e65100"></i></div>
+          <div class="mo-info"><div class="mo-name">B. Pelvic / Lower-Back Pain</div><div class="mo-desc">I have persistent or recurring pain in the pelvic region, lower back, or hip area</div></div>
+          <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+        </div>
+        <div class="module-option" data-screen="C" onclick="handleScreenOpt(this)">
+          <div class="mo-icon" style="background:#e8f5e9"><i data-lucide="footprints" style="width:22px;height:22px;color:#2e7d32"></i></div>
+          <div class="mo-info"><div class="mo-name">C. Pelvic Organ Prolapse Symptoms</div><div class="mo-desc">I feel heaviness, pressure, or a bulging sensation in the vaginal or pelvic area</div></div>
+          <div class="mo-check"></div>
+        </div>
+        <div class="module-option" data-screen="D" onclick="handleScreenOptD(this)">
+          <div class="mo-icon" style="background:#f0f0f0"><i data-lucide="minus-circle" style="width:22px;height:22px;color:#999"></i></div>
+          <div class="mo-info"><div class="mo-name">D. None of the Above</div><div class="mo-desc">I do not have any of these symptoms but would like general pelvic floor training</div></div>
+          <div class="mo-check"></div>
+        </div>
+      </div>
+    </div>
+    <div class="assess-footer">
+      <button id="screen-start-btn" class="btn-primary" onclick="goTo('assess-q-incont')">Start Assessment</button>
+    </div>
+  </div>
+  <script>
+  function handleScreenOpt(el){
+    el.classList.toggle('sel');
+    // Deselect D if any A/B/C is selected
+    const dOpt=document.querySelector('[data-screen=D]');
+    if(dOpt)dOpt.classList.remove('sel');
+    updateScreenBtn();
+  }
+  function handleScreenOptD(el){
+    el.classList.toggle('sel');
+    if(el.classList.contains('sel')){
+      document.querySelectorAll('[data-screen=A],[data-screen=B],[data-screen=C]').forEach(o=>o.classList.remove('sel'));
+    }
+    updateScreenBtn();
+  }
+  function updateScreenBtn(){
+    const btn=document.getElementById('screen-start-btn');
+    const dSel=document.querySelector('[data-screen=D]')?.classList.contains('sel');
+    if(dSel){
+      btn.textContent='Skip Assessment';
+      btn.onclick=()=>goTo('home-connected');
+    }else{
+      btn.textContent='Start Assessment';
+      btn.onclick=()=>goTo('assess-q-incont');
+    }
+  }
+  </script>`,
 
   'assess-q-incont': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
-    <span class="q-step-label">Q3 of 10</span>
+    <span class="q-step-label">Question 1 of 16</span>
     <div style="width:50px"></div>
   </div>
-  <div class="q-progress-bar"><div class="q-progress-fill" style="width:30%"></div></div>
+  <div class="q-progress-bar"><div class="q-progress-fill" style="width:${(1/16*100).toFixed(0)}%"></div></div>
   <div class="assess-page">
-    <div class="q-module-tag incont">Incontinence</div>
+    <div class="q-module-tag incont">Incontinence &mdash; 3IQ Screening</div>
     <div class="q-body">
-      <div class="q-title">How often do you experience urine leakage?</div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">Never</span>
-      </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">About once a week</span>
-      </div>
+      <div class="q-title">During the last 3 months, have you leaked urine (even a small amount)?</div>
+      <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5">This is the initial screening question from the 3-Incontinence Questions (3IQ) instrument. Your answer determines which follow-up questions are shown.</div>
       <div class="q-option sel" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">2-3 times a week</span>
+        <div class="qo-radio"></div><span class="qo-text">Yes</span>
       </div>
       <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">About once a day</span>
-      </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">Several times a day</span>
-      </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">All the time</span>
+        <div class="qo-radio"></div><span class="qo-text">No</span>
       </div>
     </div>
     <div class="q-btns">
@@ -967,35 +1027,43 @@ const pages = {
 
   'assess-q-pain': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
-    <span class="q-step-label">Q8 of 10</span>
+    <span class="q-step-label">Question 1 of 4</span>
     <div style="width:50px"></div>
   </div>
-  <div class="q-progress-bar"><div class="q-progress-fill" style="width:80%"></div></div>
+  <div class="q-progress-bar"><div class="q-progress-fill" style="width:${(1/4*100).toFixed(0)}%"></div></div>
   <div class="assess-page">
-    <div class="q-module-tag pain">Pain</div>
+    <div class="q-module-tag pain">Pain &mdash; Risk Screening</div>
     <div class="q-body">
-      <div class="q-title">How would you rate your pelvic pain in the past week?</div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">0 — No pain</span>
+      <div class="q-title">Do you have any of the following along with the pain?</div>
+      <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5">Select all that apply. These items screen for red-flag conditions requiring medical referral before starting EMS training.</div>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Fever or unexplained weight loss</span>
       </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">1-3 — Mild pain</span>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Numbness or tingling in legs / saddle area</span>
       </div>
-      <div class="q-option sel" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">4-6 — Moderate pain</span>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Loss of bladder or bowel control (new onset)</span>
       </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">7-9 — Severe pain</span>
+      <div class="q-option sel" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Pain that wakes me from sleep</span>
       </div>
-      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
-        <div class="qo-radio"></div><span class="qo-text">10 — Worst possible pain</span>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">History of cancer</span>
+      </div>
+      <div class="q-option" id="pain-none-opt" onclick="handlePainNoneClick(this)">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">None of the above</span>
       </div>
     </div>
     <div class="q-btns">
       <button class="btn-prev" onclick="goTo('assess-q-incont')">Previous</button>
-      <button class="btn-next submit" onclick="goTo('assess-loading')">Submit</button>
+      <button class="btn-next submit" onclick="goTo('assess-loading')">Next</button>
     </div>
-  </div>`,
+  </div>
+  <script>
+  function handlePainNone(){const n=document.getElementById('pain-none-opt');if(n)n.classList.remove('sel')}
+  function handlePainNoneClick(el){const opts=el.parentElement.querySelectorAll('.q-option:not(#pain-none-opt)');opts.forEach(o=>o.classList.remove('sel'));el.classList.toggle('sel')}
+  </script>`,
 
   'assess-exit-dialog': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel">Cancel</span>
@@ -1041,25 +1109,43 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
-      <div class="result-severity">
-        <span class="severity-badge moderate">Moderate</span>
-        <span class="result-score">ICIQ Score: 12 / 21</span>
-      </div>
-      <div class="result-section">
-        <div class="result-section-title">Your Condition</div>
-        <div class="result-card">
-          <div class="rc-label">Type</div>
-          <div class="rc-value" style="font-size:14px;margin-bottom:10px">Stress Urinary Incontinence</div>
-          <div class="rc-label">Description</div>
-          <div style="font-size:13px;color:#555;line-height:1.5">You experience moderate urine leakage, primarily during physical activities such as coughing, sneezing, or exercise. This is common among postpartum women.</div>
+      <!-- Trend chart area (single data point for first assessment) -->
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">Score Trend</div>
+          <span style="font-size:11px;color:#999">First assessment</span>
+        </div>
+        <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="xMidYMid meet">
+          <line x1="30" y1="10" x2="30" y2="65" stroke="#f0f0f0" stroke-width="1"/>
+          <line x1="30" y1="65" x2="280" y2="65" stroke="#f0f0f0" stroke-width="1"/>
+          <text x="5" y="15" font-size="9" fill="#ccc">21</text>
+          <text x="5" y="40" font-size="9" fill="#ccc">10</text>
+          <text x="5" y="68" font-size="9" fill="#ccc">0</text>
+          <text x="145" y="78" font-size="9" fill="#ccc">Today</text>
+          <circle cx="155" cy="34" r="5" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+          <text x="163" y="38" font-size="10" fill="#c4787a" font-weight="600">12</text>
+        </svg>
+        <div class="trend-legend">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>ICIQ Score</div>
         </div>
       </div>
+
+      <!-- Incontinence result card -->
       <div class="result-section">
-        <div class="result-section-title">Recommended Plan</div>
+        <div class="result-section-title">Incontinence Assessment</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">Training Mode</div><div class="rc-value" style="font-size:14px">Activation + Strength</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Frequency</div><div class="rc-value" style="font-size:14px">4 sessions / week</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Duration</div><div class="rc-value" style="font-size:14px">6 weeks</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <span class="severity-badge moderate">Moderate</span>
+            <span class="result-score">ICIQ: 12 / 21</span>
+          </div>
+          <div class="rc-row"><div><div class="rc-label">Incontinence Type (3IQ)</div><div class="rc-value" style="font-size:14px">Stress Urinary Incontinence (SUI)</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Severity (ICIQ-SF)</div><div class="rc-value" style="font-size:14px">Moderate (score 12)</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Quality of Life Impact</div><div class="rc-value" style="font-size:14px;color:#e65100">Impacted &mdash; affects daily activities</div></div></div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
+            <div class="rc-label">Recommended Training</div>
+            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Mode 8 (SUI Program) &middot; 4x/week &middot; 8 weeks</div>
+            <div style="font-size:11px;color:#999;margin-top:4px">Based on: Stress type + Moderate severity mapping</div>
+          </div>
         </div>
       </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
@@ -1076,71 +1162,80 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
+      <!-- Trend chart with multiple data points and two lines -->
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Progress Over Time</div>
+          <span class="trend-change improved">Overall Improving</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
           <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
-          <text x="5" y="15" font-size="9" fill="#ccc">100%</text>
-          <text x="5" y="48" font-size="9" fill="#ccc">50%</text>
-          <text x="5" y="83" font-size="9" fill="#ccc">0%</text>
-          <text x="55" y="95" font-size="8" fill="#ccc">Jan</text>
-          <text x="115" y="95" font-size="8" fill="#ccc">Feb</text>
-          <text x="175" y="95" font-size="8" fill="#ccc">Mar</text>
-          <text x="235" y="95" font-size="8" fill="#ccc">Apr</text>
-          <polyline points="55,35 95,38 135,32 175,28 215,22 255,18" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="55" cy="35" r="3" fill="#c4787a"/>
-          <circle cx="95" cy="38" r="3" fill="#c4787a"/>
-          <circle cx="135" cy="32" r="3" fill="#c4787a"/>
-          <circle cx="175" cy="28" r="3" fill="#c4787a"/>
-          <circle cx="215" cy="22" r="3" fill="#c4787a"/>
-          <circle cx="255" cy="18" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
-          <polyline points="55,55 95,50 135,48 175,44 215,50 255,42" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
-          <circle cx="55" cy="55" r="3" fill="#e65100"/>
-          <circle cx="95" cy="50" r="3" fill="#e65100"/>
-          <circle cx="135" cy="48" r="3" fill="#e65100"/>
-          <circle cx="175" cy="44" r="3" fill="#e65100"/>
-          <circle cx="215" cy="50" r="3" fill="#e65100"/>
-          <circle cx="255" cy="42" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
+          <text x="2" y="15" font-size="8" fill="#ccc">21</text>
+          <text x="2" y="48" font-size="8" fill="#ccc">10</text>
+          <text x="2" y="83" font-size="8" fill="#ccc">0</text>
+          <text x="55" y="95" font-size="8" fill="#ccc">Wk 1</text>
+          <text x="105" y="95" font-size="8" fill="#ccc">Wk 4</text>
+          <text x="155" y="95" font-size="8" fill="#ccc">Wk 8</text>
+          <text x="205" y="95" font-size="8" fill="#ccc">Wk 12</text>
+          <text x="245" y="95" font-size="8" fill="#ccc">Now</text>
+          <!-- ICIQ score line: 16 -> 14 -> 12 -> 10 -> 8 (out of 21) -->
+          <polyline points="65,27 115,33 165,40 215,47 255,54" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="65" cy="27" r="3" fill="#c4787a"/>
+          <circle cx="115" cy="33" r="3" fill="#c4787a"/>
+          <circle cx="165" cy="40" r="3" fill="#c4787a"/>
+          <circle cx="215" cy="47" r="3" fill="#c4787a"/>
+          <circle cx="255" cy="54" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+          <!-- Pain score line: 7 -> 7 -> 6 -> 6 -> 5 (out of 10, scaled) -->
+          <polyline points="65,37 115,37 165,42 215,42 255,47" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
+          <circle cx="65" cy="37" r="3" fill="#e65100"/>
+          <circle cx="115" cy="37" r="3" fill="#e65100"/>
+          <circle cx="165" cy="42" r="3" fill="#e65100"/>
+          <circle cx="215" cy="42" r="3" fill="#e65100"/>
+          <circle cx="255" cy="47" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
         </svg>
         <div class="trend-legend">
-          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>Incontinence</div>
-          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>ICIQ Score (0-21)</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain NRS (0-10)</div>
         </div>
       </div>
+
+      <!-- Incontinence result card -->
       <div class="result-section">
         <div class="result-section-title">Incontinence</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
             <span class="severity-badge mild">Mild</span>
-            <span class="severity-badge improved">↓ Improved</span>
+            <span class="severity-badge improved">&darr; Improved</span>
             <span class="result-score">ICIQ: 8 / 21</span>
           </div>
-          <div class="rc-label">Type</div>
-          <div class="rc-value" style="font-size:14px;margin-bottom:8px">Stress Urinary Incontinence</div>
-          <div style="font-size:13px;color:#2e7d32;line-height:1.5">Improved from Moderate to Mild. Keep up the good work!</div>
-          <div style="border-top:1px solid #f0f0f0;margin-top:12px;padding-top:12px">
-            <div class="rc-label">Recommended</div>
-            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Strength + Endurance · 3x/week · 4 weeks</div>
+          <div class="rc-row"><div><div class="rc-label">Type (3IQ)</div><div class="rc-value" style="font-size:14px">Stress Urinary Incontinence (SUI)</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Previous Score</div><div class="rc-value" style="font-size:14px">12 (Moderate) &rarr; 8 (Mild)</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">QoL Impact</div><div class="rc-value" style="font-size:14px;color:#2e7d32">Reduced &mdash; less daily interference</div></div></div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
+            <div class="rc-label">Updated Recommendation</div>
+            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Mode 9 (SUI Maintenance) &middot; 3x/week &middot; 4 weeks</div>
+            <div style="font-size:11px;color:#2e7d32;margin-top:4px">&#9650; Stepped down from Mode 8 due to improvement</div>
           </div>
         </div>
       </div>
+
+      <!-- Pain result card -->
       <div class="result-section">
         <div class="result-section-title">Pain</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
             <span class="severity-badge moderate">Moderate</span>
-            <span class="severity-badge improved">↓ Improved</span>
-            <span class="result-score">Pain: 5 / 10</span>
+            <span class="severity-badge improved">&darr; Improved</span>
+            <span class="result-score">NRS: 5 / 10</span>
           </div>
-          <div class="rc-label">Type</div>
-          <div class="rc-value" style="font-size:14px;margin-bottom:8px">Chronic Pelvic Pain</div>
-          <div style="font-size:13px;color:#2e7d32;line-height:1.5">Pain level decreased from 7 to 5. Continuing treatment is recommended.</div>
-          <div style="border-top:1px solid #f0f0f0;margin-top:12px;padding-top:12px">
-            <div class="rc-label">Recommended</div>
-            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Pain Soothe · 3x/week · 6 weeks</div>
+          <div class="rc-row"><div><div class="rc-label">Pain Type</div><div class="rc-value" style="font-size:14px">Chronic Pelvic Pain</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Previous Score</div><div class="rc-value" style="font-size:14px">7 (Severe) &rarr; 5 (Moderate)</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Red Flags</div><div class="rc-value" style="font-size:14px;color:#2e7d32">None detected</div></div></div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
+            <div class="rc-label">Updated Recommendation</div>
+            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Pain Soothe (Mode 3) &middot; 3x/week &middot; 6 weeks</div>
+            <div style="font-size:11px;color:#2e7d32;margin-top:4px">&#9650; Continue current protocol, pain trending down</div>
           </div>
         </div>
       </div>
@@ -1411,7 +1506,7 @@ const pages = {
       <div class="cs-item"><div class="cs-val">92%</div><div class="cs-label">Completion</div></div>
     </div>
     <div style="width:100%;padding:0 16px">
-      <button class="btn-primary" style="border-radius:24px;margin-bottom:10px" onclick="goTo('assess-select')">Reassess Now</button>
+      <button class="btn-primary" style="border-radius:24px;margin-bottom:10px" onclick="goTo('assess-consent')">Reassess Now</button>
       <button class="btn-ghost" onclick="goTo('home-connected')">Later</button>
     </div>
   </div>`,
@@ -1711,151 +1806,271 @@ const prdMapping = {
     `
   },
   // 问卷评估模块
-  'assess-select': {
-    title: '3.1 评估模块选择',
-    path: '功能三 > 问卷评估 > 模块选择',
+  'assess-consent': {
+    title: '3.0 知情同意页',
+    path: '功能三 > 问卷评估 > 知情同意',
     content: `
-## 3.1 评估模块选择
+## 3.0 知情同意页 (Informed Consent)
 
-用户首次进入评估时，需要选择要评估的症状模块。支持多模块同时评估。
+评估流程的入口页面，用户必须阅读并同意后才能开始评估。
 
-### 可选模块
+### 页面结构（4个信息区块 + 复选框）
 
-**Incontinence（尿失禁）**
-- 图标：水滴图标，粉色背景
-- 描述：评估尿失禁严重程度，生成针对性训练方案
-- 问卷：ICIQ-SF (7题)
+**1. About This Assessment**
+- 说明评估内容：盆底肌症状（尿失禁、疼痛、功能限制）
+- 预估时长：5-10分钟
+- 用途：生成个性化训练方案
 
-**Pain（疼痛）**
-- 图标：闪电图标，橙色背景
-- 描述：评估疼痛程度和影响范围
-- 问卷：Pain Scale + 影响评估 (6题)
+**2. Non-Diagnostic Disclaimer**
+- 明确声明：本评估不是医学诊断
+- 结果仅供参考，不替代专业医疗建议
+- 症状严重请咨询医生
 
-**Hip & Leg Function（臀腿功能）**
-- 图标：腿部图标，绿色背景
-- 描述：评估臀部和腿部功能状态
-- 问卷：功能评估量表 (5题)
+**3. Privacy & Data Handling**
+- 数据本地存储，仅用于生成训练推荐
+- 不与第三方共享
+- 可在设置中随时删除数据
+
+**4. Consent Checkbox**
+- 文案："I have read and understood the above information, and I consent to proceed with this assessment."
+- 必须勾选才能启用"Start Assessment"按钮
 
 ### 交互逻辑
-- 支持多选，至少选择一个模块
-- 选中状态：边框高亮 + 背景变化 + 勾选图标
-- 底部按钮：选中后"Start Assessment"按钮可点击
-- "I don't have these symptoms"：跳过评估，直接选择训练模式
+- 底部按钮 \`Start Assessment\` 初始禁用（disabled）
+- 勾选复选框后按钮启用
+- 取消勾选按钮重新禁用
+- 点击按钮跳转 → \`assess-select\`
+
+### 导航
+- 顶部 Cancel → 返回主页
+    `
+  },
+  'assess-select': {
+    title: '3.1 筛选与路由 (Screening & Routing)',
+    path: '功能三 > 问卷评估 > 筛选与路由',
+    content: `
+## 3.1 筛选与路由
+
+用户进入评估后的第一步，通过4个筛选选项确定需要激活哪些问卷模块。
+
+### 筛选选项（A/B/C/D）
+
+| 选项 | 文案 | 触发模块 |
+|------|------|----------|
+| A | "I experience involuntary urine leakage during daily activities, exercise, coughing, or sneezing" | 尿失禁模块 (3IQ + ICIQ-SF) |
+| B | "I have persistent or recurring pain in the pelvic region, lower back, or hip area" | 疼痛模块 (NRS + 红旗筛查) |
+| C | "I feel heaviness, pressure, or a bulging sensation in the vaginal or pelvic area" | 脱垂模块 (POP-SS) |
+| D | "None of the above — I would like general pelvic floor training" | 跳过评估 |
+
+### 交互逻辑
+- A/B/C 支持多选（复选框行为）
+- D 与 A/B/C 互斥：选中 D 自动取消 A/B/C，选中任何 A/B/C 自动取消 D
+- 选中 D 时按钮文案变为 "Skip Assessment"，点击跳转主页
+- 选中 A/B/C 任意组合时按钮文案为 "Start Assessment"，点击进入对应问卷
+
+### 路由映射
+| 选中组合 | 问卷流程 |
+|----------|----------|
+| A only | 3IQ → ICIQ-SF |
+| B only | Red-flag screening → Pain NRS |
+| A+B | 3IQ → ICIQ-SF → Red-flag → Pain NRS |
+| A+B+C | 3IQ → ICIQ-SF → Red-flag → Pain NRS → POP-SS |
+| D | 跳过，直接进入模式选择 |
     `
   },
   'assess-q-incont': {
-    title: '3.2 ICIQ-SF 问卷',
+    title: '3.2 尿失禁问卷 (3IQ + ICIQ-SF)',
     path: '功能三 > 问卷评估 > 尿失禁问卷',
     content: `
-## 3.2 ICIQ-SF 尿失禁问卷
+## 3.2 尿失禁问卷
 
-国际通用的尿失禁严重程度评估量表，共7题。
+分为两阶段：3IQ 分型筛查 → ICIQ-SF 严重度评分。共约16题。
 
-### 问卷结构
-1. **频率问题**：漏尿发生频率 (0-5分)
-2. **量级问题**：漏尿量级程度 (0-6分)
-3. **影响问题**：对日常生活影响程度 (0-10分)
-4. **情况选择**：漏尿发生情况（多选，不计分）
+### 阶段一：3IQ（3 Incontinence Questions）分型
 
-### 评分规则
-- 总分范围：0-21分
-- 轻度：1-5分
-- 中度：6-12分
-- 重度：13-18分
-- 严重：19-21分
+| 题号 | 问题 | 选项 | 路由逻辑 |
+|------|------|------|----------|
+| Q1 | During the last 3 months, have you leaked urine (even a small amount)? | Yes / No | No → 跳过尿失禁模块 |
+| Q2 | During the last 3 months, did you leak urine: (check all) | a) When coughing/sneezing/laughing/exercising; b) When urge/on way to toilet; c) Without activity or urge; d) With overflow | 多选 |
+| Q3 | During the last 3 months, did you leak urine most often: | a) With physical activity (→ SUI); b) With urge (→ UUI); c) Without activity or urge (→ Other); d) About equally with both (→ MUI) | 单选，决定分型 |
 
-### 界面元素
-- 顶部模块标签：粉色"Incontinence"标识
-- 进度条：显示当前题目进度
-- 单选/多选选项：根据题目类型
-- 导航按钮：Previous / Next，最后一题显示"Submit"
+**3IQ 分型结果映射：**
+
+| Q3 答案 | 分型 | 推荐模式 |
+|---------|------|----------|
+| a (physical activity) | SUI（压力性） | Mode 8 |
+| b (urge) | UUI（急迫性） | Mode 7 |
+| c (no trigger) | Other | Mode 6 |
+| d (both equally) | MUI（混合性） | Mode 8+7 交替 |
+
+### 阶段二：ICIQ-SF 严重度评分（Question 4-16）
+
+| 题号 | 问题 | 选项 | 计分 |
+|------|------|------|------|
+| Q4 | How often do you leak urine? | Never(0) / Once a week(1) / 2-3x week(2) / Once a day(3) / Several times/day(4) / All the time(5) | 0-5 |
+| Q5 | How much urine do you usually leak? | None(0) / Small(2) / Moderate(4) / Large(6) | 0-6 |
+| Q6 | Overall, how much does leaking urine interfere with your everyday life? | 0-10 scale | 0-10 |
+| Q7-Q16 | When does urine leak? (situational) | Multiple checkbox options | 不计分，用于临床参考 |
+
+### ICIQ-SF 评分规则
+- **总分** = Q4 + Q5 + Q6（范围 0-21）
+- 严重度：Mild(1-5), Moderate(6-12), Severe(13-18), Very Severe(19-21)
+
+### 训练推荐映射表
+
+| 分型 | 严重度 | 推荐模式 | 频率 | 周期 |
+|------|--------|----------|------|------|
+| SUI | Mild | Mode 8 | 3x/week | 4 weeks |
+| SUI | Moderate | Mode 8 | 4x/week | 8 weeks |
+| SUI | Severe | Mode 8 | 4x/week | 12 weeks |
+| UUI | Mild | Mode 7 | 3x/week | 4 weeks |
+| UUI | Moderate | Mode 7 | 4x/week | 8 weeks |
+| UUI | Severe | Mode 7 | 5x/week | 12 weeks |
+| MUI | Any | Mode 8+7 alternate | 4x/week | 8-12 weeks |
     `
   },
   'assess-q-pain': {
-    title: '3.2 疼痛评估问卷',
+    title: '3.3 疼痛评估问卷 (Red-Flag + NRS)',
     path: '功能三 > 问卷评估 > 疼痛问卷',
     content: `
-## 3.2 疼痛评估问卷
+## 3.3 疼痛评估问卷
 
-评估疼痛严重程度和对日常生活的影响，共6题。
+分为两阶段：红旗症状筛查 → NRS疼痛评分。共4题。
 
-### 问卷结构
-1. **疼痛强度**：数字评定量表 0-10分
-2. **疼痛部位**：选择主要疼痛区域
-3. **疼痛性质**：刺痛、酸痛、胀痛等
-4. **持续时间**：疼痛持续时长
-5. **影响程度**：对活动的限制程度
-6. **缓解方式**：有效的缓解方法
+### 阶段一：Red-Flag Screening（Q1）
 
-### 评分规则
-- 总分范围：0-10分
-- 轻度：1-3分
-- 中度：4-6分
-- 重度：7-10分
+**Q1: Do you have any of the following along with the pain?**
+- 多选，筛查需要医疗转诊的危险信号
+- 选项：
+  - Fever or unexplained weight loss
+  - Numbness or tingling in legs / saddle area
+  - Loss of bladder or bowel control (new onset)
+  - Pain that wakes me from sleep
+  - History of cancer
+  - **None of the above**（与其他互斥）
 
-### 界面元素
-- 顶部模块标签：橙色"Pain"标识
-- 数字滑块：疼痛强度选择
-- 多选选项：部位、性质、缓解方式
-- 进度显示：当前题目/总题目
+**Red-Flag 逻辑：**
+- 选中任何 red-flag 项 → 评估完成后结果页顶部显示医疗转诊提示
+- "None of the above" → 继续正常评估
+
+### 阶段二：Pain NRS（Q2-Q4）
+
+| 题号 | 问题 | 选项 | 计分 |
+|------|------|------|------|
+| Q2 | Rate your average pelvic pain over the past week | 0-10 NRS slider | 0-10 |
+| Q3 | Where is your pain located? | Multi-select: Lower abdomen / Lower back / Perineum / Hip / Thigh / Other | 不计分 |
+| Q4 | How much does pain interfere with daily activities? | 0-10 scale | 用于 QoL 评估 |
+
+### NRS 评分规则
+- **总分** = Q2 单项（范围 0-10）
+- 严重度：None(0), Mild(1-3), Moderate(4-6), Severe(7-10)
+
+### 训练推荐映射表
+
+| 严重度 | Red-Flag | 推荐模式 | 频率 | 周期 |
+|--------|----------|----------|------|------|
+| None | No | 无需疼痛模式 | - | - |
+| Mild | No | Mode 3 (Pain Soothe) | 2x/week | 4 weeks |
+| Moderate | No | Mode 3 (Pain Soothe) | 3x/week | 6 weeks |
+| Severe | No | Mode 3 (Pain Soothe) | 3x/week | 8 weeks |
+| Any | Yes | 显示医疗转诊建议，可选继续 | - | - |
     `
   },
   // 评估结果
   'assess-result-first': {
-    title: '3.4 评估结果展示',
-    path: '功能三 > 问卷评估 > 结果展示',
+    title: '3.4 评估结果·首次',
+    path: '功能三 > 问卷评估 > 首次结果展示',
     content: `
-## 3.4 评估结果展示
+## 3.4 评估结果展示（首次评估）
 
-展示问卷评估的详细结果和个性化训练推荐。
+首次评估完成后展示单次结果，包含趋势图（单点）、分型结果、严重度和训练推荐。
 
-### 首次评估结果
+### 页面结构
 
-**严重程度评级**
-- 基于问卷总分显示：Mild/Moderate/Severe
-- 配色区分：绿色/橙色/红色
+**1. 趋势图区域（顶部）**
+- 首次评估仅显示一个数据点
+- X轴：时间（标注"Today"）
+- Y轴：分数（0-21 for ICIQ, 0-10 for NRS）
+- 图例标注模块颜色
+- 标注"First assessment"
 
-**详细评分**
-- ICIQ：显示具体分数和总分（如"12/21"）
-- Pain：显示疼痛等级和评分（如"5/10"）
+**2. 模块结果卡片**
+每个评估模块一张卡片，包含：
 
-**推荐训练方案**
-- 推荐模式：根据评估结果匹配的训练模式
-- 训练频率：每周推荐次数（如"4次/周"）
-- 训练周期：推荐总周期（如"6周"）
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| Severity Badge | 基于评分的严重度标签 | Moderate (橙色) |
+| Score | 具体分数/满分 | ICIQ: 12/21 |
+| Incontinence Type | 3IQ 分型结果 | Stress Urinary Incontinence (SUI) |
+| Severity Detail | ICIQ-SF 计算严重度 | Moderate (score 12) |
+| QoL Impact | 日常生活影响评估 | Impacted — affects daily activities |
+| Recommended Training | 推荐模式+频率+周期 | Mode 8 (SUI) · 4x/week · 8 weeks |
 
-### 医疗免责声明
-底部显示医疗免责声明，提醒用户咨询专业医生。
+**3. 推荐逻辑（计算规则）**
+
+\`\`\`
+输入: 3IQ分型 = SUI, ICIQ总分 = 12
+查表: SUI + Moderate(6-12) → Mode 8, 4x/week, 8 weeks
+输出: "Mode 8 (SUI Program) · 4x/week · 8 weeks"
+\`\`\`
+
+**4. 医疗免责声明**
+- 固定文案：This assessment is for reference only...
 
 ### CTA按钮
-"Customize Training Plan" - 进入训练计划配置流程
+- "Customize Training Plan" → 进入训练计划配置流程（plan-config）
     `
   },
   'assess-result-multi': {
-    title: '3.4 评估结果 - 多模块',
-    path: '功能三 > 问卷评估 > 多模块结果',
+    title: '3.4 评估结果·非首次多模块',
+    path: '功能三 > 问卷评估 > 非首次多模块结果',
     content: `
-## 3.4 多模块评估结果
+## 3.4 评估结果展示（非首次·多模块）
 
-当用户选择多个模块评估时，结果页面展示所有模块的结果和趋势对比。
+非首次评估结果页，展示多次评估的趋势对比和多模块结果卡片。
 
-### 趋势图（顶部）
-- 合并显示所有模块的历史评估数据
-- 不同模块用不同颜色线条区分
-- 图例标注：粉色=Incontinence，橙色=Pain，绿色=Hip&Leg
+### 页面结构
+
+**1. 趋势图区域**
+- 多条线展示各模块历史评分变化
+- 粉色实线 = ICIQ Score（0-21 scale）
+- 橙色虚线 = Pain NRS（0-10 scale）
+- X轴：评估时间点（Wk 1, Wk 4, Wk 8...）
+- Y轴：原始分数
 - 最多显示最近7次评估记录
-- Y轴按百分比呈现（分数/满分×100%）
+- 右上角显示趋势标签："Overall Improving" / "Stable" / "Worsened"
 
-### 模块结果卡片
-每个评估模块单独显示一张卡片：
-- 模块图标和名称
-- 严重程度等级（Mild/Moderate/Severe）
-- 改善标识：相比上次评估的变化（↑Improved/↓Worsened/→Stable）
-- 具体评分：当前分数/总分
-- 推荐方案：匹配的训练模式和频率
+**2. Incontinence 结果卡片**
 
-### 训练计划生成
-由于多模块，点击"Customize Training Plan"后进入分模块的训练计划配置流程。
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| Severity Badge | 当前严重度 | Mild (绿色) |
+| Change Badge | 相比上次变化 | ↓ Improved |
+| Score | 当前分数 | ICIQ: 8/21 |
+| Type | 3IQ 分型（不变） | SUI |
+| Previous → Current | 评分变化 | 12 (Moderate) → 8 (Mild) |
+| QoL Impact | 生活影响 | Reduced — less daily interference |
+| Updated Recommendation | 新推荐 | Mode 9 (Maintenance) · 3x/week · 4 weeks |
+
+**3. Pain 结果卡片**
+
+| 字段 | 说明 | 示例 |
+|------|------|------|
+| Severity Badge | 当前严重度 | Moderate (橙色) |
+| Change Badge | 变化 | ↓ Improved |
+| Score | 当前NRS分数 | NRS: 5/10 |
+| Pain Type | 疼痛分型 | Chronic Pelvic Pain |
+| Previous → Current | 评分变化 | 7 (Severe) → 5 (Moderate) |
+| Red Flags | 红旗筛查结果 | None detected |
+| Updated Recommendation | 新推荐 | Mode 3 (Pain Soothe) · 3x/week · 6 weeks |
+
+**4. 改善逻辑**
+- 同一分型内严重度降低 → 自动降级训练强度（如 Mode 8 → Mode 9 维持模式）
+- 严重度上升 → 提示增加训练频率
+- 出现新 red-flag → 顶部显示医疗转诊建议
+
+### CTA按钮
+- "Customize Training Plan" → 进入多模块训练计划配置（plan-config with tabs）
     `
   },
   // 训练计划配置
