@@ -572,6 +572,15 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="train-rest-reminder" onclick="showPage(this)">
         <span class="dot orange"></span>累计使用提醒
       </div>
+      <div class="sidebar-item" data-page="train-err-bluetooth" onclick="showPage(this)">
+        <span class="dot red"></span>异常 · 蓝牙断联
+      </div>
+      <div class="sidebar-item" data-page="train-err-posture" onclick="showPage(this)">
+        <span class="dot red"></span>异常 · 坐姿异常
+      </div>
+      <div class="sidebar-item" data-page="train-err-electrode" onclick="showPage(this)">
+        <span class="dot red"></span>异常 · 电极片异常
+      </div>
       <div class="sidebar-item" data-page="train-complete" onclick="showPage(this)">
         <span class="dot green"></span>训练完成 · 100%
       </div>
@@ -1392,6 +1401,50 @@ const pages = {
         <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('sched-home')">Take a Break</button>
         <button class="btn-ghost" onclick="goTo('train-complete')">Continue Anyway</button>
       </div>
+    </div>
+  </div>`,
+
+  'train-err-bluetooth': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div style="font-size:36px;text-align:center;margin-bottom:12px">📡</div>
+      <div class="stop-dialog-title">Connection Lost</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">Bluetooth connection has been lost. Your training data is saved on the device and will sync automatically when reconnected.</div>
+      <button class="btn-primary" style="border-radius:12px" onclick="goTo('home-disconnected')">OK</button>
+    </div>
+  </div>`,
+
+  'train-err-posture': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div style="font-size:36px;text-align:center;margin-bottom:12px">🪑</div>
+      <div class="stop-dialog-title">Posture Alert</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">Incorrect sitting posture detected. Please adjust your position to ensure the electrode pads are in full contact for the best results.</div>
+      <div style="padding:10px 16px;background:#fff8e1;border-radius:10px;margin-bottom:16px;font-size:12px;color:#e65100;text-align:center"><i data-lucide="pause-circle" style="width:14px;height:14px;vertical-align:-2px"></i> Training paused automatically</div>
+      <button class="btn-primary" style="border-radius:12px" onclick="goTo('sched-home')">Got It</button>
+    </div>
+  </div>`,
+
+  'train-err-electrode': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div style="font-size:36px;text-align:center;margin-bottom:12px">⚡</div>
+      <div class="stop-dialog-title">Electrode Connection Issue</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">The electrode pads are not properly connected. Please check that the pads are firmly attached and try again.</div>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('sched-home')">Retry</button>
+      <button class="btn-ghost" onclick="goTo('train-complete-partial')">End Session</button>
     </div>
   </div>`,
 
@@ -2339,6 +2392,68 @@ const prdMapping = {
 - **每日仅提醒一次**：选择 Continue Anyway 后当日不再弹出
 - **次日重置**：00:00 重置累计时长
 - **全模式累计**：所有训练模式的时间都计入
+    `
+  },
+  'train-err-bluetooth': {
+    title: '4.3.5 异常处理 - 蓝牙断联',
+    path: '功能四 > 训练执行 > 异常处理 > 蓝牙断联',
+    content: `
+## 场景一：蓝牙断联（Bluetooth Disconnection）
+
+### 触发条件
+训练过程中蓝牙连接中断
+
+### 弹窗内容
+- **标题**："Connection Lost"
+- **文案**："Bluetooth connection has been lost. Your training data is saved on the device and will sync automatically when reconnected."
+- **按钮**：「OK」→ 关闭弹窗，返回设备主页
+
+### 数据处理
+- 训练数据保存在设备端
+- 下次蓝牙连接后自动上报到 App
+- 已完成的训练时长记录在训练记录中
+    `
+  },
+  'train-err-posture': {
+    title: '4.3.5 异常处理 - 坐姿异常',
+    path: '功能四 > 训练执行 > 异常处理 > 坐姿异常',
+    content: `
+## 场景二：坐姿异常（Posture Alert）
+
+### 触发条件
+设备检测到用户坐姿偏移，电极片接触面积不足
+
+### 弹窗内容
+- **标题**："Posture Alert"
+- **文案**："Incorrect sitting posture detected. Please adjust your position to ensure the electrode pads are in full contact for the best results."
+- **按钮**：「Got It」→ 关闭弹窗
+
+### 交互逻辑
+- 弹窗出现时，训练**自动暂停**
+- 用户调整坐姿后，点击 Resume 继续训练
+- 强度恢复为暂停前的值
+    `
+  },
+  'train-err-electrode': {
+    title: '4.3.5 异常处理 - 电极片异常',
+    path: '功能四 > 训练执行 > 异常处理 > 电极片连接异常',
+    content: `
+## 场景三：电极片连接异常（Electrode Issue）
+
+### 触发条件
+设备检测到电极片未正确贴合或脱落
+
+### 弹窗内容
+- **标题**："Electrode Connection Issue"
+- **文案**："The electrode pads are not properly connected. Please check that the pads are firmly attached and try again."
+- **按钮 1**：「Retry」→ 重新检测电极连接
+- **按钮 2**：「End Session」→ 结束训练，进入训练完成页
+
+### 交互逻辑
+- 训练自动暂停
+- 用户重新贴合电极片后点击 Retry
+- 检测通过 → 恢复训练（强度恢复为暂停前的值）
+- 检测未通过 → 弹窗保持，用户可再次 Retry 或选择结束
     `
   },
   'train-stop-confirm': {
