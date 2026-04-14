@@ -521,9 +521,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="connect-guide" onclick="showPage(this)">
         <span class="dot blue"></span>连接设备引导页
       </div>
-      <div class="sidebar-item" data-page="modal-modes" onclick="showPage(this)">
-        <span class="dot blue"></span>模式选择面板
-      </div>
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">问卷评估</div>
@@ -566,6 +563,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">训练执行</div>
+      <div class="sidebar-item" data-page="modal-modes" onclick="showPage(this)">
+        <span class="dot blue"></span>模式选择面板
+      </div>
       <div class="sidebar-item" data-page="train-stop-confirm" onclick="showPage(this)">
         <span class="dot orange"></span>停止确认弹窗
       </div>
@@ -832,14 +832,12 @@ function planFormHTML(modeName, icon, modeMeta, recWeeks, recDays) {
       </div>
     </div>
     <div class="plan-step-title" style="margin-bottom:4px">Duration</div>
-    <div class="plan-step-desc">Based on your assessment, we recommend ${recWeeks} weeks of training.</div>
-    <div class="segment-group" style="margin-bottom:20px">
-      <div class="segment-btn${recWeeks===4?' sel':''}" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')"><div class="seg-val">4</div><div class="seg-label">weeks</div>${recWeeks===4?'<div class="seg-rec">Recommended</div>':''}</div>
-      <div class="segment-btn${recWeeks===6?' sel':''}" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')"><div class="seg-val">6</div><div class="seg-label">weeks</div>${recWeeks===6?'<div class="seg-rec">Recommended</div>':''}</div>
-      <div class="segment-btn${recWeeks===8?' sel':''}" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')"><div class="seg-val">8</div><div class="seg-label">weeks</div>${recWeeks===8?'<div class="seg-rec">Recommended</div>':''}</div>
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:12px 16px;background:#f8f8f8;border-radius:12px">
+      <div style="font-size:28px;font-weight:800;color:#c4787a">${recWeeks}</div>
+      <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">weeks</div><div style="font-size:11px;color:#999">Based on your assessment result</div></div>
     </div>
     <div class="plan-step-title" style="margin-bottom:4px">Training Days</div>
-    <div class="cal-hint" style="margin-bottom:8px">Recommended: <b>${recDays} sessions/week</b></div>
+    <div class="cal-hint" style="margin-bottom:8px"><b>${recDays} sessions/week</b> · pre-selected based on your assessment</div>
     <div style="margin-bottom:20px">
       <div class="cal-header"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
       ${calHTML}
@@ -1106,49 +1104,67 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
-      <!-- Trend chart area (single data point for first assessment) -->
-      <div class="trend-area">
-        <div class="trend-header">
-          <div class="trend-title">Score Trend</div>
-          <span style="font-size:11px;color:#999">First assessment</span>
-        </div>
-        <svg width="100%" height="80" viewBox="0 0 300 80" preserveAspectRatio="xMidYMid meet">
-          <line x1="30" y1="10" x2="30" y2="65" stroke="#f0f0f0" stroke-width="1"/>
-          <line x1="30" y1="65" x2="280" y2="65" stroke="#f0f0f0" stroke-width="1"/>
-          <text x="5" y="15" font-size="9" fill="#ccc">21</text>
-          <text x="5" y="40" font-size="9" fill="#ccc">10</text>
-          <text x="5" y="68" font-size="9" fill="#ccc">0</text>
-          <text x="145" y="78" font-size="9" fill="#ccc">Today</text>
-          <circle cx="155" cy="34" r="5" fill="#c4787a" stroke="#fff" stroke-width="2"/>
-          <text x="163" y="38" font-size="10" fill="#c4787a" font-weight="600">12</text>
-        </svg>
-        <div class="trend-legend">
-          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>ICIQ Score</div>
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:24px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score</div>
+        <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">57<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ-UI SF: 12 / 21</div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div class="rc-row"><div><div class="rc-label">Incontinence Type (3IQ)</div><div class="rc-value" style="font-size:14px;font-weight:600">Stress Urinary Incontinence (SUI)</div></div></div>
+          <div class="rc-row" style="margin-top:4px"><div><div class="rc-label">Secondary Features (UDI-6)</div><div class="rc-value" style="font-size:13px">Urgency symptoms detected</div></div></div>
         </div>
       </div>
 
-      <!-- Incontinence result card -->
+      <!-- Severity -->
       <div class="result-section">
-        <div class="result-section-title">Incontinence Assessment</div>
+        <div class="result-section-title">Severity</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge moderate">Moderate</span>
-            <span class="result-score">ICIQ: 12 / 21</span>
+            <span style="font-size:12px;color:#999">ICIQ 12/21 · UDI-6 adjusted</span>
           </div>
-          <div class="rc-row"><div><div class="rc-label">Incontinence Type (3IQ)</div><div class="rc-value" style="font-size:14px">Stress Urinary Incontinence (SUI)</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Severity (ICIQ-SF)</div><div class="rc-value" style="font-size:14px">Moderate (score 12)</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Quality of Life Impact</div><div class="rc-value" style="font-size:14px;color:#e65100">Impacted &mdash; affects daily activities</div></div></div>
-          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
-            <div class="rc-label">Recommended Training</div>
-            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Mode 8 (SUI Program) &middot; 4x/week &middot; 8 weeks</div>
-            <div style="font-size:11px;color:#999;margin-top:4px">Based on: Stress type + Moderate severity mapping</div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:57%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Slight</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
+        </div>
+      </div>
+
+      <!-- QoL impact -->
+      <div class="result-section">
+        <div class="result-section-title">Quality of Life Impact</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="width:8px;height:8px;border-radius:50%;background:#e65100"></div>
+            <span style="font-size:14px;font-weight:500;color:#e65100">Impacted</span>
+          </div>
+          <div style="font-size:12px;color:#666;margin-top:6px">IIQ-7 score ≥ 9.5 — affects daily activities including household chores and social outings.</div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#fdf0f0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 20 mins per session</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333">
+            <div><span style="font-weight:600">4x</span>/week</div>
+            <div><span style="font-weight:600">8</span> weeks</div>
+            <div><span style="font-weight:600">32</span> sessions total</div>
           </div>
         </div>
       </div>
+
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
     </div>
     <div class="result-footer">
-      <button class="btn-primary" onclick="goTo('plan-config')">Customize Training Plan</button>
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
     </div>
   </div>`,
 
@@ -1159,87 +1175,86 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
-      <!-- Trend chart with multiple data points and two lines -->
+      <!-- Trend chart -->
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Progress Over Time</div>
-          <span class="trend-change improved">Overall Improving</span>
+          <span class="trend-change improved">Improving</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
           <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
-          <text x="2" y="15" font-size="8" fill="#ccc">21</text>
-          <text x="2" y="48" font-size="8" fill="#ccc">10</text>
-          <text x="2" y="83" font-size="8" fill="#ccc">0</text>
-          <text x="55" y="95" font-size="8" fill="#ccc">Wk 1</text>
-          <text x="105" y="95" font-size="8" fill="#ccc">Wk 4</text>
-          <text x="155" y="95" font-size="8" fill="#ccc">Wk 8</text>
-          <text x="205" y="95" font-size="8" fill="#ccc">Wk 12</text>
-          <text x="245" y="95" font-size="8" fill="#ccc">Now</text>
-          <!-- ICIQ score line: 16 -> 14 -> 12 -> 10 -> 8 (out of 21) -->
-          <polyline points="65,27 115,33 165,40 215,47 255,54" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <circle cx="65" cy="27" r="3" fill="#c4787a"/>
-          <circle cx="115" cy="33" r="3" fill="#c4787a"/>
-          <circle cx="165" cy="40" r="3" fill="#c4787a"/>
-          <circle cx="215" cy="47" r="3" fill="#c4787a"/>
-          <circle cx="255" cy="54" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
-          <!-- Pain score line: 7 -> 7 -> 6 -> 6 -> 5 (out of 10, scaled) -->
-          <polyline points="65,37 115,37 165,42 215,42 255,47" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
-          <circle cx="65" cy="37" r="3" fill="#e65100"/>
-          <circle cx="115" cy="37" r="3" fill="#e65100"/>
-          <circle cx="165" cy="42" r="3" fill="#e65100"/>
-          <circle cx="215" cy="42" r="3" fill="#e65100"/>
-          <circle cx="255" cy="47" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
+          <text x="2" y="15" font-size="8" fill="#ccc">100%</text>
+          <text x="2" y="48" font-size="8" fill="#ccc">50%</text>
+          <text x="2" y="83" font-size="8" fill="#ccc">0%</text>
+          <text x="60" y="95" font-size="8" fill="#ccc">#1</text>
+          <text x="110" y="95" font-size="8" fill="#ccc">#2</text>
+          <text x="160" y="95" font-size="8" fill="#ccc">#3</text>
+          <text x="210" y="95" font-size="8" fill="#ccc">#4</text>
+          <text x="248" y="95" font-size="8" fill="#ccc">Now</text>
+          <polyline points="65,25 115,32 165,38 215,44 255,52" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="65" cy="25" r="3" fill="#c4787a"/><circle cx="115" cy="32" r="3" fill="#c4787a"/><circle cx="165" cy="38" r="3" fill="#c4787a"/><circle cx="215" cy="44" r="3" fill="#c4787a"/><circle cx="255" cy="52" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+          <polyline points="65,14 115,21 165,35 215,42 255,45" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,3"/>
+          <circle cx="65" cy="14" r="3" fill="#e65100"/><circle cx="115" cy="21" r="3" fill="#e65100"/><circle cx="165" cy="35" r="3" fill="#e65100"/><circle cx="215" cy="42" r="3" fill="#e65100"/><circle cx="255" cy="45" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
         </svg>
         <div class="trend-legend">
-          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>ICIQ Score (0-21)</div>
-          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain NRS (0-10)</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>Incontinence</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain</div>
         </div>
       </div>
 
-      <!-- Incontinence result card -->
-      <div class="result-section">
-        <div class="result-section-title">Incontinence</div>
-        <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <!-- Incontinence compact card -->
+      <div class="result-section" style="margin-bottom:8px">
+        <div class="result-card" style="padding:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#c4787a"></div><span style="font-size:14px;font-weight:600">Incontinence</span></div>
+            <div style="font-size:22px;font-weight:800;color:#c4787a">38<span style="font-size:14px">%</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge mild">Mild</span>
             <span class="severity-badge improved">&darr; Improved</span>
-            <span class="result-score">ICIQ: 8 / 21</span>
           </div>
-          <div class="rc-row"><div><div class="rc-label">Type (3IQ)</div><div class="rc-value" style="font-size:14px">Stress Urinary Incontinence (SUI)</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Previous Score</div><div class="rc-value" style="font-size:14px">12 (Moderate) &rarr; 8 (Mild)</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">QoL Impact</div><div class="rc-value" style="font-size:14px;color:#2e7d32">Reduced &mdash; less daily interference</div></div></div>
-          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
-            <div class="rc-label">Updated Recommendation</div>
-            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Mode 9 (SUI Maintenance) &middot; 3x/week &middot; 4 weeks</div>
-            <div style="font-size:11px;color:#2e7d32;margin-top:4px">&#9650; Stepped down from Mode 8 due to improvement</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:12px">
+            <div><span style="color:#999">Type:</span> <span style="color:#333">SUI (Stress)</span></div>
+            <div><span style="color:#999">ICIQ:</span> <span style="color:#333">12→8/21</span></div>
+            <div><span style="color:#999">QoL:</span> <span style="color:#2e7d32">Reduced impact</span></div>
+            <div><span style="color:#999">Severity:</span> <span style="color:#333">Moderate→Mild</span></div>
+          </div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:10px;padding-top:8px;display:flex;align-items:center;gap:6px">
+            <div style="width:24px;height:24px;border-radius:50%;background:#fce4ec;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:700;color:#c4787a">08</span></div>
+            <span style="font-size:12px;color:#333;font-weight:500">Mode 8 SUI · 3x/week · 4 weeks</span>
           </div>
         </div>
       </div>
 
-      <!-- Pain result card -->
-      <div class="result-section">
-        <div class="result-section-title">Pain</div>
-        <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <!-- Pain compact card -->
+      <div class="result-section" style="margin-bottom:8px">
+        <div class="result-card" style="padding:14px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#e65100"></div><span style="font-size:14px;font-weight:600">Pain</span></div>
+            <div style="font-size:22px;font-weight:800;color:#e65100">50<span style="font-size:14px">%</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge moderate">Moderate</span>
             <span class="severity-badge improved">&darr; Improved</span>
-            <span class="result-score">NRS: 5 / 10</span>
           </div>
-          <div class="rc-row"><div><div class="rc-label">Pain Type</div><div class="rc-value" style="font-size:14px">Chronic Pelvic Pain</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Previous Score</div><div class="rc-value" style="font-size:14px">7 (Severe) &rarr; 5 (Moderate)</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Red Flags</div><div class="rc-value" style="font-size:14px;color:#2e7d32">None detected</div></div></div>
-          <div style="border-top:1px solid #f0f0f0;margin-top:8px;padding-top:12px">
-            <div class="rc-label">Updated Recommendation</div>
-            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Pain Soothe (Mode 3) &middot; 3x/week &middot; 6 weeks</div>
-            <div style="font-size:11px;color:#2e7d32;margin-top:4px">&#9650; Continue current protocol, pain trending down</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:12px">
+            <div><span style="color:#999">Type:</span> <span style="color:#333">Chronic</span></div>
+            <div><span style="color:#999">NRS:</span> <span style="color:#333">7→5/10</span></div>
+            <div><span style="color:#999">Red Flags:</span> <span style="color:#2e7d32">None</span></div>
+            <div><span style="color:#999">Duration:</span> <span style="color:#333">&gt;6 weeks</span></div>
+          </div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:10px;padding-top:8px;display:flex;align-items:center;gap:6px">
+            <div style="width:24px;height:24px;border-radius:50%;background:#fff3e0;display:flex;align-items:center;justify-content:center"><span style="font-size:9px;font-weight:700;color:#e65100">06</span></div>
+            <span style="font-size:12px;color:#333;font-weight:500">Mode 6 Chronic · 3x/week · 3 weeks</span>
           </div>
         </div>
       </div>
-      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
+
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
     <div class="result-footer">
-      <button class="btn-primary" onclick="goTo('plan-config')">Customize Training Plan</button>
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
     </div>
   </div>`,
 
@@ -1980,42 +1995,36 @@ const prdMapping = {
     content: `
 ## 3.4 评估结果展示（首次评估）
 
-首次评估完成后展示单次结果，包含趋势图（单点）、分型结果、严重度和训练推荐。
+首次评估**不显示趋势图**，仅展示本次评估的完整结果。
 
-### 页面结构
+### 页面结构（从上到下）
 
-**1. 趋势图区域（顶部）**
-- 首次评估仅显示一个数据点
-- X轴：时间（标注"Today"）
-- Y轴：分数（0-21 for ICIQ, 0-10 for NRS）
-- 图例标注模块颜色
-- 标注"First assessment"
+**1. 评估得分（突出展示）**
+- 百分比得分居中大号显示（如 57%）
+- 下方标注原始分数（如 ICIQ-UI SF: 12/21）
 
-**2. 模块结果卡片**
-每个评估模块一张卡片，包含：
+**2. 分型结果**
+- 尿失禁类型（3IQ）：Stress / Urge / Mixed / Other
+- 次级特征（UDI-6）：是否存在额外症状标签
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| Severity Badge | 基于评分的严重度标签 | Moderate (橙色) |
-| Score | 具体分数/满分 | ICIQ: 12/21 |
-| Incontinence Type | 3IQ 分型结果 | Stress Urinary Incontinence (SUI) |
-| Severity Detail | ICIQ-SF 计算严重度 | Moderate (score 12) |
-| QoL Impact | 日常生活影响评估 | Impacted — affects daily activities |
-| Recommended Training | 推荐模式+频率+周期 | Mode 8 (SUI) · 4x/week · 8 weeks |
+**3. 严重度**
+- 等级标签：Slight / Moderate / Severe / Very Severe
+- 进度条可视化
+- 说明 ICIQ 基础分 + UDI-6 修正逻辑
 
-**3. 推荐逻辑（计算规则）**
+**4. 日常生活影响评估**
+- IIQ-7 总分 ≥9.5 → "Impacted"
+- 具体影响描述
 
-\`\`\`
-输入: 3IQ分型 = SUI, ICIQ总分 = 12
-查表: SUI + Moderate(6-12) → Mode 8, 4x/week, 8 weeks
-输出: "Mode 8 (SUI Program) · 4x/week · 8 weeks"
-\`\`\`
+**5. 推荐训练计划**
+- 推荐模式（编号+名称）
+- 频率 + 周期 + 总次数
+- 背景色区分卡片
 
-**4. 医疗免责声明**
-- 固定文案：This assessment is for reference only...
+**6. 免责声明**
 
 ### CTA按钮
-- "Customize Training Plan" → 进入训练计划配置流程（plan-config）
+- "Create Training Plan" → 进入训练计划配置
     `
   },
   'assess-result-multi': {
@@ -2120,23 +2129,19 @@ const prdMapping = {
     content: `
 ## 单模块训练计划配置
 
-当用户仅评估一个症状模块时的训练计划配置流程。
+### 配置项（一页展示）
 
-### 页面结构
-- 无顶部Tab，直接展示4个配置步骤
-- 所有配置项在一个页面内垂直排列
-- 用户可一次性完成所有配置
+| 配置项 | 说明 | 交互 |
+|--------|------|------|
+| 训练模式 | 评估推荐的模式 | 锁定不可修改 |
+| 训练周期 | 根据评估结果确定 | **不允许用户选择**，仅展示推荐周期 |
+| 训练日期 | 日历视图 | 系统根据推荐频率**默认选好日期**，用户可调整 |
+| 提醒时间 | 滚轮选择器 | 默认当前时间，可选 No reminder |
 
-### 配置完成
-所有4个步骤配置完成后：
-- 底部按钮显示"Generate Training Plan"
-- 点击后直接进入单模块的计划预览页面
-- 预览页展示完整的训练计划摘要
-
-### 与多模块差异
-- 无Tab切换逻辑
-- 无需分模块生成
-- 配置流程更简洁直接
+### 日期预选逻辑
+- 系统根据推荐的每周训练次数（如 4次/周）自动选中训练日
+- 间隔均匀分布，避免连续训练
+- 用户可手动调整（点击日期切换选中/取消）
     `
   },
   'plan-preview': {
