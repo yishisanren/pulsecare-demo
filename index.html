@@ -324,29 +324,41 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .pw-day-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
 
 /* Training execution */
-.train-page { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0; overflow-y: auto; background: #fff; }
+.train-page { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 0; overflow-y: auto; background: #f8f8f8; }
 .train-page::-webkit-scrollbar { display: none; }
-.train-top { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 8px 20px 0; }
-.train-progress-ring { width: 220px; height: 220px; margin: 8px 0; position: relative; display: flex; align-items: center; justify-content: center; }
+.train-top { width: 100%; display: flex; flex-direction: column; align-items: center; padding: 40px 20px 20px; }
+.train-progress-ring { width: 200px; height: 200px; margin: 20px 0; position: relative; display: flex; align-items: center; justify-content: center; }
 .train-progress-ring svg { position: absolute; inset: 0; }
-.train-timer { font-size: 44px; font-weight: 700; color: #1a1a1a; font-variant-numeric: tabular-nums; }
-.train-timer-sub { font-size: 12px; color: #bbb; margin-top: 2px; }
-.train-mode-badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; background: #f8f8f8; border-radius: 20px; font-size: 12px; color: #999; margin-bottom: 8px; }
-.train-mode-badge .tmb-num { width: 20px; height: 20px; border-radius: 50%; background: #fce4ec; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #c4787a; }
-.train-intensity-area { width: 100%; padding: 0 20px; margin-top: 4px; }
-.train-intensity-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-.train-intensity-label { font-size: 12px; color: #999; }
-.train-intensity-val { font-size: 24px; font-weight: 700; color: #1a1a1a; }
-.train-slider-wrap { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
-.train-slider-btn { width: 36px; height: 36px; border-radius: 50%; background: #f0f0f0; border: none; font-size: 18px; font-weight: 600; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: center; }
-.train-slider-track { flex: 1; height: 6px; background: #f0f0f0; border-radius: 3px; position: relative; overflow: hidden; }
-.train-slider-fill { height: 100%; background: #c4787a; border-radius: 3px; transition: width 0.2s; }
-.train-actions { width: 100%; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 12px 20px 24px; margin-top: auto; }
-.train-action-btn { width: 64px; height: 64px; border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
-.train-action-btn.start { width: 72px; height: 72px; background: #c4787a; }
-.train-action-btn.pause { background: #fff3e0; }
-.train-action-btn.resume { background: #e8f5e9; }
-.train-action-btn.stop { background: #fce4ec; }
+.train-timer { font-size: 32px; font-weight: 600; color: #1a1a1a; font-variant-numeric: tabular-nums; }
+.train-timer-sub { font-size: 14px; color: #999; margin-top: 2px; }
+
+/* Status indicators */
+.train-status-indicators { display: flex; align-items: center; gap: 16px; margin: 16px 0 8px; }
+.train-status-indicator { display: flex; align-items: center; gap: 4px; font-size: 14px; color: #666; }
+.train-status-indicator i { width: 16px; height: 16px; }
+
+/* Running status */
+.train-running-status { font-size: 16px; font-weight: 500; color: #1a1a1a; margin: 8px 0 24px; }
+
+/* Pill buttons */
+.train-actions { width: 100%; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 0 20px; margin-bottom: 24px; }
+.train-action-btn { width: 80px; height: 48px; border-radius: 24px; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; background: #3a3a3a; }
+.train-action-btn i { color: #fff; }
+
+/* Mode card */
+.train-mode-card { width: calc(100% - 40px); background: #fff; border-radius: 12px; padding: 16px; margin: 0 20px 24px; display: flex; align-items: center; justify-content: space-between; }
+.train-mode-info { display: flex; align-items: center; gap: 12px; }
+.train-mode-num { width: 32px; height: 32px; border-radius: 8px; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: #c4787a; }
+.train-mode-details { }
+.train-mode-title { font-size: 16px; font-weight: 500; color: #1a1a1a; margin-bottom: 2px; }
+.train-mode-meta { font-size: 14px; color: #999; }
+
+/* Level controls */
+.train-level-section { width: 100%; padding: 0 20px; }
+.train-level-title { font-size: 14px; color: #999; margin-bottom: 12px; }
+.train-level-controls { display: flex; align-items: center; justify-content: center; gap: 24px; }
+.train-level-btn { width: 44px; height: 44px; border-radius: 50%; background: #fff; border: 1px solid #e0e0e0; font-size: 20px; font-weight: 500; color: #1a1a1a; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.train-level-value { font-size: 18px; font-weight: 500; color: #1a1a1a; }
 /* Stop confirm dialog */
 .stop-dialog { background: #fff; border-radius: 20px; padding: 28px 24px; width: 300px; text-align: center; }
 .stop-dialog-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #1a1a1a; }
@@ -529,15 +541,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">训练执行</div>
-      <div class="sidebar-item" data-page="train-ready" onclick="showPage(this)">
-        <span class="dot blue"></span>训练 · 未开始
-      </div>
-      <div class="sidebar-item" data-page="train-active" onclick="showPage(this)">
-        <span class="dot green"></span>训练 · 进行中
-      </div>
-      <div class="sidebar-item" data-page="train-paused" onclick="showPage(this)">
-        <span class="dot orange"></span>训练 · 已暂停
-      </div>
       <div class="sidebar-item" data-page="train-stop-confirm" onclick="showPage(this)">
         <span class="dot orange"></span>停止确认弹窗
       </div>
@@ -680,7 +683,7 @@ const h = {
   </div>`,
 
   schedule: (items) => {
-    const rows = items.map((it, i) => `<div class="schedule-item" onclick="goTo('train-ready')" style="cursor:pointer">
+    const rows = items.map((it, i) => `<div class="schedule-item" onclick="goTo('train-complete')" style="cursor:pointer">
       <div class="schedule-num">0${i+1}</div>
       <div class="schedule-info"><div class="schedule-name">${it.name}</div><div class="schedule-meta">${it.type}  ${it.time}</div></div>
       <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc"></i>
@@ -1199,106 +1202,21 @@ const pages = {
     </div>`;
   },
 
-  'train-ready': () => h.statusBar() + `<div class="nav-bar">
+  'train-stop-confirm': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training</span>
     <div style="width:32px"></div>
   </div>
-  <div class="train-page">
-    <div class="train-top">
-      <div class="train-mode-badge"><div class="tmb-num">01</div> Activation · Basic · EMS</div>
-      <div class="train-progress-ring">
-        <svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="105" fill="none" stroke="#f0f0f0" stroke-width="8"/></svg>
-        <div style="text-align:center">
-          <div class="train-timer">24:00</div>
-          <div class="train-timer-sub">Ready to start</div>
-        </div>
-      </div>
-    </div>
-    <div class="train-intensity-area">
-      <div class="train-intensity-row"><span class="train-intensity-label">Intensity</span><span class="train-intensity-val">0</span></div>
-      <div class="train-slider-wrap">
-        <div class="train-slider-btn">−</div>
-        <div class="train-slider-track"><div class="train-slider-fill" style="width:0%"></div></div>
-        <div class="train-slider-btn">+</div>
-      </div>
-    </div>
-    <div class="train-actions">
-      <div class="train-action-btn start" onclick="goTo('train-active')"><i data-lucide="play" style="width:32px;height:32px;color:#fff"></i></div>
-    </div>
-  </div>`,
-
-  'train-active': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="train-page">
-    <div class="train-top">
-      <div class="train-mode-badge"><div class="tmb-num">01</div> Activation · Basic · EMS</div>
-      <div class="train-progress-ring">
-        <svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="105" fill="none" stroke="#f0f0f0" stroke-width="8"/><circle cx="120" cy="120" r="105" fill="none" stroke="#c4787a" stroke-width="8" stroke-linecap="round" stroke-dasharray="660" stroke-dashoffset="264" transform="rotate(-90 120 120)"/></svg>
-        <div style="text-align:center">
-          <div class="train-timer">14:32</div>
-          <div class="train-timer-sub">60% completed</div>
-        </div>
-      </div>
-    </div>
-    <div class="train-intensity-area">
-      <div class="train-intensity-row"><span class="train-intensity-label">Intensity</span><span class="train-intensity-val">35</span></div>
-      <div class="train-slider-wrap">
-        <div class="train-slider-btn">−</div>
-        <div class="train-slider-track"><div class="train-slider-fill" style="width:35%"></div></div>
-        <div class="train-slider-btn">+</div>
-      </div>
-    </div>
-    <div class="train-actions">
-      <div class="train-action-btn pause" onclick="goTo('train-paused')"><i data-lucide="pause" style="width:28px;height:28px;color:#e65100"></i></div>
-      <div class="train-action-btn stop" onclick="goTo('train-stop-confirm')"><i data-lucide="square" style="width:24px;height:24px;color:#c62828"></i></div>
-    </div>
-  </div>`,
-
-  'train-paused': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="train-page">
-    <div class="train-top">
-      <div class="train-mode-badge" style="background:#fff3e0;color:#e65100"><div class="tmb-num" style="background:#fff3e0;color:#e65100">01</div> Paused</div>
-      <div class="train-progress-ring">
-        <svg viewBox="0 0 240 240"><circle cx="120" cy="120" r="105" fill="none" stroke="#f0f0f0" stroke-width="8"/><circle cx="120" cy="120" r="105" fill="none" stroke="#e0e0e0" stroke-width="8" stroke-linecap="round" stroke-dasharray="660" stroke-dashoffset="264" transform="rotate(-90 120 120)"/></svg>
-        <div style="text-align:center">
-          <div class="train-timer" style="color:#999">14:32</div>
-          <div class="train-timer-sub">Paused · Intensity → 0</div>
-        </div>
-      </div>
-    </div>
-    <div class="train-intensity-area">
-      <div class="train-intensity-row"><span class="train-intensity-label">Intensity</span><span class="train-intensity-val" style="color:#999">0</span></div>
-      <div class="train-slider-wrap">
-        <div class="train-slider-btn">−</div>
-        <div class="train-slider-track"><div class="train-slider-fill" style="width:0%"></div></div>
-        <div class="train-slider-btn">+</div>
-      </div>
-    </div>
-    <div class="train-actions">
-      <div class="train-action-btn resume" onclick="goTo('train-active')"><i data-lucide="play" style="width:28px;height:28px;color:#2e7d32"></i></div>
-      <div class="train-action-btn stop" onclick="goTo('train-stop-confirm')"><i data-lucide="square" style="width:24px;height:24px;color:#c62828"></i></div>
-    </div>
-  </div>`,
-
-  'train-stop-confirm': () => {
-    const bg = pages['train-active']();
-    return bg + `<div class="overlay" style="z-index:30">
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="overlay" style="z-index:30;position:relative;background:transparent">
       <div class="stop-dialog">
         <div class="stop-dialog-title">End Training Early?</div>
         <div class="stop-dialog-desc">You've completed 60% of this session. Ending now will still count as a training record. Are you sure?</div>
         <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('train-complete-partial')">End Session</button>
-        <button class="btn-ghost" onclick="goTo('train-active')">Continue Training</button>
+        <button class="btn-ghost" onclick="goTo('sched-home')">Continue Training</button>
       </div>
-    </div>`;
-  },
+    </div>
+  </div>`,
 
   'train-complete': () => h.statusBar() + `<div class="nav-bar">
     <div style="width:32px"></div>
@@ -1313,7 +1231,6 @@ const pages = {
       <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation</span></div>
       <div class="motivate-row"><span class="ml">Duration</span><span class="mv">24:00 / 24:00</span></div>
       <div class="motivate-row"><span class="ml">Progress</span><span class="mv" style="color:#2e7d32">100%</span></div>
-      <div class="motivate-row"><span class="ml">Avg Intensity</span><span class="mv">35</span></div>
       <div class="motivate-row"><span class="ml">Schedule</span><span class="mv">Session 8 of 24</span></div>
     </div>
     <div style="width:100%;padding:0 8px">
@@ -1344,7 +1261,6 @@ const pages = {
       <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation</span></div>
       <div class="motivate-row"><span class="ml">Duration</span><span class="mv">14:32 / 24:00</span></div>
       <div class="motivate-row"><span class="ml">Progress</span><span class="mv" style="color:#e65100">60%</span></div>
-      <div class="motivate-row"><span class="ml">Avg Intensity</span><span class="mv">35</span></div>
       <div class="motivate-row"><span class="ml">Schedule</span><span class="mv">Session 8 of 24</span></div>
     </div>
     <div style="width:100%;padding:0 8px">
@@ -1380,12 +1296,12 @@ const pages = {
   </div>
   <div style="padding:4px 16px 8px;font-size:13px;font-weight:600;color:#1a1a1a">Wednesday, Apr 16</div>
   <div class="task-list">
-    <div class="task-card" onclick="goTo('train-ready')" style="cursor:pointer">
+    <div class="task-card" onclick="goTo('train-complete')" style="cursor:pointer">
       <div class="tc-num" style="background:#fce4ec;color:#c4787a">01</div>
       <div class="tc-info"><div class="tc-name">Activation</div><div class="tc-meta">EMS · 24 min</div></div>
       <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i>
     </div>
-    <div class="task-card" onclick="goTo('train-ready')" style="cursor:pointer">
+    <div class="task-card" onclick="goTo('train-complete')" style="cursor:pointer">
       <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
       <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
       <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i>
@@ -1480,7 +1396,7 @@ const pages = {
       <div class="rd-illust"><i data-lucide="bell-ring" style="width:28px;height:28px;color:#c4787a"></i></div>
       <div class="rd-title">Time to Train!</div>
       <div class="rd-desc">You have 1 session scheduled today:<br><b>Activation · 24 min</b></div>
-      <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('train-ready')">Start Training</button>
+      <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('train-complete')">Start Training</button>
       <button class="btn-ghost" onclick="goTo('sched-skip')">Rest today</button>
     </div>
   </div>`,
