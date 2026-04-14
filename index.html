@@ -28,7 +28,29 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .sidebar-item .dot.blue { background: #2196f3; }
 .sidebar-item .dot.gray { background: #9e9e9e; }
 
-.phone-area { flex: 1; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.phone-area { flex: 0 0 420px; display: flex; align-items: center; justify-content: center; padding: 20px; }
+.prd-area { flex: 1; background: #fff; border-left: 1px solid #e5e5e5; display: flex; flex-direction: column; height: 100vh; }
+.prd-header { padding: 20px; border-bottom: 1px solid #e5e5e5; background: #f9f9f9; }
+.prd-header h3 { font-size: 15px; font-weight: 700; color: #1a1a1a; margin-bottom: 4px; }
+.prd-header .prd-path { font-size: 12px; color: #999; }
+.prd-content { flex: 1; padding: 20px; overflow-y: auto; font-size: 14px; line-height: 1.6; color: #333; }
+.prd-content::-webkit-scrollbar { width: 6px; }
+.prd-content::-webkit-scrollbar-track { background: #f0f0f0; }
+.prd-content::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+.prd-content h1, .prd-content h2, .prd-content h3, .prd-content h4 { margin-top: 24px; margin-bottom: 12px; font-weight: 600; }
+.prd-content h1 { font-size: 20px; color: #1a1a1a; }
+.prd-content h2 { font-size: 18px; color: #1a1a1a; }
+.prd-content h3 { font-size: 16px; color: #333; }
+.prd-content h4 { font-size: 15px; color: #333; }
+.prd-content p { margin-bottom: 12px; }
+.prd-content ul, .prd-content ol { margin: 12px 0; padding-left: 20px; }
+.prd-content li { margin-bottom: 8px; }
+.prd-content table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+.prd-content th, .prd-content td { border: 1px solid #e0e0e0; padding: 8px 12px; text-align: left; }
+.prd-content th { background: #f5f5f5; font-weight: 600; }
+.prd-content code { background: #f5f5f5; padding: 2px 6px; border-radius: 3px; font-size: 13px; }
+.prd-content blockquote { border-left: 3px solid #c4787a; padding: 8px 16px; margin: 16px 0; background: #fdf0f0; }
+.prd-empty { padding: 40px 20px; text-align: center; color: #999; }
 .phone-frame { width: 375px; height: 812px; background: #fff; border-radius: 40px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.15), 0 0 0 1px rgba(0,0,0,0.05); position: relative; display: flex; flex-direction: column; }
 
 .status-bar { height: 54px; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 8px; flex-shrink: 0; }
@@ -583,6 +605,18 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 
 <div class="phone-area">
   <div class="phone-frame" id="phone"></div>
+</div>
+
+<div class="prd-area">
+  <div class="prd-header">
+    <h3 id="prd-title">PRD 对应章节</h3>
+    <div class="prd-path" id="prd-path">选择左侧页面查看对应的PRD内容</div>
+  </div>
+  <div class="prd-content" id="prd-content">
+    <div class="prd-empty">
+      请从左侧选择页面，这里会显示对应的 PRD 章节内容。
+    </div>
+  </div>
 </div>
 
 <script>
@@ -1533,12 +1567,900 @@ const pages = {
 
 };
 
+// PRD章节映射
+const prdMapping = {
+  // 设备主页
+  'home-connected': {
+    title: '2.3 设备主页',
+    path: '功能二 > 设备主页',
+    content: `
+## 2.3 设备主页
+
+设备主页是用户与产品交互的核心界面，根据设备连接状态、日程状态和评估状态展现不同功能入口。
+
+### 2.3.1 页面构成
+
+设备主页由以下模块构成：
+- **Device Connection Area**：显示设备连接状态和电量信息
+- **Assessment Module**：问卷评估相关入口和状态
+- **Training Schedule**：今日训练任务和日程概览
+- **Training Modes**：自定义训练模式选择
+- **Data Records**：训练记录和评估记录入口
+
+### 2.3.2 状态变化
+
+根据不同状态组合，主页呈现不同布局：
+
+**已连接 + 有训练任务**
+- 设备区域：显示已连接状态、电量百分比
+- 日程卡片：今日训练任务，显示模式、时长、开始按钮
+- 其他模块：正常展示
+
+**已连接 + 今日已完成**
+- 日程卡片：显示"今日训练已完成"状态
+- 设备区域：保持连接显示
+
+**设备未连接**
+- 设备区域：灰色设备图标 + "Connect Device"按钮
+- 其他功能：正常可用但训练相关功能引导连接设备
+    `
+  },
+  'home-completed': {
+    title: '2.3 设备主页 - 已完成状态',
+    path: '功能二 > 设备主页 > 已完成状态',
+    content: `
+## 设备主页 - 今日已完成
+
+当用户完成今日所有训练任务后，主页展示已完成状态。
+
+### 交互逻辑
+- 日程卡片显示绿色勾选图标
+- 文案："今日训练已完成"
+- 设备区域保持连接状态显示
+- 其他模块功能正常可用
+
+### 用户行为
+- 查看训练记录：点击训练记录卡片
+- 查看评估记录：点击评估记录卡片
+- 自定义训练：仍可选择模式进行额外训练
+    `
+  },
+  'home-rest': {
+    title: '2.3 设备主页 - 休息日',
+    path: '功能二 > 设备主页 > 休息日',
+    content: `
+## 设备主页 - 休息日
+
+根据用户训练计划，某些日期被设为休息日。
+
+### 交互逻辑
+- 日程卡片显示休息图标（🛌）
+- 文案："今日为休息日"
+- 设备连接状态正常显示
+- 训练记录、评估记录正常可用
+
+### 用户行为
+- 可查看历史记录
+- 可进行问卷评估
+- 可使用自定义训练（不受休息日限制）
+    `
+  },
+  'home-no-schedule': {
+    title: '2.3 设备主页 - 未创建日程',
+    path: '功能二 > 设备主页 > 未创建日程',
+    content: `
+## 设备主页 - 未创建日程
+
+用户初次使用或重新评估后未生成训练日程时的状态。
+
+### 交互逻辑
+- 日程卡片显示空状态
+- 主要 CTA："Take Assessment" 引导用户进行问卷评估
+- 设备连接状态正常显示
+- 训练记录、评估记录可能为空状态
+
+### 用户行为路径
+1. 点击"Take Assessment"进入问卷评估
+2. 完成评估后生成个性化训练计划
+3. 确认计划后创建训练日程
+    `
+  },
+  'home-disconnected': {
+    title: '2.3 设备主页 - 设备未连接',
+    path: '功能二 > 设备主页 > 设备未连接',
+    content: `
+## 设备主页 - 设备未连接
+
+设备蓝牙未连接时的主页状态。
+
+### 交互逻辑
+- 设备区域：灰色设备图标
+- "Connect Device"按钮引导用户连接
+- 日程、记录功能正常可用
+- 训练执行功能需要设备连接
+
+### 连接引导
+点击"Connect Device"进入连接引导页面：
+1. 设备开机指导
+2. 蓝牙自动连接说明
+3. 保持距离提醒
+    `
+  },
+  'home-draft': {
+    title: '3.3 草稿箱机制',
+    path: '功能三 > 问卷评估 > 草稿箱',
+    content: `
+## 3.3 草稿箱机制
+
+当用户在问卷评估过程中退出时，可选择保存草稿，便于后续继续评估。
+
+### 草稿保存逻辑
+- 仅保存在本地，不上传云端
+- 保存所有已填写的答案和当前进度
+- 草稿存续期间，设备主页顶部显示继续评估入口
+
+### 主页草稿提示卡片
+**外观**：橙色背景 + 提示图标
+**文案**："您有未完成的评估，继续完成以获得个性化方案"
+**交互**：点击恢复到草稿保存时的进度
+
+### 草稿清除条件
+1. 问卷提交成功
+2. 用户确认退出时选择"Discard"
+3. 用户手动清除 App 缓存
+    `
+  },
+  // 问卷评估模块
+  'assess-select': {
+    title: '3.1 评估模块选择',
+    path: '功能三 > 问卷评估 > 模块选择',
+    content: `
+## 3.1 评估模块选择
+
+用户首次进入评估时，需要选择要评估的症状模块。支持多模块同时评估。
+
+### 可选模块
+
+**Incontinence（尿失禁）**
+- 图标：水滴图标，粉色背景
+- 描述：评估尿失禁严重程度，生成针对性训练方案
+- 问卷：ICIQ-SF (7题)
+
+**Pain（疼痛）**
+- 图标：闪电图标，橙色背景
+- 描述：评估疼痛程度和影响范围
+- 问卷：Pain Scale + 影响评估 (6题)
+
+**Hip & Leg Function（臀腿功能）**
+- 图标：腿部图标，绿色背景
+- 描述：评估臀部和腿部功能状态
+- 问卷：功能评估量表 (5题)
+
+### 交互逻辑
+- 支持多选，至少选择一个模块
+- 选中状态：边框高亮 + 背景变化 + 勾选图标
+- 底部按钮：选中后"Start Assessment"按钮可点击
+- "I don't have these symptoms"：跳过评估，直接选择训练模式
+    `
+  },
+  'assess-q-incont': {
+    title: '3.2 ICIQ-SF 问卷',
+    path: '功能三 > 问卷评估 > 尿失禁问卷',
+    content: `
+## 3.2 ICIQ-SF 尿失禁问卷
+
+国际通用的尿失禁严重程度评估量表，共7题。
+
+### 问卷结构
+1. **频率问题**：漏尿发生频率 (0-5分)
+2. **量级问题**：漏尿量级程度 (0-6分)
+3. **影响问题**：对日常生活影响程度 (0-10分)
+4. **情况选择**：漏尿发生情况（多选，不计分）
+
+### 评分规则
+- 总分范围：0-21分
+- 轻度：1-5分
+- 中度：6-12分
+- 重度：13-18分
+- 严重：19-21分
+
+### 界面元素
+- 顶部模块标签：粉色"Incontinence"标识
+- 进度条：显示当前题目进度
+- 单选/多选选项：根据题目类型
+- 导航按钮：Previous / Next，最后一题显示"Submit"
+    `
+  },
+  'assess-q-pain': {
+    title: '3.2 疼痛评估问卷',
+    path: '功能三 > 问卷评估 > 疼痛问卷',
+    content: `
+## 3.2 疼痛评估问卷
+
+评估疼痛严重程度和对日常生活的影响，共6题。
+
+### 问卷结构
+1. **疼痛强度**：数字评定量表 0-10分
+2. **疼痛部位**：选择主要疼痛区域
+3. **疼痛性质**：刺痛、酸痛、胀痛等
+4. **持续时间**：疼痛持续时长
+5. **影响程度**：对活动的限制程度
+6. **缓解方式**：有效的缓解方法
+
+### 评分规则
+- 总分范围：0-10分
+- 轻度：1-3分
+- 中度：4-6分
+- 重度：7-10分
+
+### 界面元素
+- 顶部模块标签：橙色"Pain"标识
+- 数字滑块：疼痛强度选择
+- 多选选项：部位、性质、缓解方式
+- 进度显示：当前题目/总题目
+    `
+  },
+  // 评估结果
+  'assess-result-first': {
+    title: '3.4 评估结果展示',
+    path: '功能三 > 问卷评估 > 结果展示',
+    content: `
+## 3.4 评估结果展示
+
+展示问卷评估的详细结果和个性化训练推荐。
+
+### 首次评估结果
+
+**严重程度评级**
+- 基于问卷总分显示：Mild/Moderate/Severe
+- 配色区分：绿色/橙色/红色
+
+**详细评分**
+- ICIQ：显示具体分数和总分（如"12/21"）
+- Pain：显示疼痛等级和评分（如"5/10"）
+
+**推荐训练方案**
+- 推荐模式：根据评估结果匹配的训练模式
+- 训练频率：每周推荐次数（如"4次/周"）
+- 训练周期：推荐总周期（如"6周"）
+
+### 医疗免责声明
+底部显示医疗免责声明，提醒用户咨询专业医生。
+
+### CTA按钮
+"Customize Training Plan" - 进入训练计划配置流程
+    `
+  },
+  'assess-result-multi': {
+    title: '3.4 评估结果 - 多模块',
+    path: '功能三 > 问卷评估 > 多模块结果',
+    content: `
+## 3.4 多模块评估结果
+
+当用户选择多个模块评估时，结果页面展示所有模块的结果和趋势对比。
+
+### 趋势图（顶部）
+- 合并显示所有模块的历史评估数据
+- 不同模块用不同颜色线条区分
+- 图例标注：粉色=Incontinence，橙色=Pain，绿色=Hip&Leg
+- 最多显示最近7次评估记录
+- Y轴按百分比呈现（分数/满分×100%）
+
+### 模块结果卡片
+每个评估模块单独显示一张卡片：
+- 模块图标和名称
+- 严重程度等级（Mild/Moderate/Severe）
+- 改善标识：相比上次评估的变化（↑Improved/↓Worsened/→Stable）
+- 具体评分：当前分数/总分
+- 推荐方案：匹配的训练模式和频率
+
+### 训练计划生成
+由于多模块，点击"Customize Training Plan"后进入分模块的训练计划配置流程。
+    `
+  },
+  // 训练计划配置
+  'plan-config': {
+    title: '5.3 训练计划生成',
+    path: '功能五 > 训练日程管理 > 计划生成',
+    content: `
+## 5.3 训练计划生成
+
+基于评估结果生成个性化的训练计划，包括训练周期、训练日期、模式确认和提醒设置。
+
+### 单模块配置（无Tab）
+当用户仅评估一个模块时，页面无顶部Tab，直接展示4个配置步骤。
+
+### 多模块配置（有Tab）
+当用户评估多个模块时：
+- 顶部显示模块Tab：Incontinence / Pain / Hip & Leg
+- 每个Tab独立配置4个步骤
+- Tab间切换保存各自的配置状态
+
+### Step 1: 训练周期选择
+- Segment选择器：4周 / 6周 / 8周
+- 系统根据评估结果推荐周期，默认选中并标注"Recommended"
+- 说明文案：根据评估结果的推荐理由
+
+### Step 2: 训练日期选择
+- 日历视图：展示选定周期的完整日期
+- 系统预选推荐的训练日（基于推荐频率）
+- 用户可点击调整具体训练日期
+- 顶部提示：推荐频率 vs 当前已选
+
+### Step 3: 模式确认
+- 显示评估推荐的训练模式
+- 模式信息：名称、时长、类型（EMS）
+- 锁定状态：不可修改，显示锁定图标
+
+### Step 4: 训练提醒时间
+- 时间滚轮选择器：默认当前时间
+- "No reminder"开关选项
+- 设置后应用于所有训练日
+
+### 底部按钮逻辑
+- 单模块：所有步骤完成后显示"Generate Training Plan"
+- 多模块：前几个Tab显示"Next"，最后一个Tab显示"Preview All Plans"
+    `
+  },
+  'plan-config-single': {
+    title: '5.3 训练计划生成 - 单模块',
+    path: '功能五 > 训练日程管理 > 单模块计划',
+    content: `
+## 单模块训练计划配置
+
+当用户仅评估一个症状模块时的训练计划配置流程。
+
+### 页面结构
+- 无顶部Tab，直接展示4个配置步骤
+- 所有配置项在一个页面内垂直排列
+- 用户可一次性完成所有配置
+
+### 配置完成
+所有4个步骤配置完成后：
+- 底部按钮显示"Generate Training Plan"
+- 点击后直接进入单模块的计划预览页面
+- 预览页展示完整的训练计划摘要
+
+### 与多模块差异
+- 无Tab切换逻辑
+- 无需分模块生成
+- 配置流程更简洁直接
+    `
+  },
+  'plan-preview': {
+    title: '5.4 训练计划预览',
+    path: '功能五 > 训练日程管理 > 计划预览',
+    content: `
+## 5.4 训练计划预览
+
+展示用户配置完成的训练计划详情，供用户最终确认。
+
+### 单模块预览
+**计划摘要卡片**
+- 训练周期：如"6 weeks"
+- 训练模式：如"Activation"
+- 总训练次数：如"24 sessions"
+- 提醒时间：如"8:30 PM daily"
+
+**周计划展示**
+- 按周分组显示：Week 1, Week 2...
+- 每周显示7天日期和对应安排
+- 训练日：显示模式编号和训练时长
+- 休息日：显示"Rest"标记
+
+### 多模块预览（Tab版）
+**顶部Tab栏**
+- 可切换查看不同模块的训练计划
+- Tab标签：Incontinence / Pain / Hip & Leg Function
+
+**计划摘要**
+- 每个Tab显示对应模块的计划摘要
+- 用颜色区分不同模块：粉色/橙色/绿色
+
+**合并日历视图**
+- 单日有多个模块训练时，用不同颜色圆点标识
+- 训练日显示多个模式编号
+
+### CTA按钮
+"Start Training Plan" - 确认并创建训练日程
+    `
+  },
+  'plan-preview-single': {
+    title: '5.4 训练计划预览 - 单模块',
+    path: '功能五 > 训练日程管理 > 单模块预览',
+    content: `
+## 单模块训练计划预览
+
+用户仅配置一个症状模块时的计划预览界面。
+
+### 页面结构
+- 无顶部Tab，直接展示单一计划
+- 计划摘要卡片突出显示
+- 周计划日历清晰易读
+
+### 摘要信息
+- 症状模块：如"Incontinence"
+- 训练周期：用户选择的周数
+- 训练模式：评估推荐的模式
+- 训练频率：每周训练次数
+- 提醒设置：用户配置的提醒时间
+
+### 日历展示
+- 按周分组的训练安排
+- 训练日显示模式图标和时长
+- 休息日用灰色标识
+- 整体布局简洁明了
+
+### 确认操作
+点击"Start Training Plan"后：
+1. 在数据库创建训练日程
+2. 返回设备主页
+3. 主页显示今日训练任务
+    `
+  },
+  // 训练执行
+  'train-complete': {
+    title: '4.5 训练完成激励',
+    path: '功能四 > 训练执行 > 完成激励',
+    content: `
+## 4.5 训练完成激励
+
+每次训练结束后的激励反馈页面，根据完成度提供不同的鼓励内容。
+
+### 激励等级规则
+
+**100% 完成**
+- 图标：🎉 庆祝表情
+- 标题："Fantastic! Training Complete!"
+- 描述："You completed the full session. Great commitment to your health!"
+
+**90-99% 完成**
+- 图标：⭐ 星星表情
+- 标题："Great Job! Almost There!"
+- 描述："You're doing excellent! Every session brings you closer to your goals."
+
+**70-89% 完成**
+- 图标：💪 肌肉表情
+- 标题："Good Effort! Keep Going!"
+- 描述："You're making progress! Consistency is key to seeing results."
+
+**<70% 完成**
+- 图标：🌱 成长表情
+- 标题："Every Step Counts!"
+- 描述："Starting is the hardest part. You're building healthy habits!"
+
+### 训练数据展示
+**训练详情卡片**
+- 训练时长：实际训练时长（如"18 mins"）
+- 训练模式：完成的模式名称（如"01 Activation"）
+- 完成进度：百分比显示（如"75%"）
+- 日程进展：当前进度/总训练次数（如"8/24"）
+
+### 心情反馈入口
+在激励内容下方提供心情选择：
+- 5个表情选项：Great/Good/Okay/Bad/Terrible
+- 用户可选择当次训练的心情感受
+- 心情数据记录在训练记录中
+    `
+  },
+  'train-stop-confirm': {
+    title: '4.3 训练执行 - 停止确认',
+    path: '功能四 > 训练执行 > 停止确认',
+    content: `
+## 训练停止确认弹窗
+
+用户在训练过程中点击"Stop"按钮时的二次确认机制。
+
+### 弹窗内容
+**标题**："Stop Training?"
+**描述**：根据当前进度显示不同文案
+
+**进度 < 50%**
+"You've completed less than 50% of this session. Are you sure you want to stop?"
+
+**进度 ≥ 50%**
+"You've made good progress! Are you sure you want to stop now?"
+
+### 操作选项
+**"Yes, Stop"** - 红色按钮
+- 停止当前训练
+- 记录实际训练时长和进度
+- 进入训练完成激励页面
+
+**"Continue"** - 主色调按钮
+- 关闭弹窗
+- 返回训练执行页面
+- 保持训练暂停状态（如果之前是暂停的）
+
+### 交互逻辑
+- 弹窗背景模糊处理
+- 点击弹窗外区域不关闭（避免误操作）
+- 必须明确选择才能关闭弹窗
+    `
+  },
+  // 日程管理
+  'sched-home': {
+    title: '5.1 训练日程主页',
+    path: '功能五 > 训练日程管理 > 日程主页',
+    content: `
+## 5.1 训练日程主页
+
+展示当周训练安排和当日任务状态的核心页面。
+
+### 周日历视图
+**日期展示**
+- 显示当周7天（周一到周日）
+- 每日显示日期数字和星期简写
+- 今日高亮显示
+
+**训练状态标识**
+- 训练日：显示一个彩色小圆点（有训练任务的日期）
+- 休息日：无圆点标识
+- 已完成：圆点变为绿色勾选图标
+- 未完成：保持原色圆点
+
+### 当日任务卡片
+**有任务时**
+- 任务卡片显示：模式编号 + 模式名称 + 训练时长
+- 状态区分：待完成/已完成
+- 点击进入训练执行
+
+**休息日**
+- 显示休息图标和"今日为休息日"文案
+- 温馨提示关于休息的重要性
+
+**无任务**
+- 显示空状态和引导文案
+
+### 请假功能
+- 长按训练任务卡片触发请假选项
+- 请假后任务延至下一训练日
+- 日程周期相应延长
+
+### 日程汇总入口
+右上角列表图标，点击进入所有日程的汇总页面。
+    `
+  },
+  'sched-leave': {
+    title: '5.2 请假确认弹窗',
+    path: '功能五 > 训练日程管理 > 请假流程',
+    content: `
+## 5.2 请假确认弹窗
+
+用户长按训练任务卡片时弹出的请假选择弹窗。
+
+### 弹窗选项
+
+**"Skip & Reschedule"**
+- 跳过今日任务并重新安排到下一训练日
+- 整体日程周期延长一天
+- 保持训练总次数不变
+
+**"Skip All"**
+- 跳过今日所有训练任务（多模块时）
+- 所有任务都延至下一个训练日
+- 日程周期统一延长
+
+**"Cancel"**
+- 取消请假操作
+- 返回日程主页
+- 任务状态不变
+
+### 请假逻辑
+- 请假的任务不计入完成数
+- 自动调整后续训练日程
+- 在训练记录中标记为"请假"状态
+- 不影响训练计划的总体周期设定
+
+### 多模块请假
+当一天有多个模块训练时：
+- "Skip & Reschedule"：仅跳过长按的那个任务
+- "Skip All"：跳过当天所有模块的任务
+    `
+  },
+  'sched-summary': {
+    title: '5.5 日程汇总页面',
+    path: '功能五 > 训练日程管理 > 日程汇总',
+    content: `
+## 5.5 日程汇总页面
+
+展示用户所有训练日程的总览和管理功能。
+
+### Active 训练计划
+**计划卡片信息**
+- 计划名称：如"Incontinence Training Plan"
+- 模式图标：01, 02等编号标识
+- 进度条：当前进度可视化
+- 进度数字：如"8/24"（已完成/总次数）
+- 剩余时间：如"16 sessions left"
+
+**操作功能**
+- 点击卡片：查看详细的训练安排
+- 编辑功能：修改训练日和提醒时间（不可改模式）
+- 删除功能：删除整个训练计划
+
+### Completed 训练计划
+**历史计划展示**
+- 已完成的训练计划归档显示
+- 完成时间和总体评价
+- 点击可查看历史训练数据
+
+### 多计划并行
+当用户有多个症状模块的训练计划时：
+- 不同计划用不同颜色区分
+- 粉色：Incontinence
+- 橙色：Pain
+- 绿色：Hip & Leg Function
+
+### 计划完成处理
+训练计划完成后：
+- 显示庆祝页面和完成统计
+- 引导用户重新评估症状改善情况
+- 可选择是否开始新的训练周期
+    `
+  },
+  'sched-complete': {
+    title: '5.7 日程完成与评估引导',
+    path: '功能五 > 训练日程管理 > 完成引导',
+    content: `
+## 5.7 日程完成与评估引导
+
+当用户完成一个完整的训练计划周期后的引导流程。
+
+### 完成庆祝页面
+**庆祝元素**
+- 庆祝图标：🎉 或类似庆祝表情
+- 标题："Congratulations! Plan Complete!"
+- 训练统计：总训练天数、总时长、完成率
+
+**单模块完成**
+- 显示该模块的完成统计
+- 直接引导重新评估该症状
+
+**多模块同时完成**
+- 显示所有完成模块的汇总统计
+- 依次引导评估各个症状模块
+
+### 重新评估引导
+**引导文案**
+"It's time to reassess your [症状名称] to see how much you've improved!"
+
+**操作按钮**
+- **"Reassess Now"**：立即进入问卷评估
+- **"Later"**：稍后评估，用户可从设备主页的评估入口主动发起
+
+### Later 处理逻辑
+用户选择"Later"后：
+- 不在主页显示红点提醒（删除此逻辑）
+- 用户可随时从"Take Assessment"入口重新评估
+- 重新评估时触发日程替换逻辑
+
+### 日程替换确认
+如果用户已有生效日程但重新评估后生成新方案：
+- 弹窗确认："您有正在进行的训练计划，确认替换为新方案吗？"
+- "Replace"：删除旧日程，启用新方案
+- "Cancel"：保持现有日程不变
+    `
+  },
+  'reminder': {
+    title: '5.6 训练提醒机制',
+    path: '功能五 > 训练日程管理 > 提醒机制',
+    content: `
+## 5.6 训练提醒机制
+
+根据用户设置的提醒时间，在训练日推送训练提醒。
+
+### 提醒时机
+- 按用户在训练计划中设置的提醒时间
+- 仅在有训练任务的日期推送
+- 休息日不推送提醒
+
+### 提醒内容弹窗
+**标题**："Time for Training!"
+**内容**："准备开始今日的[模式名称]训练"
+**图标**：铃铛或训练相关图标
+
+### 操作选项
+**"Start Training"**
+- 直接进入今日的训练任务
+- 如有多个任务，进入任务列表选择
+
+**"Rest Today"**
+- 今日不训练，任务自动延至下一训练日
+- 等同于请假功能
+- 日程周期相应延长
+
+### 提醒设置
+用户可在以下位置修改提醒设置：
+- 训练计划配置时设置
+- 日程汇总页面的编辑功能
+- 设备设置中的全局提醒开关
+    `
+  },
+  // 数据记录
+  'train-records': {
+    title: '6.2 训练记录',
+    path: '功能六 > 数据记录与统计 > 训练记录',
+    content: `
+## 6.2 训练记录
+
+记录和展示用户的所有训练数据，支持多维度查看和分析。
+
+### 总体统计卡片
+**统计数据**
+- 累计训练天数：如"18天"
+- 累计训练次数：如"24次"
+- 累计训练时长：如"9.2小时"
+
+**趋势图**
+- 右侧显示最近7次训练时长的迷你柱状图
+- 用于快速了解训练频率趋势
+- 点击可查看详细统计
+
+### 模式筛选
+**筛选Chip**
+- 显示用户使用过的所有训练模式
+- 如：Activation, Strength, Endurance, Pain Relief等
+- 点击筛选对应模式的训练记录
+- 支持"All"查看全部记录
+
+### 训练记录列表
+**记录卡片信息**
+- 训练日期：如"Today, 3月15日"
+- 训练模式：模式编号 + 名称
+- 训练时长：实际训练时间
+- 完成进度：百分比显示
+- 心情反馈：表情图标（如果用户有填写）
+
+### 详情页面
+点击记录卡片进入详情：
+- 训练过程详细数据
+- 强度变化曲线
+- 心情备注
+- 日程进展情况
+
+### 空状态
+尚无训练记录时显示空状态引导，建议用户开始首次训练。
+    `
+  },
+  'assess-records': {
+    title: '6.1 评估记录',
+    path: '功能六 > 数据记录与统计 > 评估记录',
+    content: `
+## 6.1 评估记录
+
+记录用户的问卷评估历史，展示症状改善趋势。
+
+### 模块Tab切换
+**Tab标签**
+- Incontinence：尿失禁评估记录
+- Pain：疼痛评估记录
+- Hip & Leg：臀腿功能评估记录
+
+**统计信息**
+每个Tab显示对应模块的：
+- 最新评估等级：Mild/Moderate/Severe
+- 最新评估时间
+- 评估次数统计
+
+### 趋势图
+**图表内容**
+- X轴：评估时间
+- Y轴：评估分数（百分比形式）
+- 最多显示最近7次评估
+- 1次评估时显示单个数据点（无连线）
+
+**多模块对比**
+当用户评估多个模块时：
+- 在单个图上显示多条趋势线
+- 不同颜色区分模块：粉/橙/绿
+- 图例说明各颜色对应的症状
+
+### Compare功能
+**对比分析**
+- 点击"Compare"进入多时间点对比
+- 可选择任意两次评估进行详细对比
+- 显示各题目得分变化
+
+### 评估记录列表
+**记录条目**
+- 评估日期
+- 严重程度等级
+- 评分详情：如"ICIQ 8/21"
+- 改善标识：相比上次的变化趋势
+
+### 空状态处理
+首次使用时显示空状态，引导用户进行首次评估。
+    `
+  },
+  // 连接引导
+  'connect-guide': {
+    title: '2.4 设备连接引导',
+    path: '功能二 > 设备连接 > 连接引导',
+    content: `
+## 2.4 设备连接引导
+
+引导用户正确连接PulseCare设备的专门页面。
+
+### 页面结构
+**设备示意区域**
+- 灰色背景区域展示坐垫设备图像
+- 设备右下角显示绿色电源指示灯
+- 增强用户对产品的认知
+
+### 连接步骤指导
+**步骤卡片**
+1. **设备开机**
+   - 编号：①
+   - 说明："Please make sure your device is powered on. It will connect automatically once turned on."
+
+2. **保持距离**
+   - 编号：②
+   - 说明："Keep your phone close to the device."
+
+### 扫描状态
+**底部扫描区域**
+- 蓝牙图标（带脉冲动画效果）
+- 状态文案："Searching for device..."
+- 动画表示正在搜索设备
+
+### 自动连接逻辑
+- 设备开机后自动通过蓝牙连接
+- 无需用户手动配对
+- 连接成功后自动返回设备主页
+- 主页设备区域显示已连接状态
+
+### 交互要点
+- 简化用户操作步骤
+- 清晰的视觉指导
+- 实时连接状态反馈
+    `
+  }
+};
+
 function showPage(el) {
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
   state.currentPage = el.dataset.page;
   document.getElementById('phone').innerHTML = pages[el.dataset.page]();
   if (window.lucide) lucide.createIcons();
+
+  // 更新PRD内容
+  updatePRDContent(el.dataset.page);
+}
+
+function updatePRDContent(pageId) {
+  const prdTitle = document.getElementById('prd-title');
+  const prdPath = document.getElementById('prd-path');
+  const prdContent = document.getElementById('prd-content');
+
+  const prdData = prdMapping[pageId];
+
+  if (prdData) {
+    prdTitle.textContent = prdData.title;
+    prdPath.textContent = prdData.path;
+
+    // 将markdown内容转换为HTML（简单版本）
+    let htmlContent = prdData.content
+      .replace(/### (.*?)$/gm, '<h3>$1</h3>')
+      .replace(/## (.*?)$/gm, '<h2>$1</h2>')
+      .replace(/# (.*?)$/gm, '<h1>$1</h1>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/^\- (.*?)$/gm, '<li>$1</li>')
+      .replace(/(<li>.*<\/li>)/s, '<ul>$1</ul>')
+      .replace(/\n\n/g, '</p><p>')
+      .replace(/^\s*([^<\n].*?)$/gm, '<p>$1</p>')
+      .replace(/<p><\/p>/g, '')
+      .replace(/<p>(<h[1-6]>.*?<\/h[1-6]>)<\/p>/g, '$1')
+      .replace(/<p>(<ul>.*?<\/ul>)<\/p>/g, '$1')
+      .trim();
+
+    prdContent.innerHTML = htmlContent;
+  } else {
+    prdTitle.textContent = 'PRD 对应章节';
+    prdPath.textContent = '未找到对应PRD内容';
+    prdContent.innerHTML = '<div class="prd-empty">此页面暂无对应的PRD内容。</div>';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
