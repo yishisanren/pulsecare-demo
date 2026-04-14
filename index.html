@@ -569,6 +569,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="train-stop-confirm" onclick="showPage(this)">
         <span class="dot orange"></span>停止确认弹窗
       </div>
+      <div class="sidebar-item" data-page="train-rest-reminder" onclick="showPage(this)">
+        <span class="dot orange"></span>累计使用提醒
+      </div>
       <div class="sidebar-item" data-page="train-complete" onclick="showPage(this)">
         <span class="dot green"></span>训练完成 · 100%
       </div>
@@ -1367,6 +1370,27 @@ const pages = {
         <div class="stop-dialog-desc">You've completed 60% of this session. Ending now will still count as a training record. Are you sure?</div>
         <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('train-complete-partial')">End Session</button>
         <button class="btn-ghost" onclick="goTo('sched-home')">Continue Training</button>
+      </div>
+    </div>
+  </div>`,
+
+  'train-rest-reminder': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative">
+      <div class="stop-dialog" style="max-width:300px">
+        <div style="font-size:36px;text-align:center;margin-bottom:12px">☕</div>
+        <div class="stop-dialog-title">Time for a Break</div>
+        <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">You have been training for over 60 minutes today. We recommend taking a rest to avoid muscle fatigue.<br><br>You can continue if you feel comfortable.</div>
+        <div style="padding:12px 16px;background:#f8f8f8;border-radius:10px;margin-bottom:16px;text-align:center">
+          <div style="font-size:11px;color:#999;margin-bottom:4px">Today's total training</div>
+          <div style="font-size:24px;font-weight:800;color:#c4787a">62 min</div>
+        </div>
+        <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('sched-home')">Take a Break</button>
+        <button class="btn-ghost" onclick="goTo('train-complete')">Continue Anyway</button>
       </div>
     </div>
   </div>`,
@@ -2288,6 +2312,33 @@ const prdMapping = {
 - 5个表情选项：Great/Good/Okay/Bad/Terrible
 - 用户可选择当次训练的心情感受
 - 心情数据记录在训练记录中
+    `
+  },
+  'train-rest-reminder': {
+    title: '4.3.6 累计使用提醒',
+    path: '功能四 > 训练执行 > Rest Reminder',
+    content: `
+## 累计使用提醒（Rest Reminder）
+
+### 触发条件
+- 当日累计训练时长 ≥ 60 分钟时触发
+- 累计计时规则：中间休息 ≤ 5 分钟按连续计算，> 5 分钟重新计时
+- 触发时机：用户点击「Start」开始新一次训练时检测
+
+### 弹窗内容
+- **标题**："Time for a Break"
+- **描述**："You have been training for over 60 minutes today. We recommend taking a rest to avoid muscle fatigue. You can continue if you feel comfortable."
+- **累计时长展示**：显示当日总训练时长（如 62 min）
+
+### 操作按钮
+- **"Take a Break"**（主按钮）→ 关闭弹窗，返回日程主页
+- **"Continue Anyway"**（次按钮）→ 关闭弹窗，正常开始训练
+
+### 规则
+- **非强制性**：用户可选择继续训练
+- **每日仅提醒一次**：选择 Continue Anyway 后当日不再弹出
+- **次日重置**：00:00 重置累计时长
+- **全模式累计**：所有训练模式的时间都计入
     `
   },
   'train-stop-confirm': {
