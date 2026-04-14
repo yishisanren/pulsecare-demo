@@ -71,9 +71,16 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .schedule-name { font-size: 14px; font-weight: 500; color: #1a1a1a; }
 .schedule-meta { font-size: 12px; color: #999; margin-top: 2px; }
 
-.customize-card { margin: 8px 16px; background: #f8f8f8; border-radius: 16px; padding: 18px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; }
+.customize-card { margin: 8px 16px; background: #f8f8f8; border-radius: 16px; padding: 18px; cursor: pointer; }
+.customize-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
 .customize-label { font-size: 15px; font-weight: 600; color: #1a1a1a; }
-.customize-desc { font-size: 12px; color: #999; margin-top: 4px; }
+.customize-desc { font-size: 12px; color: #999; }
+.customize-mode { display: flex; align-items: center; padding: 12px; background: #fff; border-radius: 12px; border: 1.5px solid #fce4ec; }
+.customize-mode .cm-icon { width: 40px; height: 40px; background: #fce4ec; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-right: 12px; flex-shrink: 0; }
+.customize-mode .cm-info { flex: 1; }
+.customize-mode .cm-name { font-size: 14px; font-weight: 500; color: #1a1a1a; }
+.customize-mode .cm-meta { font-size: 12px; color: #999; margin-top: 2px; }
+.customize-mode .cm-desc { font-size: 11px; color: #bbb; margin-top: 2px; }
 
 .record-card { margin: 8px 16px; background: #f8f8f8; border-radius: 16px; padding: 18px; cursor: pointer; }
 .record-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
@@ -228,10 +235,17 @@ const h = {
     return `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link">View Schedule</span></div>${rows}</div>`;
   },
 
-  customize: () => `<div class="customize-card">
-    <div><div class="customize-label">Customize training</div><div class="customize-desc">Choose a Training to Start</div></div>
-    <i data-lucide="chevron-right" style="width:20px;height:20px;color:#ccc"></i>
-  </div>`,
+  customize: (mode) => {
+    const m = mode || MODES[0];
+    return `<div class="customize-card">
+      <div class="customize-header"><div class="customize-label">Customize training</div><i data-lucide="chevron-right" style="width:20px;height:20px;color:#ccc"></i></div>
+      <div class="customize-mode">
+        <div class="cm-icon"><i data-lucide="${m.icon}" style="width:20px;height:20px;color:#c4787a"></i></div>
+        <div class="cm-info"><div class="cm-name">${m.name}</div><div class="cm-meta">${m.type} · ${m.time}</div><div class="cm-desc">Tap to change mode</div></div>
+        <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i>
+      </div>
+    </div>`;
+  },
 
   trainingRecord: (sessions, bars) => {
     const barsHtml = bars.map(v => `<div class="mini-bar" style="height:${Math.max(v,3)}px;background:${v > 0 ? '#c4787a' : '#e0e0e0'}"></div>`).join('');
