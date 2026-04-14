@@ -422,29 +422,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .ri-sub { font-size: 11px; color: #999; }
 
 /* Onboarding */
-.onboard-page { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
-.onboard-page::-webkit-scrollbar { display: none; }
-.onboard-body { flex: 1; padding: 20px 16px; overflow-y: auto; }
-.onboard-body::-webkit-scrollbar { display: none; }
-.onboard-title { font-size: 20px; font-weight: 700; color: #1a1a1a; margin-bottom: 16px; }
-.onboard-list { list-style: none; }
-.onboard-list li { padding: 10px 0; border-bottom: 1px solid #f5f5f5; font-size: 13px; color: #555; line-height: 1.5; display: flex; align-items: flex-start; gap: 10px; }
-.onboard-list li::before { content: '⚠️'; flex-shrink: 0; }
-.onboard-check { display: flex; align-items: center; gap: 10px; padding: 16px 0; font-size: 13px; color: #333; }
-.onboard-checkbox { width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 4px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-.onboard-checkbox.checked { background: #c4787a; border-color: #c4787a; }
-.onboard-footer { padding: 12px 16px 34px; position: sticky; bottom: 0; background: #fff; z-index: 5; }
-
-/* Settings */
-.settings-list { padding: 8px 16px; }
-.settings-group { margin-bottom: 16px; }
-.settings-group-title { font-size: 11px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
-.settings-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f5f5f5; }
-.settings-row:last-child { border-bottom: none; }
-.sr-label { font-size: 14px; color: #1a1a1a; }
-.sr-value { font-size: 14px; color: #999; display: flex; align-items: center; gap: 4px; }
-.sr-danger { color: #e53935; font-size: 14px; font-weight: 500; padding: 14px 0; cursor: pointer; }
-
 /* Cycle complete */
 .complete-page { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; }
 .complete-emoji { font-size: 56px; margin-bottom: 16px; }
@@ -575,18 +552,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
         <span class="dot blue"></span>评估记录
       </div>
     </div>
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">首次引导 / 设置</div>
-      <div class="sidebar-item" data-page="onboard-disclaimer" onclick="showPage(this)">
-        <span class="dot blue"></span>禁忌使用说明
-      </div>
-      <div class="sidebar-item" data-page="onboard-assess" onclick="showPage(this)">
-        <span class="dot blue"></span>引导评估弹窗
-      </div>
-      <div class="sidebar-item" data-page="settings" onclick="showPage(this)">
-        <span class="dot gray"></span>设备设置
-      </div>
-    </div>
   </div>
 </div>
 
@@ -654,7 +619,11 @@ function selectMode(idx) {
 }
 
 function showConnectGuide() {
-  const el = document.querySelector('[data-page="connect-guide"]');
+  goTo('connect-guide');
+}
+
+function goTo(pageId) {
+  const el = document.querySelector('[data-page="' + pageId + '"]');
   if (el) showPage(el);
 }
 
@@ -688,12 +657,12 @@ const h = {
   </div>`,
 
   schedule: (items) => {
-    const rows = items.map((it, i) => `<div class="schedule-item">
+    const rows = items.map((it, i) => `<div class="schedule-item" onclick="goTo('train-ready')" style="cursor:pointer">
       <div class="schedule-num">0${i+1}</div>
       <div class="schedule-info"><div class="schedule-name">${it.name}</div><div class="schedule-meta">${it.type}  ${it.time}</div></div>
       <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc"></i>
     </div>`).join('');
-    return `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link">View Schedule</span></div>${rows}</div>`;
+    return `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link" onclick="goTo('sched-home')">View Schedule</span></div>${rows}</div>`;
   },
 
   customize: () => {
@@ -711,31 +680,31 @@ const h = {
 
   trainingRecord: (sessions, bars) => {
     const barsHtml = bars.map(v => `<div class="mini-bar" style="height:${Math.max(v,3)}px;background:${v > 0 ? '#c4787a' : '#e0e0e0'}"></div>`).join('');
-    return `<div class="record-card"><div class="record-header"><span class="record-title">Training Record</span></div>
+    return `<div class="record-card" onclick="goTo('rec-training')" style="cursor:pointer"><div class="record-header"><span class="record-title">Training Record</span></div>
     <div class="record-body"><div><div class="stat-label">Sessions</div><div class="stat-value">${sessions}</div></div><div class="mini-bars">${barsHtml}</div></div></div>`;
   },
 
-  assessmentRecord: (score) => `<div class="record-card"><div class="record-header"><span class="record-title">Assessment Record</span></div>
+  assessmentRecord: (score) => `<div class="record-card" onclick="goTo('rec-assessment')" style="cursor:pointer"><div class="record-header"><span class="record-title">Assessment Record</span></div>
     <div class="record-body"><div><div class="stat-label">ICIQ</div><div class="stat-value">${score}%</div></div>
     <svg width="120" height="40" viewBox="0 0 120 40"><polyline points="5,35 25,28 45,24 65,18 85,14 105,10" fill="none" stroke="#e8d0d0" stroke-width="2" stroke-linecap="round"/><circle cx="5" cy="35" r="3" fill="#e8e0e0"/><circle cx="25" cy="28" r="3" fill="#e0d8d8"/><circle cx="45" cy="24" r="3.5" fill="#dcc8c8"/><circle cx="65" cy="18" r="3.5" fill="#d4b8b8"/><circle cx="85" cy="14" r="4" fill="#cca0a0"/><circle cx="105" cy="10" r="5" fill="#c4787a"/></svg>
     </div></div>`,
 
-  assessmentCTA: () => `<div class="assessment-cta">
+  assessmentCTA: () => `<div class="assessment-cta" onclick="goTo('assess-select')" style="cursor:pointer">
     <div class="cta-text"><div class="cta-title">Pelvic Floor Assessment</div><div class="cta-desc">Comprehensive pelvic floor health assessment</div><div class="cta-link">Take now <i data-lucide="chevron-right" style="width:14px;height:14px"></i></div></div>
     <div class="cta-illust"><i data-lucide="clipboard-check" style="width:32px;height:32px;color:#c4787a"></i></div>
   </div>`,
 
   emptySchedule: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span></div>
     <div class="empty-box"><div class="empty-icon"><i data-lucide="calendar-x" style="width:32px;height:32px;color:#ccc"></i></div>
-    <div class="empty-text">No active schedule.<br>Complete an assessment to get started.</div><div class="empty-btn">Take Assessment</div></div></div>`,
+    <div class="empty-text">No active schedule.<br>Complete an assessment to get started.</div><div class="empty-btn" onclick="goTo('assess-select')">Take Assessment</div></div></div>`,
 
-  restDay: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link">View Schedule</span></div>
+  restDay: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link" onclick="goTo('sched-home')">View Schedule</span></div>
     <div class="rest-box"><div class="rest-emoji">🌿</div><div class="rest-text">Rest day today.<br>Your next session is <b>Wednesday</b>.</div></div></div>`,
 
-  doneDay: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link">View Schedule</span></div>
+  doneDay: () => `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link" onclick="goTo('sched-home')">View Schedule</span></div>
     <div class="done-box"><div class="done-check"><i data-lucide="check-circle-2" style="width:26px;height:26px;color:#4caf50"></i></div><div class="done-text">All done for today! Great job.</div></div></div>`,
 
-  draft: () => `<div class="draft-banner" style="background:linear-gradient(135deg,#fff3e0,#ffe0b2)">
+  draft: () => `<div class="draft-banner" onclick="goTo('assess-q-incont')" style="cursor:pointer;background:linear-gradient(135deg,#fff3e0,#ffe0b2)">
     <div class="icon-wrap" style="background:#ff9800"><i data-lucide="file-edit" style="width:18px;height:18px;color:#fff"></i></div>
     <div class="text"><div class="label" style="color:#e65100">Continue Assessment</div><div class="desc" style="color:#bf360c">You have an unfinished assessment. Continue where you left off.</div></div>
     <i data-lucide="chevron-right" style="width:18px;height:18px;color:#e65100"></i>
@@ -778,7 +747,7 @@ const pages = {
 
 
   'connect-guide': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('home-disconnected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Connect Device</span>
     <div style="width:32px"></div>
   </div>
@@ -816,7 +785,7 @@ const pages = {
   },
 
   'assess-select': () => h.statusBar() + `<div class="q-nav">
-    <span class="q-cancel">Cancel</span>
+    <span class="q-cancel" onclick="goTo('home-connected')">Cancel</span>
     <span class="q-step-label">Step 1 of 3</span>
     <div style="width:50px"></div>
   </div>
@@ -842,12 +811,12 @@ const pages = {
       <div class="module-none">I have none of these concerns</div>
     </div>
     <div class="assess-footer">
-      <button class="btn-primary">Start Assessment</button>
+      <button class="btn-primary" onclick="goTo('assess-q-incont')">Start Assessment</button>
     </div>
   </div>`,
 
   'assess-q-incont': () => h.statusBar() + `<div class="q-nav">
-    <span class="q-cancel">Cancel</span>
+    <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
     <span class="q-step-label">Q3 of 10</span>
     <div style="width:50px"></div>
   </div>
@@ -876,13 +845,13 @@ const pages = {
       </div>
     </div>
     <div class="q-btns">
-      <button class="btn-prev">Previous</button>
-      <button class="btn-next">Next</button>
+      <button class="btn-prev" onclick="goTo('assess-select')">Previous</button>
+      <button class="btn-next" onclick="goTo('assess-q-pain')">Next</button>
     </div>
   </div>`,
 
   'assess-q-pain': () => h.statusBar() + `<div class="q-nav">
-    <span class="q-cancel">Cancel</span>
+    <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
     <span class="q-step-label">Q8 of 10</span>
     <div style="width:50px"></div>
   </div>
@@ -908,8 +877,8 @@ const pages = {
       </div>
     </div>
     <div class="q-btns">
-      <button class="btn-prev">Previous</button>
-      <button class="btn-next submit">Submit</button>
+      <button class="btn-prev" onclick="goTo('assess-q-incont')">Previous</button>
+      <button class="btn-next submit" onclick="goTo('assess-loading')">Submit</button>
     </div>
   </div>`,
 
@@ -933,9 +902,9 @@ const pages = {
     <div class="exit-dialog">
       <div class="ed-title">Exit Assessment?</div>
       <div class="ed-desc">You can save your progress and continue later, or discard all answers.</div>
-      <button class="btn-save">Save Draft</button>
-      <button class="btn-discard">Discard</button>
-      <button class="btn-stay">Cancel</button>
+      <button class="btn-save" onclick="goTo('home-draft')">Save Draft</button>
+      <button class="btn-discard" onclick="goTo('home-connected')">Discard</button>
+      <button class="btn-stay" onclick="goTo('assess-q-incont')">Cancel</button>
     </div>
   </div>`,
 
@@ -944,9 +913,10 @@ const pages = {
     <span class="q-step-label"></span>
     <div style="width:50px"></div>
   </div>
-  <div class="loading-page">
+  <div class="loading-page" onclick="goTo('assess-result-first')" style="cursor:pointer">
     <div class="loading-spinner"></div>
     <div class="loading-text">Generating your<br>personalized plan...</div>
+    <div style="font-size:11px;color:#ccc;margin-top:20px">Tap to see result</div>
   </div>`,
 
   'assess-result-first': () => h.statusBar() + `<div class="nav-bar">
@@ -980,7 +950,7 @@ const pages = {
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
     </div>
     <div class="result-footer">
-      <button class="btn-primary">Customize Training Plan</button>
+      <button class="btn-primary" onclick="goTo('plan-config')">Customize Training Plan</button>
     </div>
   </div>`,
 
@@ -1062,12 +1032,12 @@ const pages = {
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
     </div>
     <div class="result-footer">
-      <button class="btn-primary">Customize Training Plan</button>
+      <button class="btn-primary" onclick="goTo('plan-config')">Customize Training Plan</button>
     </div>
   </div>`,
 
   'plan-config': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('assess-result-first')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Plan</span>
     <div style="width:32px"></div>
   </div>
@@ -1188,7 +1158,7 @@ const pages = {
       </div>
     </div>
     <div class="plan-footer">
-      <button class="btn-primary">Preview All Plans</button>
+      <button class="btn-primary" onclick="goTo('plan-preview')">Preview All Plans</button>
     </div>
   </div>`,
 
@@ -1221,7 +1191,7 @@ const pages = {
       ).join('')}</div>
     </div>`).join('');
     return h.statusBar() + `<div class="nav-bar">
-      <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+      <div class="back-btn" onclick="goTo('plan-config')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
       <span class="title">Plan Preview</span>
       <div style="width:32px"></div>
     </div>
@@ -1242,13 +1212,13 @@ const pages = {
         <div style="text-align:center;padding:8px 0;font-size:12px;color:#ccc">... Week 3–6 ...</div>
       </div>
       <div class="plan-footer">
-        <button class="btn-primary">Start Training Plan</button>
+        <button class="btn-primary" onclick="goTo('sched-home')">Start Training Plan</button>
       </div>
     </div>`;
   },
 
   'train-ready': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Activation</span>
     <div style="width:32px"></div>
   </div>
@@ -1264,12 +1234,12 @@ const pages = {
     <div class="train-intensity"><div class="train-intensity-val">0</div><div class="train-intensity-label">Intensity</div></div>
     <div class="train-slider"><div class="train-slider-fill" style="width:0%"></div></div>
     <div class="train-btns">
-      <button class="train-btn start"><i data-lucide="play" style="width:28px;height:28px;color:#fff"></i></button>
+      <button class="train-btn start" onclick="goTo('train-active')"><i data-lucide="play" style="width:28px;height:28px;color:#fff"></i></button>
     </div>
   </div>`,
 
   'train-active': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Activation</span>
     <div style="width:32px"></div>
   </div>
@@ -1285,13 +1255,13 @@ const pages = {
     <div class="train-intensity"><div class="train-intensity-val">35</div><div class="train-intensity-label">Intensity</div></div>
     <div class="train-slider"><div class="train-slider-fill" style="width:35%"></div><div class="train-slider-thumb" style="left:calc(35% - 10px)"></div></div>
     <div class="train-btns">
-      <button class="train-btn pause"><i data-lucide="pause" style="width:24px;height:24px;color:#e65100"></i></button>
-      <button class="train-btn stop"><i data-lucide="square" style="width:20px;height:20px;color:#c62828"></i></button>
+      <button class="train-btn pause" onclick="goTo('train-paused')"><i data-lucide="pause" style="width:24px;height:24px;color:#e65100"></i></button>
+      <button class="train-btn stop" onclick="goTo('train-complete')"><i data-lucide="square" style="width:20px;height:20px;color:#c62828"></i></button>
     </div>
   </div>`,
 
   'train-paused': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Activation</span>
     <div style="width:32px"></div>
   </div>
@@ -1307,8 +1277,8 @@ const pages = {
     <div class="train-intensity"><div class="train-intensity-val" style="color:#999">0</div><div class="train-intensity-label">Intensity</div></div>
     <div class="train-slider"><div class="train-slider-fill" style="width:0%"></div></div>
     <div class="train-btns">
-      <button class="train-btn resume"><i data-lucide="play" style="width:24px;height:24px;color:#2e7d32"></i></button>
-      <button class="train-btn stop"><i data-lucide="square" style="width:20px;height:20px;color:#c62828"></i></button>
+      <button class="train-btn resume" onclick="goTo('train-active')"><i data-lucide="play" style="width:24px;height:24px;color:#2e7d32"></i></button>
+      <button class="train-btn stop" onclick="goTo('train-complete')"><i data-lucide="square" style="width:20px;height:20px;color:#c62828"></i></button>
     </div>
   </div>`,
 
@@ -1337,14 +1307,14 @@ const pages = {
       </div>
     </div>
     <div style="width:100%;padding:20px 8px 0">
-      <button class="btn-primary" style="border-radius:24px">Done</button>
+      <button class="btn-primary" style="border-radius:24px" onclick="goTo('home-completed')">Done</button>
     </div>
   </div>`,
 
   'sched-home': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Schedule</span>
-    <div class="settings-btn"><i data-lucide="list" style="width:20px;height:20px;color:#1a1a1a"></i></div>
+    <div class="settings-btn" onclick="goTo('sched-summary')"><i data-lucide="list" style="width:20px;height:20px;color:#1a1a1a"></i></div>
   </div>
   <div class="sched-cal">
     <div class="sched-week-nav">
@@ -1364,12 +1334,12 @@ const pages = {
   </div>
   <div style="padding:4px 16px 8px;font-size:13px;font-weight:600;color:#1a1a1a">Wednesday, Apr 16</div>
   <div class="task-list">
-    <div class="task-card pending">
+    <div class="task-card pending" onclick="goTo('train-ready')" style="cursor:pointer">
       <div class="tc-color" style="background:#c4787a"></div>
       <div class="tc-info"><div class="tc-name">Activation</div><div class="tc-meta">EMS · 24 min</div></div>
       <div class="tc-status">Pending</div>
     </div>
-    <div class="task-card pending">
+    <div class="task-card pending" onclick="goTo('train-ready')" style="cursor:pointer">
       <div class="tc-color" style="background:#e65100"></div>
       <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
       <div class="tc-status">Pending</div>
@@ -1387,17 +1357,17 @@ const pages = {
       <div class="reminder-dialog">
         <div class="rd-title">Take a rest today?</div>
         <div class="rd-desc">This training will be skipped and rescheduled to your next available day. Your schedule will be extended by one day.</div>
-        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px">Skip & Reschedule</button>
+        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home')">Skip & Reschedule</button>
         <div style="margin-bottom:8px">
-          <button class="btn-ghost" style="color:#999;font-size:13px;padding:8px">Skip all today's sessions</button>
+          <button class="btn-ghost" style="color:#999;font-size:13px;padding:8px" onclick="goTo('sched-home')">Skip all today's sessions</button>
         </div>
-        <button class="btn-ghost" style="padding:8px">Cancel</button>
+        <button class="btn-ghost" style="padding:8px" onclick="goTo('sched-home')">Cancel</button>
       </div>
     </div>`;
   },
 
   'sched-summary': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">All Schedules</span>
     <div style="width:32px"></div>
   </div>
@@ -1445,8 +1415,8 @@ const pages = {
       <div class="cs-item"><div class="cs-val">92%</div><div class="cs-label">Completion</div></div>
     </div>
     <div style="width:100%;padding:0 16px">
-      <button class="btn-primary" style="border-radius:24px;margin-bottom:10px">Reassess Now</button>
-      <button class="btn-ghost">Later</button>
+      <button class="btn-primary" style="border-radius:24px;margin-bottom:10px" onclick="goTo('assess-select')">Reassess Now</button>
+      <button class="btn-ghost" onclick="goTo('home-connected')">Later</button>
     </div>
   </div>`,
 
@@ -1464,13 +1434,13 @@ const pages = {
       <div class="rd-illust"><i data-lucide="bell-ring" style="width:28px;height:28px;color:#c4787a"></i></div>
       <div class="rd-title">Time to Train!</div>
       <div class="rd-desc">You have 1 session scheduled today:<br><b>Activation · 24 min</b></div>
-      <button class="btn-primary" style="margin-bottom:8px;border-radius:12px">Start Training</button>
-      <button class="btn-ghost">Rest today</button>
+      <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('train-ready')">Start Training</button>
+      <button class="btn-ghost" onclick="goTo('sched-skip')">Rest today</button>
     </div>
   </div>`,
 
   'rec-training': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Records</span>
     <div style="width:32px"></div>
   </div>
@@ -1535,7 +1505,7 @@ const pages = {
   </div>`,
 
   'rec-assessment': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Assessment Records</span>
     <div style="width:32px"></div>
   </div>
@@ -1595,77 +1565,6 @@ const pages = {
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
         <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Dec 10, 2025 · 11:00 AM</div></div>
         <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">Severe</span></div><div class="ri-sub">17/21</div></div>
-      </div>
-    </div>
-  </div>`,
-
-  'onboard-disclaimer': () => h.statusBar() + `<div class="nav-bar">
-    <div style="width:32px"></div>
-    <span class="title">Safety Information</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="onboard-page">
-    <div class="onboard-body">
-      <div class="onboard-title">Important Safety Information</div>
-      <div style="font-size:13px;color:#999;margin-bottom:16px;line-height:1.5">Please review the following contraindications before using PulseCare. Do NOT use this device if any of the following apply to you:</div>
-      <ul class="onboard-list">
-        <li>You have an implanted cardiac pacemaker or defibrillator</li>
-        <li>You are currently pregnant or suspect pregnancy</li>
-        <li>You have active cancer or malignant tumors in the pelvic area</li>
-        <li>You have an active urinary tract or vaginal infection</li>
-        <li>You have undiagnosed vaginal bleeding</li>
-        <li>You have metal implants in the pelvic region</li>
-        <li>You have epilepsy or a seizure disorder</li>
-        <li>You have had pelvic surgery within the past 6 weeks</li>
-      </ul>
-      <div class="onboard-check" onclick="this.querySelector('.onboard-checkbox').classList.toggle('checked')">
-        <div class="onboard-checkbox"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
-        <span>I confirm that none of the above conditions apply to me</span>
-      </div>
-    </div>
-    <div class="onboard-footer">
-      <button class="btn-primary" style="border-radius:24px">Continue</button>
-    </div>
-  </div>`,
-
-  'onboard-assess': () => h.statusBar() + h.navBar('My PulseCare', false) + `<div class="page-content" style="filter:brightness(0.6)">` +
-    h.device(true, 100) + h.emptySchedule() +
-  `</div>
-  <div class="overlay" style="z-index:30">
-    <div class="dialog">
-      <div class="dialog-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:28px;height:28px;color:#c4787a"></i></div>
-      <div class="dialog-title">Personalize Your Experience</div>
-      <div class="dialog-desc">Take a quick assessment to get a training plan tailored to your needs. It only takes a few minutes.</div>
-      <button class="btn-primary">Take Assessment</button>
-      <button class="btn-ghost">Skip</button>
-    </div>
-  </div>`,
-
-  'settings': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Device Settings</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="assess-page">
-    <div class="settings-list">
-      <div class="settings-group">
-        <div class="settings-group-title">Device Info</div>
-        <div class="settings-row"><span class="sr-label">Device Name</span><span class="sr-value">PulseCare1 <i data-lucide="chevron-right" style="width:14px;height:14px;color:#ccc"></i></span></div>
-        <div class="settings-row"><span class="sr-label">Serial Number</span><span class="sr-value">ESO02-2026-0418 <i data-lucide="copy" style="width:14px;height:14px;color:#ccc"></i></span></div>
-        <div class="settings-row"><span class="sr-label">MAC Address</span><span class="sr-value">A4:C1:38:xx:xx <i data-lucide="copy" style="width:14px;height:14px;color:#ccc"></i></span></div>
-      </div>
-      <div class="settings-group">
-        <div class="settings-group-title">Firmware</div>
-        <div class="settings-row"><span class="sr-label">Current Version</span><span class="sr-value">v1.2.0</span></div>
-        <div class="settings-row"><span class="sr-label">Latest Version</span><span class="sr-value" style="color:#c4787a;font-weight:500">v1.3.1 available <i data-lucide="chevron-right" style="width:14px;height:14px;color:#c4787a"></i></span></div>
-      </div>
-      <div class="settings-group">
-        <div class="settings-group-title">Reminders</div>
-        <div class="settings-row"><span class="sr-label">Training Reminder</span><span class="sr-value"><div class="tp-toggle on" onclick="this.classList.toggle('on')"></div></span></div>
-        <div class="settings-row"><span class="sr-label">Reminder Time</span><span class="sr-value">8:30 PM <i data-lucide="chevron-right" style="width:14px;height:14px;color:#ccc"></i></span></div>
-      </div>
-      <div class="settings-group">
-        <div class="sr-danger">Remove Device</div>
       </div>
     </div>
   </div>`,
