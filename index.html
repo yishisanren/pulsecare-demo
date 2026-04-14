@@ -175,9 +175,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="modal-modes" onclick="showPage(this)">
         <span class="dot blue"></span>模式选择面板
       </div>
-      <div class="sidebar-item" data-page="modal-connect" onclick="showPage(this)">
-        <span class="dot blue"></span>连接设备提示
-      </div>
     </div>
   </div>
 </div>
@@ -271,7 +268,9 @@ const h = {
   </div>` : `<div class="device-section">
     <div class="device-img-wrap"><div class="device-placeholder" style="opacity:0.45"><div class="cam"></div></div></div>
     <div class="device-ready-text" style="color:#c4787a">Device Not Connected</div>
-    <div class="connect-cta"><i data-lucide="bluetooth" style="width:14px;height:14px;color:#fff"></i> Connect Device</div>
+    <div style="margin-top:8px;padding:12px 16px;background:#fff5f5;border-radius:10px;text-align:center">
+      <div style="font-size:13px;color:#999;line-height:1.5">Please make sure your device is powered on.<br>It will connect automatically once turned on.</div>
+    </div>
   </div>`,
 
   schedule: (items) => {
@@ -379,14 +378,6 @@ const pages = {
       `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div></div>`;
   },
 
-  'modal-connect': () => h.statusBar() + h.navBar('My PulseCare', false) +
-    '<div class="page-content">' + h.device(false) + h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) + '</div>' +
-    `<div class="overlay"><div class="dialog">
-      <div class="dialog-icon"><i data-lucide="bluetooth" style="width:26px;height:26px;color:#1976d2"></i></div>
-      <div class="dialog-title">Connect Your Device</div>
-      <div class="dialog-desc">Please make sure your PulseCare device is powered on. It will connect automatically once turned on.</div>
-      <button class="btn-primary">OK</button>
-    </div></div>`,
 };
 
 function showPage(el) {
