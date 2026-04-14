@@ -690,6 +690,34 @@ function goTo(pageId) {
   if (el) showPage(el);
 }
 
+function handleScreenOpt(el){
+  el.classList.toggle('sel');
+  const dOpt=document.querySelector('[data-screen=D]');
+  if(dOpt)dOpt.classList.remove('sel');
+  updateScreenBtn();
+}
+function handleScreenOptD(el){
+  el.classList.toggle('sel');
+  if(el.classList.contains('sel')){
+    document.querySelectorAll('[data-screen=A],[data-screen=B],[data-screen=C]').forEach(o=>o.classList.remove('sel'));
+  }
+  updateScreenBtn();
+}
+function updateScreenBtn(){
+  const btn=document.getElementById('screen-start-btn');
+  if(!btn)return;
+  const dSel=document.querySelector('[data-screen=D]');
+  if(dSel&&dSel.classList.contains('sel')){
+    btn.textContent='Skip Assessment';
+    btn.onclick=()=>goTo('home-connected');
+  }else{
+    btn.textContent='Start Assessment';
+    btn.onclick=()=>goTo('assess-q-incont');
+  }
+}
+function handlePainNone(){const n=document.getElementById('pain-none-opt');if(n)n.classList.remove('sel')}
+function handlePainNoneClick(el){const opts=el.parentElement.querySelectorAll('.q-option:not(#pain-none-opt)');opts.forEach(o=>o.classList.remove('sel'));el.classList.toggle('sel')}
+
 const h = {
   statusBar: () => `<div class="status-bar">
     <span class="status-time">9:41</span>
@@ -972,34 +1000,7 @@ const pages = {
     <div class="assess-footer">
       <button id="screen-start-btn" class="btn-primary" onclick="goTo('assess-q-incont')">Start Assessment</button>
     </div>
-  </div>
-  <script>
-  function handleScreenOpt(el){
-    el.classList.toggle('sel');
-    // Deselect D if any A/B/C is selected
-    const dOpt=document.querySelector('[data-screen=D]');
-    if(dOpt)dOpt.classList.remove('sel');
-    updateScreenBtn();
-  }
-  function handleScreenOptD(el){
-    el.classList.toggle('sel');
-    if(el.classList.contains('sel')){
-      document.querySelectorAll('[data-screen=A],[data-screen=B],[data-screen=C]').forEach(o=>o.classList.remove('sel'));
-    }
-    updateScreenBtn();
-  }
-  function updateScreenBtn(){
-    const btn=document.getElementById('screen-start-btn');
-    const dSel=document.querySelector('[data-screen=D]')?.classList.contains('sel');
-    if(dSel){
-      btn.textContent='Skip Assessment';
-      btn.onclick=()=>goTo('home-connected');
-    }else{
-      btn.textContent='Start Assessment';
-      btn.onclick=()=>goTo('assess-q-incont');
-    }
-  }
-  </script>`,
+  </div>`,
 
   'assess-q-incont': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
@@ -1059,11 +1060,7 @@ const pages = {
       <button class="btn-prev" onclick="goTo('assess-q-incont')">Previous</button>
       <button class="btn-next submit" onclick="goTo('assess-loading')">Next</button>
     </div>
-  </div>
-  <script>
-  function handlePainNone(){const n=document.getElementById('pain-none-opt');if(n)n.classList.remove('sel')}
-  function handlePainNoneClick(el){const opts=el.parentElement.querySelectorAll('.q-option:not(#pain-none-opt)');opts.forEach(o=>o.classList.remove('sel'));el.classList.toggle('sel')}
-  </script>`,
+  </div>`,
 
   'assess-exit-dialog': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel">Cancel</span>
