@@ -111,16 +111,22 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .done-check { width: 48px; height: 48px; background: #e8f5e9; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; }
 .done-text { font-size: 14px; color: #999; }
 
-.mode-panel { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 24px 24px 0 0; z-index: 10; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); max-height: 70%; overflow-y: auto; }
+.mode-panel { position: absolute; bottom: 0; left: 0; right: 0; background: #fff; border-radius: 24px 24px 0 0; z-index: 10; box-shadow: 0 -10px 40px rgba(0,0,0,0.1); max-height: 80%; overflow-y: auto; }
 .mode-handle { width: 36px; height: 4px; background: #ddd; border-radius: 2px; margin: 12px auto; }
 .mode-panel-title { font-size: 16px; font-weight: 600; padding: 0 20px 14px; color: #1a1a1a; }
-.mode-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; padding: 0 16px 34px; }
-.mode-card { background: #f8f8f8; border-radius: 14px; padding: 14px 8px; text-align: center; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
-.mode-card:hover { border-color: #c4787a; }
-.mode-card.sel { border-color: #c4787a; background: #fce4ec; }
-.mode-icon-box { width: 38px; height: 38px; background: #fff; border-radius: 10px; margin: 0 auto 6px; display: flex; align-items: center; justify-content: center; }
-.mode-name { font-size: 11px; font-weight: 600; color: #1a1a1a; line-height: 1.3; }
-.mode-time { font-size: 10px; color: #999; margin-top: 2px; }
+.mode-list { padding: 0 16px 34px; display: flex; flex-direction: column; gap: 8px; }
+.mode-item { display: flex; align-items: center; padding: 14px; background: #f8f8f8; border-radius: 14px; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+.mode-item:hover { border-color: #e0e0e0; }
+.mode-item.sel { border-color: #c4787a; background: #fdf0f0; }
+.mode-item .mi-num { width: 36px; height: 36px; border-radius: 50%; background: #f0f0f0; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #999; margin-right: 12px; flex-shrink: 0; }
+.mode-item.sel .mi-num { background: #fce4ec; color: #c4787a; }
+.mode-item .mi-info { flex: 1; min-width: 0; }
+.mode-item .mi-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.mode-item .mi-desc { font-size: 11px; color: #999; margin-top: 2px; }
+.mode-item .mi-tags { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; }
+.mode-item .mi-tag { font-size: 10px; padding: 2px 8px; border-radius: 10px; background: #f0f0f0; color: #777; }
+.mode-item.sel .mi-tag { background: #fce4ec; color: #c4787a; }
+.mode-item .mi-arrow { color: #ccc; flex-shrink: 0; margin-left: 8px; }
 
 .overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.4); z-index: 20; display: flex; align-items: center; justify-content: center; }
 .dialog { background: #fff; border-radius: 20px; padding: 28px 24px; width: 300px; text-align: center; }
@@ -182,15 +188,15 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 
 <script>
 const MODES = [
-  { name: 'Activation', type: 'EMS', time: '24 mins', icon: 'zap' },
-  { name: 'Strength', type: 'EMS', time: '24 mins', icon: 'dumbbell' },
-  { name: 'Endurance', type: 'EMS', time: '30 mins', icon: 'timer' },
-  { name: 'Pain Relief', type: 'TENS', time: '20 mins', icon: 'heart-pulse' },
-  { name: 'Relaxation', type: 'TENS', time: '20 mins', icon: 'cloud' },
-  { name: 'Circulation', type: 'EMS', time: '18 mins', icon: 'activity' },
-  { name: 'Recovery', type: 'EMS+TENS', time: '25 mins', icon: 'rotate-ccw' },
-  { name: 'Sculpt', type: 'EMS', time: '22 mins', icon: 'flame' },
-  { name: 'Custom Mix', type: 'EMS+TENS', time: '30 mins', icon: 'sliders-horizontal' },
+  { name: 'Activation', cat: 'Basic', desc: 'Awaken pelvic floor and hip-leg muscles', time: '24 mins', icon: 'zap' },
+  { name: 'Strength', cat: 'Advanced', desc: 'Enhance muscle strength', time: '24 mins', icon: 'dumbbell' },
+  { name: 'Endurance', cat: 'Advanced', desc: 'Improve muscle endurance', time: '30 mins', icon: 'timer' },
+  { name: 'Functional', cat: 'Advanced', desc: 'Improve functional performance', time: '24 mins', icon: 'target' },
+  { name: 'Relaxation Cycle', cat: 'Recovery', desc: 'Relieve muscle fatigue', time: '20 mins', icon: 'cloud' },
+  { name: 'Pain Soothe', cat: 'Pain', desc: 'Relieve chronic pain', time: '20 mins', icon: 'heart-pulse' },
+  { name: 'Quick Relief', cat: 'Pain', desc: 'Rapid pain relief', time: '15 mins', icon: 'shield' },
+  { name: 'Mid-Frequency', cat: 'Therapy', desc: 'Mid-frequency electrotherapy', time: '25 mins', icon: 'activity' },
+  { name: 'Low-Frequency', cat: 'Therapy', desc: 'Low-frequency electrotherapy', time: '25 mins', icon: 'radio' },
 ];
 
 const h = {
@@ -237,7 +243,7 @@ const h = {
       <div class="customize-header"><div class="customize-label">Customize training</div><span class="customize-link">Change Mode</span></div>
       <div class="customize-mode">
         <div class="cm-num">01</div>
-        <div class="cm-info"><div class="cm-name">${m.name}</div><div class="cm-meta">${m.type} · ${m.time}</div></div>
+        <div class="cm-info"><div class="cm-name">${m.name}</div><div class="cm-meta">${m.cat} · ${m.time}</div></div>
         <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc"></i>
       </div>
     </div>`;
@@ -312,13 +318,18 @@ const pages = {
 
 
   'modal-modes': () => {
-    const cards = MODES.map((m, i) => `<div class="mode-card${i===0?' sel':''}">
-      <div class="mode-icon-box"><i data-lucide="${m.icon}" style="width:20px;height:20px;color:#c4787a"></i></div>
-      <div class="mode-name">${m.name}</div><div class="mode-time">${m.type} · ${m.time}</div>
+    const items = MODES.map((m, i) => `<div class="mode-item${i===0?' sel':''}">
+      <div class="mi-num">0${i+1}</div>
+      <div class="mi-info">
+        <div class="mi-name">${m.name}</div>
+        <div class="mi-desc">${m.desc}</div>
+        <div class="mi-tags"><span class="mi-tag">${m.cat}</span><span class="mi-tag">${m.time}</span></div>
+      </div>
+      <i data-lucide="chevron-right" class="mi-arrow" style="width:16px;height:16px"></i>
     </div>`).join('');
     return h.statusBar() + h.navBar('My PulseCare', false) +
       '<div class="page-content" style="filter:brightness(0.6)">' + h.device(true, 67) + h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) + '</div>' +
-      `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-grid">${cards}</div></div>`;
+      `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div></div>`;
   },
 
   'modal-connect': () => h.statusBar() + h.navBar('My PulseCare', false) +
