@@ -155,6 +155,99 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .guide-scan-text { font-size: 13px; color: #c4787a; font-weight: 500; }
 @keyframes scanPulse { 0%,100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.15); opacity: 0.7; } }
 @keyframes pulse { 0%,80%,100% { opacity: 0.3; } 40% { opacity: 1; } }
+
+/* Assessment module selection */
+.assess-page { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+.assess-page::-webkit-scrollbar { display: none; }
+.assess-body { flex: 1; padding: 20px 16px; }
+.assess-subtitle { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+.assess-desc { font-size: 13px; color: #999; margin-bottom: 20px; line-height: 1.5; }
+.module-option { display: flex; align-items: center; gap: 14px; padding: 16px; background: #f8f8f8; border-radius: 14px; margin-bottom: 10px; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+.module-option.sel { border-color: #c4787a; background: #fdf0f0; }
+.module-option .mo-icon { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.module-option .mo-info { flex: 1; }
+.module-option .mo-name { font-size: 14px; font-weight: 600; color: #1a1a1a; }
+.module-option .mo-desc { font-size: 12px; color: #999; margin-top: 2px; }
+.module-option .mo-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #ddd; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.module-option.sel .mo-check { border-color: #c4787a; background: #c4787a; }
+.module-none { padding: 14px 0; text-align: center; font-size: 13px; color: #999; cursor: pointer; }
+.module-none:hover { color: #c4787a; }
+.assess-footer { padding: 12px 16px 34px; }
+.assess-footer .btn-primary { border-radius: 24px; }
+.assess-footer .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Questionnaire */
+.q-nav { display: flex; align-items: center; justify-content: space-between; height: 44px; padding: 0 16px; flex-shrink: 0; }
+.q-cancel { font-size: 15px; color: #c4787a; font-weight: 500; cursor: pointer; }
+.q-step-label { font-size: 13px; color: #999; }
+.q-progress-bar { height: 3px; background: #f0f0f0; margin: 0 16px; flex-shrink: 0; border-radius: 2px; }
+.q-progress-fill { height: 100%; background: #c4787a; border-radius: 2px; transition: width 0.3s; }
+.q-module-tag { margin: 16px 16px 0; display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+.q-module-tag.incont { background: #fce4ec; color: #c4787a; }
+.q-module-tag.pain { background: #fff3e0; color: #e65100; }
+.q-module-tag.hip { background: #e8f5e9; color: #2e7d32; }
+.q-body { flex: 1; padding: 20px 16px; }
+.q-title { font-size: 18px; font-weight: 700; color: #1a1a1a; line-height: 1.4; margin-bottom: 20px; }
+.q-option { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #f8f8f8; border-radius: 12px; margin-bottom: 8px; cursor: pointer; border: 2px solid transparent; transition: all 0.15s; }
+.q-option.sel { border-color: #c4787a; background: #fdf0f0; }
+.q-option .qo-radio { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ddd; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.q-option.sel .qo-radio { border-color: #c4787a; }
+.q-option.sel .qo-radio::after { content: ''; width: 10px; height: 10px; border-radius: 50%; background: #c4787a; }
+.q-option .qo-text { font-size: 14px; color: #333; }
+.q-option.sel .qo-text { color: #1a1a1a; font-weight: 500; }
+.q-btns { display: flex; gap: 10px; padding: 12px 16px 34px; flex-shrink: 0; }
+.q-btns .btn-prev { flex: 1; padding: 12px; background: #f0f0f0; color: #555; border: none; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.q-btns .btn-next { flex: 2; padding: 12px; background: #c4787a; color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; }
+.q-btns .btn-next.submit { background: #c4787a; }
+
+/* Exit dialog */
+.exit-dialog { background: #fff; border-radius: 20px; padding: 28px 24px; width: 300px; text-align: center; }
+.exit-dialog .ed-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 10px; }
+.exit-dialog .ed-desc { font-size: 13px; color: #999; line-height: 1.6; margin-bottom: 20px; }
+.exit-dialog .btn-save { width: 100%; padding: 12px; background: #c4787a; color: #fff; border: none; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; margin-bottom: 8px; }
+.exit-dialog .btn-discard { width: 100%; padding: 12px; background: #f8f8f8; color: #e53935; border: none; border-radius: 12px; font-size: 14px; font-weight: 500; cursor: pointer; margin-bottom: 8px; }
+.exit-dialog .btn-stay { width: 100%; padding: 10px; background: transparent; color: #999; border: none; font-size: 13px; cursor: pointer; }
+
+/* Loading / generating */
+.loading-page { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; }
+.loading-spinner { width: 56px; height: 56px; border: 3px solid #f0f0f0; border-top-color: #c4787a; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 24px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-text { font-size: 15px; color: #999; text-align: center; line-height: 1.6; }
+
+/* Assessment result */
+.result-page { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+.result-page::-webkit-scrollbar { display: none; }
+.result-tabs { display: flex; gap: 0; padding: 0 16px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0; }
+.result-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 13px; font-weight: 500; color: #999; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; }
+.result-tab.active { color: #c4787a; border-bottom-color: #c4787a; }
+.result-body { flex: 1; padding: 20px 16px; }
+.result-severity { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.severity-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.severity-badge.moderate { background: #fff3e0; color: #e65100; }
+.severity-badge.mild { background: #e8f5e9; color: #2e7d32; }
+.severity-badge.severe { background: #fce4ec; color: #c62828; }
+.severity-badge.improved { background: #e8f5e9; color: #2e7d32; }
+.result-score { font-size: 13px; color: #999; }
+.result-section { margin-bottom: 20px; }
+.result-section-title { font-size: 13px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+.result-card { background: #f8f8f8; border-radius: 14px; padding: 16px; }
+.result-card .rc-label { font-size: 12px; color: #999; margin-bottom: 4px; }
+.result-card .rc-value { font-size: 15px; font-weight: 600; color: #1a1a1a; }
+.result-card .rc-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; }
+.result-card .rc-row + .rc-row { border-top: 1px solid #f0f0f0; }
+.result-disclaimer { font-size: 11px; color: #bbb; text-align: center; line-height: 1.5; padding: 12px 0; }
+.result-footer { padding: 12px 16px 34px; flex-shrink: 0; }
+
+/* Trend chart area */
+.trend-area { background: #f8f8f8; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
+.trend-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.trend-title { font-size: 13px; font-weight: 600; color: #1a1a1a; }
+.trend-change { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px; }
+.trend-change.improved { background: #e8f5e9; color: #2e7d32; }
+.trend-change.worsened { background: #fce4ec; color: #c62828; }
+.trend-legend { display: flex; gap: 14px; margin-top: 10px; }
+.trend-legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #999; }
+.trend-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
 </style>
 </head>
 <body>
@@ -162,7 +255,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 <div class="sidebar">
   <div class="sidebar-header">
     <h2>PulseCare 原型演示</h2>
-    <p>设备主页 · 所有状态</p>
+    <p>设备主页 · 问卷评估</p>
   </div>
   <div class="sidebar-list">
     <div class="sidebar-group">
@@ -193,6 +286,30 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       </div>
       <div class="sidebar-item" data-page="modal-modes" onclick="showPage(this)">
         <span class="dot blue"></span>模式选择面板
+      </div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">问卷评估</div>
+      <div class="sidebar-item" data-page="assess-select" onclick="showPage(this)">
+        <span class="dot blue"></span>模块筛选
+      </div>
+      <div class="sidebar-item" data-page="assess-q-incont" onclick="showPage(this)">
+        <span class="dot blue"></span>问卷填写 · 尿失禁
+      </div>
+      <div class="sidebar-item" data-page="assess-q-pain" onclick="showPage(this)">
+        <span class="dot blue"></span>问卷填写 · 疼痛
+      </div>
+      <div class="sidebar-item" data-page="assess-exit-dialog" onclick="showPage(this)">
+        <span class="dot orange"></span>退出确认弹窗
+      </div>
+      <div class="sidebar-item" data-page="assess-loading" onclick="showPage(this)">
+        <span class="dot blue"></span>结果生成中
+      </div>
+      <div class="sidebar-item" data-page="assess-result-first" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 首次
+      </div>
+      <div class="sidebar-item" data-page="assess-result-multi" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 非首次多模块
       </div>
     </div>
   </div>
@@ -422,6 +539,250 @@ const pages = {
       '<div class="page-content" style="filter:brightness(0.6)">' + h.device(true, 67) + h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) + '</div>' +
       `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div></div>`;
   },
+
+  'assess-select': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel">Cancel</span>
+    <span class="q-step-label">Step 1 of 3</span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="assess-page">
+    <div class="assess-body">
+      <div class="assess-subtitle">Select Your Concerns</div>
+      <div class="assess-desc">Choose the areas you'd like to assess. You can select multiple modules.</div>
+      <div class="module-option sel" onclick="this.classList.toggle('sel')">
+        <div class="mo-icon" style="background:#fce4ec"><i data-lucide="droplets" style="width:22px;height:22px;color:#c4787a"></i></div>
+        <div class="mo-info"><div class="mo-name">Incontinence</div><div class="mo-desc">ICIQ Questionnaire · 6 questions</div></div>
+        <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+      </div>
+      <div class="module-option sel" onclick="this.classList.toggle('sel')">
+        <div class="mo-icon" style="background:#fff3e0"><i data-lucide="flame" style="width:22px;height:22px;color:#e65100"></i></div>
+        <div class="mo-info"><div class="mo-name">Pain</div><div class="mo-desc">Pain Scale · 4 questions</div></div>
+        <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
+      </div>
+      <div class="module-option" onclick="this.classList.toggle('sel')">
+        <div class="mo-icon" style="background:#e8f5e9"><i data-lucide="footprints" style="width:22px;height:22px;color:#2e7d32"></i></div>
+        <div class="mo-info"><div class="mo-name">Hip & Leg Function</div><div class="mo-desc">PGQ Questionnaire · 5 questions</div></div>
+        <div class="mo-check"></div>
+      </div>
+      <div class="module-none">I have none of these concerns</div>
+    </div>
+    <div class="assess-footer">
+      <button class="btn-primary">Start Assessment</button>
+    </div>
+  </div>`,
+
+  'assess-q-incont': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel">Cancel</span>
+    <span class="q-step-label">Q3 of 10</span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="q-progress-bar"><div class="q-progress-fill" style="width:30%"></div></div>
+  <div class="assess-page">
+    <div class="q-module-tag incont">Incontinence</div>
+    <div class="q-body">
+      <div class="q-title">How often do you experience urine leakage?</div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">Never</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">About once a week</span>
+      </div>
+      <div class="q-option sel" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">2-3 times a week</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">About once a day</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">Several times a day</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">All the time</span>
+      </div>
+    </div>
+    <div class="q-btns">
+      <button class="btn-prev">Previous</button>
+      <button class="btn-next">Next</button>
+    </div>
+  </div>`,
+
+  'assess-q-pain': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel">Cancel</span>
+    <span class="q-step-label">Q8 of 10</span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="q-progress-bar"><div class="q-progress-fill" style="width:80%"></div></div>
+  <div class="assess-page">
+    <div class="q-module-tag pain">Pain</div>
+    <div class="q-body">
+      <div class="q-title">How would you rate your pelvic pain in the past week?</div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">0 — No pain</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">1-3 — Mild pain</span>
+      </div>
+      <div class="q-option sel" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">4-6 — Moderate pain</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">7-9 — Severe pain</span>
+      </div>
+      <div class="q-option" onclick="document.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">
+        <div class="qo-radio"></div><span class="qo-text">10 — Worst possible pain</span>
+      </div>
+    </div>
+    <div class="q-btns">
+      <button class="btn-prev">Previous</button>
+      <button class="btn-next submit">Submit</button>
+    </div>
+  </div>`,
+
+  'assess-exit-dialog': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel">Cancel</span>
+    <span class="q-step-label">Q5 of 10</span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="q-progress-bar"><div class="q-progress-fill" style="width:50%"></div></div>
+  <div class="assess-page" style="filter:brightness(0.6)">
+    <div class="q-module-tag incont">Incontinence</div>
+    <div class="q-body">
+      <div class="q-title">How much urine do you usually leak?</div>
+      <div class="q-option"><div class="qo-radio"></div><span class="qo-text">None</span></div>
+      <div class="q-option sel"><div class="qo-radio"></div><span class="qo-text">A small amount</span></div>
+      <div class="q-option"><div class="qo-radio"></div><span class="qo-text">A moderate amount</span></div>
+      <div class="q-option"><div class="qo-radio"></div><span class="qo-text">A large amount</span></div>
+    </div>
+  </div>
+  <div class="overlay" style="z-index:30">
+    <div class="exit-dialog">
+      <div class="ed-title">Exit Assessment?</div>
+      <div class="ed-desc">You can save your progress and continue later, or discard all answers.</div>
+      <button class="btn-save">Save Draft</button>
+      <button class="btn-discard">Discard</button>
+      <button class="btn-stay">Cancel</button>
+    </div>
+  </div>`,
+
+  'assess-loading': () => h.statusBar() + `<div class="q-nav">
+    <div style="width:50px"></div>
+    <span class="q-step-label"></span>
+    <div style="width:50px"></div>
+  </div>
+  <div class="loading-page">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Generating your<br>personalized plan...</div>
+  </div>`,
+
+  'assess-result-first': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <div class="result-severity">
+        <span class="severity-badge moderate">Moderate</span>
+        <span class="result-score">ICIQ Score: 12 / 21</span>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Your Condition</div>
+        <div class="result-card">
+          <div class="rc-label">Type</div>
+          <div class="rc-value" style="font-size:14px;margin-bottom:10px">Stress Urinary Incontinence</div>
+          <div class="rc-label">Description</div>
+          <div style="font-size:13px;color:#555;line-height:1.5">You experience moderate urine leakage, primarily during physical activities such as coughing, sneezing, or exercise. This is common among postpartum women.</div>
+        </div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Recommended Plan</div>
+        <div class="result-card">
+          <div class="rc-row"><div><div class="rc-label">Training Mode</div><div class="rc-value" style="font-size:14px">Activation + Strength</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Frequency</div><div class="rc-value" style="font-size:14px">4 sessions / week</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Duration</div><div class="rc-value" style="font-size:14px">6 weeks</div></div></div>
+        </div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary">Customize Training Plan</button>
+    </div>
+  </div>`,
+
+  'assess-result-multi': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-tabs">
+      <div class="result-tab active">Incontinence</div>
+      <div class="result-tab">Pain</div>
+    </div>
+    <div class="result-body">
+      <div class="result-severity">
+        <span class="severity-badge mild">Mild</span>
+        <span class="severity-badge improved">↓ Improved</span>
+        <span class="result-score">ICIQ: 8 / 21</span>
+      </div>
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">Progress Over Time</div>
+          <div class="trend-change improved">↓ 19% improved</div>
+        </div>
+        <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
+          <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <text x="5" y="15" font-size="9" fill="#ccc">100%</text>
+          <text x="5" y="48" font-size="9" fill="#ccc">50%</text>
+          <text x="5" y="83" font-size="9" fill="#ccc">0%</text>
+          <text x="55" y="95" font-size="8" fill="#ccc">Jan</text>
+          <text x="115" y="95" font-size="8" fill="#ccc">Feb</text>
+          <text x="175" y="95" font-size="8" fill="#ccc">Mar</text>
+          <text x="235" y="95" font-size="8" fill="#ccc">Apr</text>
+          <polyline points="55,35 95,38 135,32 175,28 215,22 255,18" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="55" cy="35" r="3" fill="#c4787a"/>
+          <circle cx="95" cy="38" r="3" fill="#c4787a"/>
+          <circle cx="135" cy="32" r="3" fill="#c4787a"/>
+          <circle cx="175" cy="28" r="3" fill="#c4787a"/>
+          <circle cx="215" cy="22" r="3" fill="#c4787a"/>
+          <circle cx="255" cy="18" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+          <polyline points="55,55 95,50 135,48 175,44 215,50 255,42" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="4,3"/>
+          <circle cx="55" cy="55" r="3" fill="#e65100"/>
+          <circle cx="95" cy="50" r="3" fill="#e65100"/>
+          <circle cx="135" cy="48" r="3" fill="#e65100"/>
+          <circle cx="175" cy="44" r="3" fill="#e65100"/>
+          <circle cx="215" cy="50" r="3" fill="#e65100"/>
+          <circle cx="255" cy="42" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="trend-legend">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>Incontinence</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain</div>
+        </div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Your Condition</div>
+        <div class="result-card">
+          <div class="rc-label">Type</div>
+          <div class="rc-value" style="font-size:14px;margin-bottom:10px">Stress Urinary Incontinence</div>
+          <div class="rc-label">Compared to Last Assessment</div>
+          <div style="font-size:13px;color:#2e7d32;line-height:1.5;margin-top:4px">Your symptoms have improved from Moderate to Mild. Keep up the good work!</div>
+        </div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Recommended Plan</div>
+        <div class="result-card">
+          <div class="rc-row"><div><div class="rc-label">Training Mode</div><div class="rc-value" style="font-size:14px">Strength + Endurance</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Frequency</div><div class="rc-value" style="font-size:14px">3 sessions / week</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">Duration</div><div class="rc-value" style="font-size:14px">4 weeks</div></div></div>
+        </div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary">Customize Training Plan</button>
+    </div>
+  </div>`,
 
 };
 
