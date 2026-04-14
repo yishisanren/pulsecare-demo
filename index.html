@@ -199,6 +199,52 @@ const MODES = [
   { name: 'Low-Frequency', cat: 'Therapy', desc: 'Low-frequency electrotherapy', time: '25 mins', icon: 'radio' },
 ];
 
+const state = { selectedMode: 0, currentPage: 'home-connected' };
+
+function openModePanel() {
+  const phone = document.getElementById('phone');
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.style.background = 'transparent';
+  overlay.onclick = (e) => { if (e.target === overlay) closeModePanel(); };
+  const dim = phone.querySelector('.page-content');
+  if (dim) dim.style.filter = 'brightness(0.6)';
+
+  const items = MODES.map((m, i) => `<div class="mode-item${i===state.selectedMode?' sel':''}" onclick="selectMode(${i})">
+    <div class="mi-num">0${i+1}</div>
+    <div class="mi-info">
+      <div class="mi-name">${m.name}</div>
+      <div class="mi-desc">${m.desc}</div>
+      <div class="mi-tags"><span class="mi-tag">${m.cat}</span><span class="mi-tag">${m.time}</span></div>
+    </div>
+    <i data-lucide="chevron-right" class="mi-arrow" style="width:16px;height:16px"></i>
+  </div>`).join('');
+
+  const panel = document.createElement('div');
+  panel.className = 'mode-panel';
+  panel.id = 'modePanel';
+  panel.innerHTML = `<div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div>`;
+  phone.appendChild(overlay);
+  phone.appendChild(panel);
+  if (window.lucide) lucide.createIcons();
+}
+
+function closeModePanel() {
+  const phone = document.getElementById('phone');
+  const panel = phone.querySelector('#modePanel');
+  const overlay = phone.querySelector('.overlay');
+  if (panel) panel.remove();
+  if (overlay) overlay.remove();
+  const dim = phone.querySelector('.page-content');
+  if (dim) dim.style.filter = '';
+}
+
+function selectMode(idx) {
+  state.selectedMode = idx;
+  closeModePanel();
+  showPage(document.querySelector('.sidebar-item.active'));
+}
+
 const h = {
   statusBar: () => `<div class="status-bar">
     <span class="status-time">9:41</span>
@@ -237,12 +283,13 @@ const h = {
     return `<div class="card"><div class="card-header"><span class="card-title">Today's training plan</span><span class="card-link">View Schedule</span></div>${rows}</div>`;
   },
 
-  customize: (mode) => {
-    const m = mode || MODES[0];
+  customize: () => {
+    const idx = state.selectedMode;
+    const m = MODES[idx];
     return `<div class="customize-card">
-      <div class="customize-header"><div class="customize-label">Customize training</div><span class="customize-link">Change Mode</span></div>
-      <div class="customize-mode">
-        <div class="cm-num">01</div>
+      <div class="customize-header"><div class="customize-label">Customize training</div><span class="customize-link" onclick="openModePanel()">Change Mode</span></div>
+      <div class="customize-mode" onclick="openModePanel()">
+        <div class="cm-num">0${idx+1}</div>
         <div class="cm-info"><div class="cm-name">${m.name}</div><div class="cm-meta">${m.cat} · ${m.time}</div></div>
         <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc"></i>
       </div>
@@ -318,7 +365,7 @@ const pages = {
 
 
   'modal-modes': () => {
-    const items = MODES.map((m, i) => `<div class="mode-item${i===0?' sel':''}">
+    const items = MODES.map((m, i) => `<div class="mode-item${i===state.selectedMode?' sel':''}" onclick="selectMode(${i})">
       <div class="mi-num">0${i+1}</div>
       <div class="mi-info">
         <div class="mi-name">${m.name}</div>
@@ -337,15 +384,15 @@ const pages = {
     `<div class="overlay"><div class="dialog">
       <div class="dialog-icon"><i data-lucide="bluetooth" style="width:26px;height:26px;color:#1976d2"></i></div>
       <div class="dialog-title">Connect Your Device</div>
-      <div class="dialog-desc">Please connect your PulseCare device to start training. Make sure Bluetooth is enabled.</div>
-      <button class="btn-primary">Connect Now</button>
-      <button class="btn-ghost">Later</button>
+      <div class="dialog-desc">Please make sure your PulseCare device is powered on. It will connect automatically once turned on.</div>
+      <button class="btn-primary">OK</button>
     </div></div>`,
 };
 
 function showPage(el) {
   document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
+  state.currentPage = el.dataset.page;
   document.getElementById('phone').innerHTML = pages[el.dataset.page]();
   if (window.lucide) lucide.createIcons();
 }
