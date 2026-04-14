@@ -163,9 +163,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="home-draft" onclick="showPage(this)">
         <span class="dot orange"></span>有草稿 · 继续评估入口
       </div>
-      <div class="sidebar-item" data-page="home-reassess" onclick="showPage(this)">
-        <span class="dot red"></span>红点提示 · 待重新评估
-      </div>
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">弹窗 / 浮层</div>
@@ -278,11 +275,6 @@ const h = {
     <i data-lucide="chevron-right" style="width:18px;height:18px;color:#e65100"></i>
   </div>`,
 
-  reassess: () => `<div class="draft-banner" style="background:linear-gradient(135deg,#fce4ec,#f8bbd0)">
-    <div class="icon-wrap" style="background:#c4787a"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#fff"></i></div>
-    <div class="text"><div class="label" style="color:#c62828">Reassessment Available</div><div class="desc" style="color:#ad1457">Your training cycle is complete. Take a reassessment to track your progress.</div></div>
-    <i data-lucide="chevron-right" style="width:18px;height:18px;color:#c62828"></i>
-  </div>`,
 
   emptyRecord: (type) => `<div class="record-card"><div class="record-header"><span class="record-title">${type === 'training' ? 'Training Record' : 'Assessment Record'}</span></div><div class="no-data-text">No records yet</div></div>`,
 };
@@ -318,9 +310,6 @@ const pages = {
     h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) +
     h.customize() + h.trainingRecord(8, [3,10,15,22,28,30,32]) + h.assessmentRecord(65) + h.assessmentCTA() + '</div>',
 
-  'home-reassess': () => h.statusBar() + h.navBar('My PulseCare', true) + '<div class="page-content">' +
-    h.device(true, 45) + h.reassess() + h.doneDay() + h.customize() +
-    h.trainingRecord(24, [20,25,30,28,35,38,40]) + h.assessmentRecord(85) + h.assessmentCTA() + '</div>',
 
   'modal-modes': () => {
     const cards = MODES.map((m, i) => `<div class="mode-card${i===0?' sel':''}">
