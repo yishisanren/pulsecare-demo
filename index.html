@@ -525,17 +525,8 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">训练计划生成</div>
-      <div class="sidebar-item" data-page="plan-step1" onclick="showPage(this)">
-        <span class="dot blue"></span>Step 1 · 训练周期
-      </div>
-      <div class="sidebar-item" data-page="plan-step2" onclick="showPage(this)">
-        <span class="dot blue"></span>Step 2 · 训练日期
-      </div>
-      <div class="sidebar-item" data-page="plan-step3" onclick="showPage(this)">
-        <span class="dot blue"></span>Step 3 · 模式确认
-      </div>
-      <div class="sidebar-item" data-page="plan-step4" onclick="showPage(this)">
-        <span class="dot blue"></span>Step 4 · 提醒时间
+      <div class="sidebar-item" data-page="plan-config" onclick="showPage(this)">
+        <span class="dot blue"></span>训练计划配置
       </div>
       <div class="sidebar-item" data-page="plan-preview" onclick="showPage(this)">
         <span class="dot green"></span>训练计划预览
@@ -1074,7 +1065,7 @@ const pages = {
     </div>
   </div>`,
 
-  'plan-step1': () => h.statusBar() + `<div class="nav-bar">
+  'plan-config': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Plan</span>
     <div style="width:32px"></div>
@@ -1084,16 +1075,20 @@ const pages = {
     <div class="plan-tab">Pain</div>
   </div>
   <div class="plan-page">
-    <div class="plan-steps-indicator">
-      <div class="plan-step-dot active"></div>
-      <div class="plan-step-dot"></div>
-      <div class="plan-step-dot"></div>
-      <div class="plan-step-dot"></div>
-    </div>
     <div class="plan-body">
-      <div class="plan-step-title">Training Duration</div>
+      <div class="plan-step-title" style="margin-bottom:4px">Training Mode</div>
+      <div class="mode-confirm-card" style="margin-bottom:20px">
+        <div class="mc-icon"><i data-lucide="zap" style="width:26px;height:26px;color:#c4787a"></i></div>
+        <div class="mc-info">
+          <div class="mc-name">Activation</div>
+          <div class="mc-meta">Basic · EMS · 24 mins per session</div>
+          <div class="mc-lock"><i data-lucide="lock" style="width:12px;height:12px;color:#bbb"></i> Auto-selected based on assessment</div>
+        </div>
+      </div>
+
+      <div class="plan-step-title" style="margin-bottom:4px">Duration</div>
       <div class="plan-step-desc">Based on your assessment, we recommend 6 weeks of training.</div>
-      <div class="segment-group">
+      <div class="segment-group" style="margin-bottom:20px">
         <div class="segment-btn" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
           <div class="seg-val">4</div><div class="seg-label">weeks</div>
         </div>
@@ -1104,159 +1099,70 @@ const pages = {
           <div class="seg-val">8</div><div class="seg-label">weeks</div>
         </div>
       </div>
-    </div>
-    <div class="plan-footer">
-      <button class="btn-primary">Next</button>
-    </div>
-  </div>`,
 
-  'plan-step2': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training Plan</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="plan-tabs">
-    <div class="plan-tab active">Incontinence</div>
-    <div class="plan-tab">Pain</div>
-  </div>
-  <div class="plan-page">
-    <div class="plan-steps-indicator">
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot active"></div>
-      <div class="plan-step-dot"></div>
-      <div class="plan-step-dot"></div>
-    </div>
-    <div class="plan-body">
-      <div class="plan-step-title">Training Days</div>
-      <div class="cal-hint">Recommended: <b>4 sessions/week</b> · You selected <b>4 days/week</b></div>
-      <div style="margin-top:16px">
+      <div class="plan-step-title" style="margin-bottom:4px">Training Days</div>
+      <div class="cal-hint" style="margin-bottom:8px">Recommended: <b>4 sessions/week</b> · You selected <b>4 days/week</b></div>
+      <div style="margin-bottom:20px">
         <div class="cal-header"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">19</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">20</div>
-          </div>
-        </div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">26</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">27</div>
-          </div>
-        </div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">28</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">29</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">30</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">1</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">2</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">3</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">4</div>
-          </div>
-        </div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">5</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">6</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">7</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">8</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">9</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">10</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">11</div>
-          </div>
-        </div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">12</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">13</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
-          </div>
-        </div>
-        <div class="cal-week">
-          <div class="cal-days">
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">19</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">20</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
-            <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
-            <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
-          </div>
-        </div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">19</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">20</div>
+        </div></div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">26</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">27</div>
+        </div></div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">28</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">29</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">30</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">1</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">2</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">3</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">4</div>
+        </div></div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">5</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">6</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">7</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">8</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">9</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">10</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">11</div>
+        </div></div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">12</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">13</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
+        </div></div>
+        <div class="cal-week"><div class="cal-days">
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">19</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">20</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
+          <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
+          <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
+        </div></div>
       </div>
-    </div>
-    <div class="plan-footer">
-      <button class="btn-primary">Next</button>
-    </div>
-  </div>`,
 
-  'plan-step3': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training Plan</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="plan-tabs">
-    <div class="plan-tab active">Incontinence</div>
-    <div class="plan-tab">Pain</div>
-  </div>
-  <div class="plan-page">
-    <div class="plan-steps-indicator">
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot active"></div>
-      <div class="plan-step-dot"></div>
-    </div>
-    <div class="plan-body">
-      <div class="plan-step-title">Training Mode</div>
-      <div class="plan-step-desc">This mode is recommended based on your assessment results.</div>
-      <div class="mode-confirm-card">
-        <div class="mc-icon"><i data-lucide="zap" style="width:26px;height:26px;color:#c4787a"></i></div>
-        <div class="mc-info">
-          <div class="mc-name">Activation</div>
-          <div class="mc-meta">Basic · EMS · 24 mins per session</div>
-          <div class="mc-lock"><i data-lucide="lock" style="width:12px;height:12px;color:#bbb"></i> Auto-selected based on assessment</div>
-        </div>
-      </div>
-    </div>
-    <div class="plan-footer">
-      <button class="btn-primary">Next</button>
-    </div>
-  </div>`,
-
-  'plan-step4': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training Plan</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="plan-tabs">
-    <div class="plan-tab active">Incontinence</div>
-    <div class="plan-tab">Pain</div>
-  </div>
-  <div class="plan-page">
-    <div class="plan-steps-indicator">
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot done"></div>
-      <div class="plan-step-dot active"></div>
-    </div>
-    <div class="plan-body">
-      <div class="plan-step-title">Training Reminder</div>
-      <div class="plan-step-desc">Set a daily reminder to stay on track with your training.</div>
-      <div class="time-picker">
+      <div class="plan-step-title" style="margin-bottom:4px">Reminder</div>
+      <div class="plan-step-desc">Set a daily reminder to stay on track.</div>
+      <div class="time-picker" style="margin-bottom:8px">
         <div class="tp-wheel">
           <div class="tp-col">
             <div class="tp-item">07</div>
@@ -1275,7 +1181,7 @@ const pages = {
           </div>
         </div>
       </div>
-      <div class="tp-no-reminder">
+      <div class="tp-no-reminder" style="margin-bottom:12px">
         <span>No reminder</span>
         <div class="tp-toggle" onclick="this.classList.toggle('on')"></div>
       </div>
