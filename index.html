@@ -815,21 +815,9 @@ const h = {
 };
 
 function planFormHTML(modeName, icon, modeMeta, recWeeks, recDays) {
-  const calWeeks = [];
-  let d = 14;
-  for (let w = 0; w < recWeeks; w++) {
-    const days = [];
-    for (let i = 0; i < 7; i++) {
-      const num = ((d - 1) % 30) + 1;
-      const sel = (i % Math.floor(7 / recDays)) === 0 && days.filter(x=>x.sel).length < recDays;
-      days.push({ num, sel });
-      d++;
-    }
-    calWeeks.push(days);
-  }
-  const calHTML = calWeeks.map(wk => `<div class="cal-week"><div class="cal-days">${wk.map(dy =>
-    `<div class="cal-day${dy.sel?' sel':''}" onclick="this.classList.toggle('sel')">${dy.num}</div>`
-  ).join('')}</div></div>`).join('');
+  const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const presets = {1:[2],2:[1,4],3:[0,2,4],4:[0,2,4,6],5:[0,1,2,4,5],6:[0,1,2,3,4,5],7:[0,1,2,3,4,5,6]};
+  const selDays = presets[recDays] || presets[3];
 
   return `<div class="plan-step-title" style="margin-bottom:4px">Training Mode</div>
     <div class="mode-confirm-card" style="margin-bottom:20px">
@@ -849,7 +837,9 @@ function planFormHTML(modeName, icon, modeMeta, recWeeks, recDays) {
     <div class="cal-hint" style="margin-bottom:8px"><b>${recDays} sessions/week</b> · pre-selected based on your assessment</div>
     <div style="margin-bottom:20px">
       <div class="cal-header"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
-      ${calHTML}
+      <div class="cal-week"><div class="cal-days">${dayNames.map((name,i) =>
+        `<div class="cal-day${selDays.includes(i)?' sel':''}" onclick="this.classList.toggle('sel')">${name.charAt(0)}</div>`
+      ).join('')}</div></div>
     </div>
     <div class="plan-step-title" style="margin-bottom:4px">Reminder</div>
     <div class="plan-step-desc">Set a daily reminder to stay on track.</div>
@@ -1324,27 +1314,24 @@ const pages = {
 
   'plan-preview': () => {
     state.previewTab = state.previewTab || 0;
+    const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     const plans = [
-      { name: 'Incontinence', mode: 'Activation', freq: '4x/week', time: '24 min', color: '#c4787a', total: 24,
-        weeks: [
-          { title: 'Week 1 · Apr 14 – Apr 20', days: [{d:'14',m:'Activation',t:'24 min'},{d:'15',rest:true},{d:'16',m:'Activation',t:'24 min'},{d:'17',rest:true},{d:'18',m:'Activation',t:'24 min'},{d:'19',rest:true},{d:'20',m:'Activation',t:'24 min'}]},
-          { title: 'Week 2 · Apr 21 – Apr 27', days: [{d:'21',m:'Activation',t:'24 min'},{d:'22',rest:true},{d:'23',m:'Activation',t:'24 min'},{d:'24',rest:true},{d:'25',m:'Activation',t:'24 min'},{d:'26',rest:true},{d:'27',m:'Activation',t:'24 min'}]},
-        ]},
-      { name: 'Pain', mode: 'Pain Soothe', freq: '3x/week', time: '20 min', color: '#e65100', total: 18,
-        weeks: [
-          { title: 'Week 1 · Apr 14 – Apr 20', days: [{d:'14',m:'Pain Soothe',t:'20 min'},{d:'15',rest:true},{d:'16',m:'Pain Soothe',t:'20 min'},{d:'17',rest:true},{d:'18',m:'Pain Soothe',t:'20 min'},{d:'19',rest:true},{d:'20',rest:true}]},
-          { title: 'Week 2 · Apr 21 – Apr 27', days: [{d:'21',m:'Pain Soothe',t:'20 min'},{d:'22',rest:true},{d:'23',m:'Pain Soothe',t:'20 min'},{d:'24',rest:true},{d:'25',m:'Pain Soothe',t:'20 min'},{d:'26',rest:true},{d:'27',rest:true}]},
-        ]},
+      { name: 'Incontinence', mode: 'Activation', freq: '4x/week', time: '24 min', color: '#c4787a', total: 24, weeks: 6, days: [0,2,4,6] },
+      { name: 'Pain', mode: 'Pain Soothe', freq: '3x/week', time: '20 min', color: '#e65100', total: 18, weeks: 6, days: [0,2,4] },
     ];
     const p = plans[state.previewTab];
     const tabHtml = plans.map((pl,i) => `<div class="plan-tab${i===state.previewTab?' active':''}" onclick="state.previewTab=${i};goTo('plan-preview')">${pl.name}</div>`).join('');
-    const weekHtml = p.weeks.map(w => `<div class="preview-week">
-      <div class="pw-title">${w.title}</div>
-      <div class="pw-days">${w.days.map(d => d.rest
-        ? `<div class="pw-day rest"><div class="pwd-date">${d.d}</div><div class="pw-day-dot" style="background:#e0e0e0"></div><div class="pwd-name">Rest</div></div>`
-        : `<div class="pw-day"><div class="pwd-date">${d.d}</div><div class="pw-day-dot" style="background:${p.color}"></div><div class="pwd-name">${d.m}</div><div class="pwd-time">${d.t}</div></div>`
-      ).join('')}</div>
-    </div>`).join('');
+    const startDate = new Date(2026,3,14);
+    const weeksHtml = Array.from({length:2},(_,wi) => {
+      const wStart = new Date(startDate);wStart.setDate(wStart.getDate()+wi*7);
+      const wEnd = new Date(wStart);wEnd.setDate(wEnd.getDate()+6);
+      const title = `Week ${wi+1} · ${['Jan','Feb','Mar','Apr','May','Jun'][wStart.getMonth()]} ${wStart.getDate()} – ${['Jan','Feb','Mar','Apr','May','Jun'][wEnd.getMonth()]} ${wEnd.getDate()}`;
+      const trainingDays = p.days.map(di => {
+        const dd = new Date(wStart);dd.setDate(dd.getDate()+di);
+        return `<div class="pw-day"><div class="pwd-date">${dayNames[di]} ${dd.getDate()}</div><div class="pw-day-dot" style="background:${p.color}"></div><div class="pwd-name">${p.mode}</div><div class="pwd-time">${p.time}</div></div>`;
+      }).join('');
+      return `<div class="preview-week"><div class="pw-title">${title}</div><div class="pw-days">${trainingDays}</div></div>`;
+    }).join('');
     return h.statusBar() + `<div class="nav-bar">
       <div class="back-btn" onclick="goTo('plan-config')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
       <span class="title">Plan Preview</span>
@@ -1354,13 +1341,13 @@ const pages = {
     <div class="plan-page">
       <div class="plan-body">
         <div class="preview-summary">
-          <div class="ps-row"><span class="ps-label">Duration</span><span class="ps-value">6 weeks · Apr 14 – May 25</span></div>
+          <div class="ps-row"><span class="ps-label">Duration</span><span class="ps-value">${p.weeks} weeks · Apr 14 – May 25</span></div>
           <div class="ps-row"><span class="ps-label">Mode</span><span class="ps-value">${p.mode} · ${p.freq} · ${p.time}</span></div>
           <div class="ps-row"><span class="ps-label">Total sessions</span><span class="ps-value">${p.total} sessions</span></div>
           <div class="ps-row"><span class="ps-label">Reminder</span><span class="ps-value">8:30 PM daily</span></div>
         </div>
-        ${weekHtml}
-        <div style="text-align:center;padding:8px 0;font-size:12px;color:#ccc">... Week 3–6 ...</div>
+        ${weeksHtml}
+        <div style="text-align:center;padding:8px 0;font-size:12px;color:#ccc">... Week 3–${p.weeks} ...</div>
       </div>
       <div class="plan-footer">
         <button class="btn-primary" onclick="goTo('sched-home')">Start Training Plan</button>
@@ -2127,9 +2114,10 @@ const prdMapping = {
 - 页面以大号数字展示推荐周期值
 - 下方标注"Based on your assessment result"
 
-### Step 2: 训练日期（系统预选）
-- 日历视图：展示选定周期的完整日期
+### Step 2: 训练日期（单周选择）
+- 展示一周7天（Mon-Sun），用户选择每周哪几天训练
 - 系统根据推荐频率**自动预选训练日**，用户可调整
+- 所选日期固定应用到每一周
 - 提示："X sessions/week · pre-selected based on your assessment"
 
 **预选日期映射表**：
@@ -2170,7 +2158,7 @@ const prdMapping = {
 |--------|------|------|
 | 训练模式 | 评估推荐的模式 | 锁定不可修改 |
 | 训练周期 | 根据评估结果确定 | **不允许用户选择**，仅展示推荐周期 |
-| 训练日期 | 日历视图 | 系统根据推荐频率**默认选好日期**，用户可调整 |
+| 训练日期 | 单周视图（Mon-Sun） | 系统根据推荐频率**默认选好日期**，用户可调整，所选日期固定应用到每一周 |
 | 提醒时间 | 滚轮选择器 | 默认当前时间，可选 No reminder |
 
 ### 日期预选映射表
@@ -2204,9 +2192,8 @@ const prdMapping = {
 
 **周计划展示**
 - 按周分组显示：Week 1, Week 2...
-- 每周显示7天日期和对应安排
-- 训练日：显示模式编号和训练时长
-- 休息日：显示"Rest"标记
+- **仅展示训练日**，不显示休息日
+- 训练日：显示星期+日期、模式名称、训练时长
 
 ### 多模块预览（Tab版）
 **顶部Tab栏**
