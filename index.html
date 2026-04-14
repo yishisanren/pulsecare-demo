@@ -248,6 +248,80 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .trend-legend { display: flex; gap: 14px; margin-top: 10px; }
 .trend-legend-item { display: flex; align-items: center; gap: 4px; font-size: 11px; color: #999; }
 .trend-legend-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+/* Plan generation */
+.plan-page { flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+.plan-page::-webkit-scrollbar { display: none; }
+.plan-tabs { display: flex; gap: 0; padding: 0 16px; border-bottom: 1px solid #f0f0f0; flex-shrink: 0; }
+.plan-tab { flex: 1; text-align: center; padding: 10px 0; font-size: 13px; font-weight: 500; color: #999; cursor: pointer; border-bottom: 2px solid transparent; }
+.plan-tab.active { color: #c4787a; border-bottom-color: #c4787a; }
+.plan-steps-indicator { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 14px 16px 6px; flex-shrink: 0; }
+.plan-step-dot { width: 8px; height: 8px; border-radius: 50%; background: #e0e0e0; }
+.plan-step-dot.active { background: #c4787a; width: 24px; border-radius: 4px; }
+.plan-step-dot.done { background: #c4787a; }
+.plan-body { flex: 1; padding: 16px; }
+.plan-step-title { font-size: 17px; font-weight: 700; color: #1a1a1a; margin-bottom: 6px; }
+.plan-step-desc { font-size: 13px; color: #999; line-height: 1.5; margin-bottom: 20px; }
+.plan-footer { padding: 12px 16px 34px; flex-shrink: 0; }
+
+/* Segment selector */
+.segment-group { display: flex; gap: 8px; margin-bottom: 16px; }
+.segment-btn { flex: 1; padding: 14px 8px; background: #f8f8f8; border: 2px solid transparent; border-radius: 12px; text-align: center; cursor: pointer; transition: all 0.15s; position: relative; }
+.segment-btn.sel { border-color: #c4787a; background: #fdf0f0; }
+.segment-btn .seg-val { font-size: 20px; font-weight: 700; color: #1a1a1a; }
+.segment-btn .seg-label { font-size: 11px; color: #999; margin-top: 2px; }
+.segment-btn .seg-rec { position: absolute; top: -8px; right: -4px; background: #c4787a; color: #fff; font-size: 9px; font-weight: 600; padding: 2px 6px; border-radius: 8px; }
+
+/* Calendar grid */
+.cal-header { display: flex; margin-bottom: 8px; }
+.cal-header span { flex: 1; text-align: center; font-size: 11px; font-weight: 600; color: #999; }
+.cal-week { display: flex; margin-bottom: 4px; }
+.cal-week .cal-label { width: 40px; font-size: 11px; color: #bbb; display: flex; align-items: center; }
+.cal-week .cal-days { display: flex; flex: 1; }
+.cal-day { flex: 1; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 12px; color: #333; border-radius: 50%; cursor: pointer; margin: 2px; transition: all 0.15s; }
+.cal-day.sel { background: #c4787a; color: #fff; font-weight: 600; }
+.cal-day.rest { color: #ccc; }
+.cal-day:hover:not(.sel) { background: #f8f8f8; }
+.cal-hint { font-size: 12px; color: #999; text-align: center; margin-top: 10px; line-height: 1.5; }
+.cal-hint b { color: #c4787a; font-weight: 600; }
+
+/* Mode confirm card */
+.mode-confirm-card { background: #f8f8f8; border-radius: 16px; padding: 20px; display: flex; align-items: center; gap: 16px; }
+.mc-icon { width: 52px; height: 52px; border-radius: 14px; background: #fce4ec; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.mc-info { flex: 1; }
+.mc-name { font-size: 16px; font-weight: 700; color: #1a1a1a; }
+.mc-meta { font-size: 13px; color: #999; margin-top: 4px; }
+.mc-lock { font-size: 11px; color: #bbb; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+
+/* Time picker mock */
+.time-picker { background: #f8f8f8; border-radius: 16px; padding: 20px; text-align: center; position: relative; overflow: hidden; }
+.tp-wheel { display: flex; align-items: center; justify-content: center; gap: 4px; }
+.tp-col { display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.tp-item { font-size: 18px; color: #ccc; padding: 6px 12px; }
+.tp-item.active { font-size: 24px; color: #1a1a1a; font-weight: 700; background: #fff; border-radius: 10px; }
+.tp-sep { font-size: 24px; font-weight: 700; color: #1a1a1a; padding: 0 4px; }
+.tp-ampm .tp-item.active { font-size: 18px; }
+.tp-no-reminder { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 16px; font-size: 13px; color: #999; cursor: pointer; }
+.tp-toggle { width: 40px; height: 22px; background: #e0e0e0; border-radius: 11px; position: relative; cursor: pointer; }
+.tp-toggle.on { background: #c4787a; }
+.tp-toggle::after { content: ''; position: absolute; top: 2px; left: 2px; width: 18px; height: 18px; background: #fff; border-radius: 50%; transition: all 0.2s; }
+.tp-toggle.on::after { left: 20px; }
+
+/* Plan preview */
+.preview-summary { background: #f8f8f8; border-radius: 16px; padding: 16px; margin-bottom: 16px; }
+.ps-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 13px; }
+.ps-row .ps-label { color: #999; }
+.ps-row .ps-value { color: #1a1a1a; font-weight: 500; }
+.preview-week { margin-bottom: 16px; }
+.pw-title { font-size: 13px; font-weight: 600; color: #999; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+.pw-days { display: flex; flex-direction: column; gap: 4px; }
+.pw-day { display: flex; align-items: center; padding: 10px 14px; background: #f8f8f8; border-radius: 10px; font-size: 13px; }
+.pw-day .pwd-date { width: 36px; color: #999; flex-shrink: 0; }
+.pw-day .pwd-name { flex: 1; color: #1a1a1a; font-weight: 500; }
+.pw-day .pwd-time { color: #999; font-size: 12px; }
+.pw-day.rest { opacity: 0.5; }
+.pw-day.rest .pwd-name { color: #ccc; font-weight: 400; }
+.pw-day-dot { width: 6px; height: 6px; border-radius: 50%; margin-right: 10px; flex-shrink: 0; }
 </style>
 </head>
 <body>
@@ -255,7 +329,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 <div class="sidebar">
   <div class="sidebar-header">
     <h2>PulseCare 原型演示</h2>
-    <p>设备主页 · 问卷评估</p>
+    <p>设备主页 · 问卷评估 · 训练计划</p>
   </div>
   <div class="sidebar-list">
     <div class="sidebar-group">
@@ -310,6 +384,24 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       </div>
       <div class="sidebar-item" data-page="assess-result-multi" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 非首次多模块
+      </div>
+    </div>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">训练计划生成</div>
+      <div class="sidebar-item" data-page="plan-step1" onclick="showPage(this)">
+        <span class="dot blue"></span>Step 1 · 训练周期
+      </div>
+      <div class="sidebar-item" data-page="plan-step2" onclick="showPage(this)">
+        <span class="dot blue"></span>Step 2 · 训练日期
+      </div>
+      <div class="sidebar-item" data-page="plan-step3" onclick="showPage(this)">
+        <span class="dot blue"></span>Step 3 · 模式确认
+      </div>
+      <div class="sidebar-item" data-page="plan-step4" onclick="showPage(this)">
+        <span class="dot blue"></span>Step 4 · 提醒时间
+      </div>
+      <div class="sidebar-item" data-page="plan-preview" onclick="showPage(this)">
+        <span class="dot green"></span>训练计划预览
       </div>
     </div>
   </div>
@@ -790,6 +882,272 @@ const pages = {
       <button class="btn-primary">Customize Training Plan</button>
     </div>
   </div>`,
+
+  'plan-step1': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Plan</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="plan-tabs">
+    <div class="plan-tab active">Incontinence</div>
+    <div class="plan-tab">Pain</div>
+  </div>
+  <div class="plan-page">
+    <div class="plan-steps-indicator">
+      <div class="plan-step-dot active"></div>
+      <div class="plan-step-dot"></div>
+      <div class="plan-step-dot"></div>
+      <div class="plan-step-dot"></div>
+    </div>
+    <div class="plan-body">
+      <div class="plan-step-title">Training Duration</div>
+      <div class="plan-step-desc">Based on your assessment, we recommend 6 weeks of training.</div>
+      <div class="segment-group">
+        <div class="segment-btn" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
+          <div class="seg-val">4</div><div class="seg-label">weeks</div>
+        </div>
+        <div class="segment-btn sel" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
+          <div class="seg-val">6</div><div class="seg-label">weeks</div><div class="seg-rec">Recommended</div>
+        </div>
+        <div class="segment-btn" onclick="document.querySelectorAll('.segment-btn').forEach(b=>b.classList.remove('sel'));this.classList.add('sel')">
+          <div class="seg-val">8</div><div class="seg-label">weeks</div>
+        </div>
+      </div>
+    </div>
+    <div class="plan-footer">
+      <button class="btn-primary">Next</button>
+    </div>
+  </div>`,
+
+  'plan-step2': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Plan</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="plan-tabs">
+    <div class="plan-tab active">Incontinence</div>
+    <div class="plan-tab">Pain</div>
+  </div>
+  <div class="plan-page">
+    <div class="plan-steps-indicator">
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot active"></div>
+      <div class="plan-step-dot"></div>
+      <div class="plan-step-dot"></div>
+    </div>
+    <div class="plan-body">
+      <div class="plan-step-title">Training Days</div>
+      <div class="cal-hint">Recommended: <b>4 sessions/week</b> · You selected <b>4 days/week</b></div>
+      <div style="margin-top:16px">
+        <div class="cal-header"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">19</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">20</div>
+          </div>
+        </div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">26</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">27</div>
+          </div>
+        </div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">28</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">29</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">30</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">1</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">2</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">3</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">4</div>
+          </div>
+        </div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">5</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">6</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">7</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">8</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">9</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">10</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">11</div>
+          </div>
+        </div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">12</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">13</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">14</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">15</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">16</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">17</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">18</div>
+          </div>
+        </div>
+        <div class="cal-week">
+          <div class="cal-days">
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">19</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">20</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">21</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">22</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">23</div>
+            <div class="cal-day" onclick="this.classList.toggle('sel')">24</div>
+            <div class="cal-day sel" onclick="this.classList.toggle('sel')">25</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="plan-footer">
+      <button class="btn-primary">Next</button>
+    </div>
+  </div>`,
+
+  'plan-step3': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Plan</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="plan-tabs">
+    <div class="plan-tab active">Incontinence</div>
+    <div class="plan-tab">Pain</div>
+  </div>
+  <div class="plan-page">
+    <div class="plan-steps-indicator">
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot active"></div>
+      <div class="plan-step-dot"></div>
+    </div>
+    <div class="plan-body">
+      <div class="plan-step-title">Training Mode</div>
+      <div class="plan-step-desc">This mode is recommended based on your assessment results.</div>
+      <div class="mode-confirm-card">
+        <div class="mc-icon"><i data-lucide="zap" style="width:26px;height:26px;color:#c4787a"></i></div>
+        <div class="mc-info">
+          <div class="mc-name">Activation</div>
+          <div class="mc-meta">Basic · EMS · 24 mins per session</div>
+          <div class="mc-lock"><i data-lucide="lock" style="width:12px;height:12px;color:#bbb"></i> Auto-selected based on assessment</div>
+        </div>
+      </div>
+    </div>
+    <div class="plan-footer">
+      <button class="btn-primary">Next</button>
+    </div>
+  </div>`,
+
+  'plan-step4': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Plan</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="plan-tabs">
+    <div class="plan-tab active">Incontinence</div>
+    <div class="plan-tab">Pain</div>
+  </div>
+  <div class="plan-page">
+    <div class="plan-steps-indicator">
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot done"></div>
+      <div class="plan-step-dot active"></div>
+    </div>
+    <div class="plan-body">
+      <div class="plan-step-title">Training Reminder</div>
+      <div class="plan-step-desc">Set a daily reminder to stay on track with your training.</div>
+      <div class="time-picker">
+        <div class="tp-wheel">
+          <div class="tp-col">
+            <div class="tp-item">07</div>
+            <div class="tp-item active">08</div>
+            <div class="tp-item">09</div>
+          </div>
+          <div class="tp-sep">:</div>
+          <div class="tp-col">
+            <div class="tp-item">29</div>
+            <div class="tp-item active">30</div>
+            <div class="tp-item">31</div>
+          </div>
+          <div class="tp-col tp-ampm" style="margin-left:12px">
+            <div class="tp-item">AM</div>
+            <div class="tp-item active">PM</div>
+          </div>
+        </div>
+      </div>
+      <div class="tp-no-reminder">
+        <span>No reminder</span>
+        <div class="tp-toggle" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+    <div class="plan-footer">
+      <button class="btn-primary">Preview All Plans</button>
+    </div>
+  </div>`,
+
+  'plan-preview': () => {
+    const weeks = [
+      { title: 'Week 1 · Apr 14 – Apr 20', days: [
+        {d:'Mon 14',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Tue 15',rest:true},
+        {d:'Wed 16',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Thu 17',rest:true},
+        {d:'Fri 18',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Sat 19',rest:true},
+        {d:'Sun 20',mode:'Activation',time:'24 min',color:'#c4787a'},
+      ]},
+      { title: 'Week 2 · Apr 21 – Apr 27', days: [
+        {d:'Mon 21',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Tue 22',rest:true},
+        {d:'Wed 23',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Thu 24',mode:'Pain Soothe',time:'20 min',color:'#e65100'},
+        {d:'Fri 25',mode:'Activation',time:'24 min',color:'#c4787a'},
+        {d:'Sat 26',rest:true},
+        {d:'Sun 27',mode:'Activation + Pain Soothe',time:'44 min',color:'#c4787a'},
+      ]},
+    ];
+    const weekHtml = weeks.map(w => `<div class="preview-week">
+      <div class="pw-title">${w.title}</div>
+      <div class="pw-days">${w.days.map(d => d.rest
+        ? `<div class="pw-day rest"><div class="pwd-date">${d.d.split(' ')[1]}</div><div class="pw-day-dot" style="background:#e0e0e0"></div><div class="pwd-name">Rest</div></div>`
+        : `<div class="pw-day"><div class="pwd-date">${d.d.split(' ')[1]}</div><div class="pw-day-dot" style="background:${d.color}"></div><div class="pwd-name">${d.mode}</div><div class="pwd-time">${d.time}</div></div>`
+      ).join('')}</div>
+    </div>`).join('');
+    return h.statusBar() + `<div class="nav-bar">
+      <div class="back-btn"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+      <span class="title">Plan Preview</span>
+      <div style="width:32px"></div>
+    </div>
+    <div class="plan-page">
+      <div class="plan-body">
+        <div class="preview-summary">
+          <div class="ps-row"><span class="ps-label">Duration</span><span class="ps-value">6 weeks · Apr 14 – May 25</span></div>
+          <div class="ps-row"><span class="ps-label">Incontinence</span><span class="ps-value">Activation · 4x/week · 24 min</span></div>
+          <div class="ps-row"><span class="ps-label">Pain</span><span class="ps-value">Pain Soothe · 3x/week · 20 min</span></div>
+          <div class="ps-row"><span class="ps-label">Total sessions</span><span class="ps-value">42 sessions</span></div>
+          <div class="ps-row"><span class="ps-label">Reminder</span><span class="ps-value">8:30 PM daily</span></div>
+        </div>
+        <div class="trend-legend" style="margin-bottom:16px">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>Incontinence</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain</div>
+        </div>
+        ${weekHtml}
+        <div style="text-align:center;padding:8px 0;font-size:12px;color:#ccc">... Week 3–6 ...</div>
+      </div>
+      <div class="plan-footer">
+        <button class="btn-primary">Start Training Plan</button>
+      </div>
+    </div>`;
+  },
 
 };
 
