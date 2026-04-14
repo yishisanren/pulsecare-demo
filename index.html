@@ -715,20 +715,10 @@ const pages = {
     <div style="width:32px"></div>
   </div>
   <div class="result-page">
-    <div class="result-tabs">
-      <div class="result-tab active">Incontinence</div>
-      <div class="result-tab">Pain</div>
-    </div>
     <div class="result-body">
-      <div class="result-severity">
-        <span class="severity-badge mild">Mild</span>
-        <span class="severity-badge improved">↓ Improved</span>
-        <span class="result-score">ICIQ: 8 / 21</span>
-      </div>
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Progress Over Time</div>
-          <div class="trend-change improved">↓ 19% improved</div>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -761,20 +751,37 @@ const pages = {
         </div>
       </div>
       <div class="result-section">
-        <div class="result-section-title">Your Condition</div>
+        <div class="result-section-title">Incontinence</div>
         <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span class="severity-badge mild">Mild</span>
+            <span class="severity-badge improved">↓ Improved</span>
+            <span class="result-score">ICIQ: 8 / 21</span>
+          </div>
           <div class="rc-label">Type</div>
-          <div class="rc-value" style="font-size:14px;margin-bottom:10px">Stress Urinary Incontinence</div>
-          <div class="rc-label">Compared to Last Assessment</div>
-          <div style="font-size:13px;color:#2e7d32;line-height:1.5;margin-top:4px">Your symptoms have improved from Moderate to Mild. Keep up the good work!</div>
+          <div class="rc-value" style="font-size:14px;margin-bottom:8px">Stress Urinary Incontinence</div>
+          <div style="font-size:13px;color:#2e7d32;line-height:1.5">Improved from Moderate to Mild. Keep up the good work!</div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:12px;padding-top:12px">
+            <div class="rc-label">Recommended</div>
+            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Strength + Endurance · 3x/week · 4 weeks</div>
+          </div>
         </div>
       </div>
       <div class="result-section">
-        <div class="result-section-title">Recommended Plan</div>
+        <div class="result-section-title">Pain</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">Training Mode</div><div class="rc-value" style="font-size:14px">Strength + Endurance</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Frequency</div><div class="rc-value" style="font-size:14px">3 sessions / week</div></div></div>
-          <div class="rc-row"><div><div class="rc-label">Duration</div><div class="rc-value" style="font-size:14px">4 weeks</div></div></div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px">
+            <span class="severity-badge moderate">Moderate</span>
+            <span class="severity-badge improved">↓ Improved</span>
+            <span class="result-score">Pain: 5 / 10</span>
+          </div>
+          <div class="rc-label">Type</div>
+          <div class="rc-value" style="font-size:14px;margin-bottom:8px">Chronic Pelvic Pain</div>
+          <div style="font-size:13px;color:#2e7d32;line-height:1.5">Pain level decreased from 7 to 5. Continuing treatment is recommended.</div>
+          <div style="border-top:1px solid #f0f0f0;margin-top:12px;padding-top:12px">
+            <div class="rc-label">Recommended</div>
+            <div style="font-size:13px;color:#1a1a1a;font-weight:500;margin-top:4px">Pain Soothe · 3x/week · 6 weeks</div>
+          </div>
         </div>
       </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
