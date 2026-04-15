@@ -1285,7 +1285,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Incontinence Score Trend</div>
-          <span class="trend-change improved">Improving</span>
+
         </div>
         <div class="trend-chart">
           <svg viewBox="0 0 280 100" style="width:100%;height:100px">
@@ -1487,7 +1487,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Pain Score Trend</div>
-          <span class="trend-change improved">Improving</span>
+
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1661,7 +1661,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Hip & Leg Score Trend</div>
-          <span class="trend-change improved">Improving</span>
+
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1757,7 +1757,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Progress Over Time</div>
-          <span class="trend-change improved">Improving</span>
+
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -2382,7 +2382,6 @@ const pages = {
     <div class="rec-chart">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div><span class="severity-badge mild" style="font-size:11px">Mild</span></div>
-        <div class="trend-change improved" style="font-size:10px">↓ 19% improved</div>
       </div>
       <svg width="100%" height="80" viewBox="0 0 300 80">
         <line x1="20" y1="0" x2="20" y2="70" stroke="#f0f0f0" stroke-width="1"/>
@@ -3190,20 +3189,14 @@ PGQ% = 实际总分 / 有效满分 x 100%
 - 纵轴百分比（0-100%）
 - 颜色区分：粉色=尿失禁，橙色=疼痛，蓝色=臀腿
 - 如果本次只评估了某模块，趋势图只显示该模块
-- 右上角趋势标签："Improving" / "Stable" / "Worsened"
 
 **2. 各模块结果卡片**（紧凑排列）
 
 每个模块一张大卡片，包含：
 - 标题行：模块名 + 当前得分百分比
-- 分型结果 + 严重度标签 + 变化标签（↓ Improved / → Stable / ↑ Worsened）
+- 分型结果 + 严重度标签
 - 日常生活影响
 - 推荐训练计划（等重呈现，独立色块卡片）
-
-**各模块分型/严重度/QoL文案规则同首次评估，额外增加变化对比：**
-- 分数降低 → 绿色 "↓ Improved"
-- 分数不变 → 灰色 "→ Stable"
-- 分数上升 → 红色 "↑ Worsened"
 
 **3. 满分处理**
 - 某模块得分 0%（无症状）→ 该模块卡片显示：✅ "No symptoms detected. Great progress!"
