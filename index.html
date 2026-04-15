@@ -548,6 +548,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="assess-result-first" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 尿失禁首次
       </div>
+      <div class="sidebar-item" data-page="assess-result-nonFirst" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 尿失禁非首次
+      </div>
       <div class="sidebar-item" data-page="assess-result-zero" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 尿失禁0分
       </div>
@@ -1247,14 +1250,6 @@ const pages = {
         </div>
       </div>
 
-      <!-- Combined output -->
-      <div class="result-section">
-        <div class="result-section-title">综合结论</div>
-        <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">症状moderate，生活质量未受显著影响。</div>
-        </div>
-      </div>
-
       <!-- Recommended plan -->
       <div class="result-section">
         <div class="result-section-title">Recommended Training Plan</div>
@@ -1275,6 +1270,74 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+    </div>
+  </div>`,
+
+  // 尿失禁非首次
+  'assess-result-nonFirst': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Trend chart -->
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">Incontinence Score Trend</div>
+          <span class="trend-change improved">Improving</span>
+        </div>
+        <div class="trend-chart">
+          <svg viewBox="0 0 280 100" style="width:100%;height:100px">
+            <polyline points="20,80 70,70 120,55 170,50 220,35 260,30" fill="none" stroke="#c4787a" stroke-width="2"/>
+            <circle cx="20" cy="80" r="3" fill="#c4787a"/><circle cx="70" cy="70" r="3" fill="#c4787a"/><circle cx="120" cy="55" r="3" fill="#c4787a"/><circle cx="170" cy="50" r="3" fill="#c4787a"/><circle cx="220" cy="35" r="3" fill="#c4787a"/><circle cx="260" cy="30" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+          </svg>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#999;padding:0 4px"><span>Jan</span><span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Now</span></div>
+        </div>
+      </div>
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:24px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score</div>
+        <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">72<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ: 6 / 21</div>
+        <div style="font-size:11px;color:#4caf50;margin-top:4px">+15% vs last assessment</div>
+      </div>
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">Stress urinary incontinence. Leakage occurs mainly during physical activities.</div>
+        </div>
+      </div>
+      <!-- Severity -->
+      <div class="result-section">
+        <div class="result-section-title">Severity</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge moderate">Moderate</span>
+          </div>
+          <div style="font-size:13px;color:#666;margin-top:8px">Improved from Severe. Continue current treatment plan.</div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:linear-gradient(90deg,#f9c74f,#c4787a);border-radius:3px"></div></div>
+        </div>
+      </div>
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#fdf0f0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 20 mins per session</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333">
+            <div><span style="font-weight:600">3x</span>/week</div>
+            <div><span style="font-weight:600">6</span> weeks</div>
+          </div>
+        </div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">Customize Training Plan</button>
     </div>
   </div>`,
 
@@ -2807,6 +2870,35 @@ Red-Flag 阳性时：显示医疗转诊建议，不推荐任何 TENS 模式
 - 臀腿所有维度<0.3 -> 显示"功能良好"
 - Other 类型 -> 显示"非典型机制"
 - 所有模块都无推荐 -> 底部按钮隐藏
+    `
+  },
+  'assess-result-nonFirst': {
+    title: '3.4 评估结果·尿失禁非首次',
+    path: '功能二 > 问卷评估 > 评估结果 > 尿失禁非首次',
+    content: `
+## 评估结果 - 尿失禁非首次
+
+### 与首次评估的区别
+- 顶部增加趋势图，展示最近7次ICIQ评分变化
+- 显示与上次评估的对比（改善/恶化百分比）
+- 不显示综合结论部分
+
+### 趋势图规则
+- 始终展示，最多显示最近7次评估
+- 多模块多条线在同一图上（不同颜色+图例）
+- 仅1次数据时显示单个点
+- 纵轴为百分比（0-100%）
+
+### 结果计算规则
+与首次评估完全一致：定类型 → 定严重度 → 定剂量
+- 类型判定：3IQ主类型 + UDI-6次级特征
+- 严重度：ICIQ基础分级 + UDI-6升级修正
+- 剂量：根据最终严重度 x QoL x 类型(SUI/UUI)查表
+
+### 周期评估逻辑
+- 每个疗程结束后系统自动提示重新评估
+- 用户也可随时手动发起新评估
+- 新评估结果会覆盖之前的推荐方案
     `
   },
   'assess-result-zero': {
