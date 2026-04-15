@@ -523,7 +523,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       </div>
     </div>
     <div class="sidebar-group">
-      <div class="sidebar-group-title">问卷评估</div>
+      <div class="sidebar-group-title">评估与训练流程</div>
       <div class="sidebar-item" data-page="assess-consent" onclick="showPage(this)">
         <span class="dot blue"></span>知情同意页
       </div>
@@ -575,9 +575,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="assess-result-multi" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 非首次多模块
       </div>
-    </div>
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">训练计划生成</div>
+      <div class="sidebar-item" style="margin-top: 16px; border-top: 1px solid #e5e5e5; padding-top: 12px;">
+        <span style="font-size: 10px; color: #999; font-weight: 600;">计划生成</span>
+      </div>
       <div class="sidebar-item" data-page="plan-config-single" onclick="showPage(this)">
         <span class="dot blue"></span>计划配置 · 单模块
       </div>
@@ -586,6 +586,45 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       </div>
       <div class="sidebar-item" data-page="plan-preview" onclick="showPage(this)">
         <span class="dot green"></span>计划预览
+      </div>
+      <div class="sidebar-item" style="margin-top: 16px; border-top: 1px solid #e5e5e5; padding-top: 12px;">
+        <span style="font-size: 10px; color: #999; font-weight: 600;">日程管理</span>
+      </div>
+      <div class="sidebar-item" data-page="sched-home" onclick="showPage(this)">
+        <span class="dot blue"></span>日程主页 · 今日任务
+      </div>
+      <div class="sidebar-item" data-page="sched-skip" onclick="showPage(this)">
+        <span class="dot orange"></span>请假确认弹窗
+      </div>
+      <div class="sidebar-item" data-page="sched-home-skipped" onclick="showPage(this)">
+        <span class="dot blue"></span>日程主页 · 单任务已跳过
+      </div>
+      <div class="sidebar-item" data-page="sched-home-all-skipped" onclick="showPage(this)">
+        <span class="dot blue"></span>日程主页 · 全部已跳过
+      </div>
+      <div class="sidebar-item" data-page="sched-undo-skip" onclick="showPage(this)">
+        <span class="dot orange"></span>撤销请假弹窗
+      </div>
+      <div class="sidebar-item" data-page="sched-skip-multi" onclick="showPage(this)">
+        <span class="dot orange"></span>跳过范围选择
+      </div>
+      <div class="sidebar-item" data-page="sched-skip-streak" onclick="showPage(this)">
+        <span class="dot red"></span>连续请假提醒
+      </div>
+      <div class="sidebar-item" data-page="sched-summary" onclick="showPage(this)">
+        <span class="dot blue"></span>日程汇总页面
+      </div>
+      <div class="sidebar-item" data-page="sched-edit" onclick="showPage(this)">
+        <span class="dot orange"></span>日程编辑
+      </div>
+      <div class="sidebar-item" data-page="sched-delete" onclick="showPage(this)">
+        <span class="dot red"></span>日程删除确认
+      </div>
+      <div class="sidebar-item" data-page="sched-complete" onclick="showPage(this)">
+        <span class="dot green"></span>训练周期完成
+      </div>
+      <div class="sidebar-item" data-page="sched-reminder" onclick="showPage(this)">
+        <span class="dot blue"></span>训练提醒弹窗
       </div>
     </div>
     <div class="sidebar-group">
@@ -615,45 +654,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
         <span class="dot orange"></span>训练完成 · 提前结束
       </div>
       <!-- train-mood merged into train-complete pages -->
-      </div>
-    </div>
-    <div class="sidebar-group">
-      <div class="sidebar-group-title">日程管理</div>
-      <div class="sidebar-item" data-page="sched-home" onclick="showPage(this)">
-        <span class="dot blue"></span>日程主页 · 今日任务
-      </div>
-      <div class="sidebar-item" data-page="sched-skip" onclick="showPage(this)">
-        <span class="dot orange"></span>请假确认弹窗
-      </div>
-      <div class="sidebar-item" data-page="sched-home-skipped" onclick="showPage(this)">
-        <span class="dot blue"></span>日程主页 · 单任务已跳过
-      </div>
-      <div class="sidebar-item" data-page="sched-home-all-skipped" onclick="showPage(this)">
-        <span class="dot blue"></span>日程主页 · 全部已跳过
-      </div>
-      <div class="sidebar-item" data-page="sched-undo-skip" onclick="showPage(this)">
-        <span class="dot orange"></span>撤销请假弹窗
-      </div>
-      <div class="sidebar-item" data-page="sched-skip-multi" onclick="showPage(this)">
-        <span class="dot orange"></span>请假 · 多任务选择
-      </div>
-      <div class="sidebar-item" data-page="sched-skip-streak" onclick="showPage(this)">
-        <span class="dot orange"></span>请假 · 连续≥3天提醒
-      </div>
-      <div class="sidebar-item" data-page="sched-summary" onclick="showPage(this)">
-        <span class="dot blue"></span>日程汇总
-      </div>
-      <div class="sidebar-item" data-page="sched-edit" onclick="showPage(this)">
-        <span class="dot blue"></span>日程编辑
-      </div>
-      <div class="sidebar-item" data-page="sched-delete" onclick="showPage(this)">
-        <span class="dot red"></span>日程删除确认
-      </div>
-      <div class="sidebar-item" data-page="sched-complete" onclick="showPage(this)">
-        <span class="dot green"></span>训练周期完成
-      </div>
-      <div class="sidebar-item" data-page="sched-reminder" onclick="showPage(this)">
-        <span class="dot blue"></span>训练提醒弹窗
       </div>
     </div>
     <div class="sidebar-group">
@@ -2747,56 +2747,65 @@ const prdMapping = {
   },
   // 评估结果
   'assess-result-first': {
-    title: '3.4 评估结果·首次',
-    path: '功能三 > 问卷评估 > 首次结果展示',
+    title: '3.4 盆底肌评估结果',
+    path: '功能二 > 盆底肌评估 > 评估结果',
     content: `
-## 评估结果页面说明
+## 盆底肌评估结果
 
 ### 功能概述
-评估结果页面展示用户完成问卷后的个性化分析结果，包括症状严重度、分型诊断、日常生活影响评估，并基于结果推荐相应的训练方案。
+通过 Glazer 评估方案，采集盆底表面肌电信号，对盆底肌的静息、爆发、持续、耐力、恢复 5 个维度进行量化评估，为后续训练方案提供客观依据。
 
-### 页面结构（从上到下）
-1. **评估得分** - 百分比形式显示症状严重度
-2. **分型结果** - 根据问卷回答确定的具体类型
-3. **严重度等级** - 基于评分的症状严重程度
-4. **日常生活影响** - 症状对生活质量的影响评估
-5. **推荐训练计划** - 个性化的训练模式建议
-6. **免责声明** - 医疗建议和使用注意事项
+### 页面结构
+- **顶部**: 评估总分（0-100）+ 评估日期时间 + 右上角"详细数据"按钮
+- **内容区**: 分数及维度说明入口、雷达图（5维度）、评估结论、免责提示
+- **底部固定**: 「去训练」「返回主页」两个按钮并列
 
 ---
 
-## 尿失禁评估结果解释
+## 评估分数及阶段说明
 
-### 评分计算方法
-- **ICIQ总分** ÷ 21 × 100 = 症状严重度百分比
-- 满分21分代表最严重症状，0分表示无症状
-- 分数越高表示症状越严重
+### 分数说明
+- 紧张或疲劳状态会影响盆底肌肉的表现，每次评估时，你的身体状态不尽相同，因此得分有所波动，也与机构稍有差异。
+- 盆底肌力并非一成不变，疏于锻炼时，得分也有可能下降。
 
-### 尿失禁分型说明
+### 各阶段说明
 
-**压力性尿失禁 (SUI)**
-- 与体力活动相关的漏尿，如咳嗽、打喷嚏、运动时
-- 通常由盆底肌肉松弛或支撑结构薄弱导致
+**前静息阶段**
+- **目的**: 测量盆底肌基础静息状态
+- **正常表现**: 肌肉应处于放松状态，无异常收缩
 
-**急迫性尿失禁 (UUI)**
-- 突然强烈尿意后的不自主漏尿
-- 通常与膀胱过度活动或神经控制异常有关
+**快速收缩阶段**
+- **目的**: 评估盆底肌快速收缩能力
+- **训练重点**: 提升肌肉爆发力和快速反应能力
 
-**混合性尿失禁 (MUI)**
-- 同时存在压力性和急迫性症状
-- 需要综合性的训练方案
+**紧张收缩阶段**
+- **目的**: 测试盆底肌持续收缩的力量
+- **训练重点**: 增强肌肉力量和控制能力
 
-**其他类型**
-- 不符合典型压力性或急迫性模式的漏尿
-- 建议寻求专业医疗评估
+**耐力收缩阶段**
+- **目的**: 评估肌肉持久收缩的耐力
+- **训练重点**: 提升肌肉耐力和稳定性
 
-### 严重度等级
+**后静息阶段**
+- **目的**: 测量收缩后的肌肉恢复能力
+- **正常表现**: 应能快速恢复到放松状态
 
-| 等级 | ICIQ范围 | 症状描述 | 建议 |
-|------|----------|---------|------|
-| **轻度 (Slight)** | 1-5分 | 偶发症状，对日常生活影响较小 | 预防性训练 |
-| **中度 (Moderate)** | 6-12分 | 明显症状，影响部分日常活动 | 规律性训练 |
-| **重度 (Severe)** | 13-18分 | 严重症状，显著影响日常生活 | 密集训练计划 |
+---
+
+## 评估结论
+
+**前、后静息阶段**: 曲线应尽量平稳，测试值应小于参考值，数值越大或者曲线跳动变化越多，则盆底肌肉过度活动越严重。
+
+**快速收缩**: 测试值应尽可能大，数值越大则盆底肌快肌肌力越大，肌肉力量越强；数值越小则盆底肌快肌肌力越小，肌肉力量越弱。
+
+**紧张收缩和耐力收缩**: 均测试慢肌的平均值，测试值越大则盆底肌慢肌耐力越强，肌肉力量越强；测试值越小则盆底肌慢肌耐力越弱，肌肉力量越弱。
+
+---
+
+## 重要提示
+- 盆底评估不能代替临床诊断，仅作为了解自身状况的参考
+- 建议定期进行评估以跟踪康复进度
+- 如有疑问请咨询专业医疗人员
 | **极重度 (Very Severe)** | 19-21分 | 持续性症状，严重限制功能 | 综合治疗方案 |
 
 ### 日常生活影响评估 (IIQ-7)
@@ -2839,81 +2848,132 @@ const prdMapping = {
     `
   },
   'assess-result-zero': {
-    title: '3.4 评估结果·尿失禁0分',
-    path: '功能三 > 问卷评估 > 尿失禁0分结果',
+    title: '3.4 盆底肌评估结果·优秀',
+    path: '功能二 > 盆底肌评估 > 优秀结果',
     content: `
-## 3.4 评估结果（尿失禁 Q1=No / 0分）
+## 盆底肌评估结果（优秀评分 85-100分）
 
-### 触发条件
-- Q1 回答 No（无漏尿症状）
+### 评估总分：92分
 
-### 页面展示
-- 绿色对勾图标
-- 文案："No urinary incontinence symptoms detected. No training is recommended at this time."
-- 无分型、严重度、QoL、推荐训练板块
+**评估结论**：您的盆底肌功能处于优秀状态！
 
-### CTA
-- "Back to Home" → 返回设备主页
+### 各阶段表现
+- ✅ **前静息阶段**：肌肉放松良好，无异常收缩
+- ✅ **快速收缩**：爆发力强，反应迅速
+- ✅ **紧张收缩**：力量充足，控制稳定
+- ✅ **耐力收缩**：持久性优异，疲劳度低
+- ✅ **后静息阶段**：恢复能力良好
+
+### 维护建议
+- 继续保持规律的盆底肌维护训练
+- 建议每周2-3次预防性训练
+- 定期重新评估以监测状态变化
+
+### 训练推荐
+**维护训练模式**：轻度刺激，保持肌肉活性
+
+### 下一步
+- 「开始维护训练」→ 进入训练日程设置
+- 「返回主页」→ 回到设备主页
     `
   },
   'assess-result-pain-first': {
-    title: '3.4 评估结果·疼痛首次',
-    path: '功能三 > 问卷评估 > 疼痛首次结果',
+    title: '3.4 盆底肌评估结果·良好',
+    path: '功能二 > 盆底肌评估 > 良好结果',
     content: `
-## 3.4 评估结果（疼痛·首次）
+## 盆底肌评估结果（良好评分 70-84分）
 
-### 得分
-- NRS 5/10 = 50%
+### 评估总分：78分
 
-### 分型 (Classification)
-- Chronic nociceptive + 持续 1-6 weeks
-- 文案："You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort."
+**评估结论**：您的盆底肌功能状态良好，但仍有提升空间。
 
-### 严重度 (Severity)
-- Moderate pain
-- 文案："Interferes with some activities, may need analgesics or non-pharmacological measures"
+### 各阶段表现
+- ✅ **前静息阶段**：肌肉放松状态良好
+- ⚠️ **快速收缩**：爆发力中等，可进一步加强
+- ✅ **紧张收缩**：力量较好，控制稳定
+- ⚠️ **耐力收缩**：持久性一般，有改善空间
+- ✅ **后静息阶段**：恢复能力良好
 
-### 推荐训练
-- Mode 6 Chronic Pain Relief
-- TENS · 20 min per session
-- 5x/week · 3 weeks
+### 改善重点
+- **快速收缩能力**：需要加强肌肉爆发力训练
+- **耐力表现**：提升肌肉持久收缩能力
+- **整体协调性**：优化神经肌肉控制
 
-### CTA
-- "Create Training Plan" → 进入训练计划配置
+### 训练推荐
+**强化训练模式**：
+- STIM 模式：15-20分钟/次
+- EMG Game 模式：增强趣味性训练
+- 建议频率：每周4-5次，持续4-6周
+
+### 下一步
+- 「创建训练计划」→ 进入训练日程配置
+- 「查看详细数据」→ 查看各维度详细分析
     `
   },
   'assess-result-pain-zero': {
-    title: '3.4 评估结果·疼痛0分',
-    path: '功能三 > 问卷评估 > 疼痛0分结果',
+    title: '3.4 盆底肌评估结果·需改善',
+    path: '功能二 > 盆底肌评估 > 需改善结果',
     content: `
-## 3.4 评估结果（疼痛 NRS=0）
+## 盆底肌评估结果（需改善评分 40-69分）
 
-### 触发条件
-- NRS 疼痛评分 = 0
+### 评估总分：58分
 
-### 页面展示
-- 绿色对勾图标
-- 标题："No Pain"
-- 文案："No discomfort, normal activity not affected"
-- 无推荐训练板块
+**评估结论**：您的盆底肌功能存在一定程度的问题，需要通过系统性训练来改善。
 
-### CTA
-- "Back to Home" → 返回设备主页
+### 各阶段表现
+- ⚠️ **前静息阶段**：存在轻度肌肉过度活动
+- ❌ **快速收缩**：爆发力不足，反应较慢
+- ⚠️ **紧张收缩**：力量偏弱，控制能力有限
+- ❌ **耐力收缩**：持久性较差，易疲劳
+- ✅ **后静息阶段**：恢复能力尚可
+
+### 主要问题
+- **肌肉力量不足**：快速和持续收缩能力均需加强
+- **神经控制差**：肌肉协调性有待改善
+- **轻度高张**：需要放松训练配合强化训练
+
+### 训练推荐
+**综合康复训练计划**：
+- 第1-2周：放松训练 + 轻度STIM刺激
+- 第3-4周：强化STIM训练
+- 第5-6周：EMG Game + 耐力训练
+- 建议频率：每天1次，持续6-8周
+
+### 下一步
+- 「开始康复训练」→ 创建个性化训练计划
+- 「咨询专家」→ 获取专业指导建议
     `
   },
   'assess-result-pain-risk': {
-    title: '3.4 评估结果·疼痛风险项',
-    path: '功能三 > 问卷评估 > 疼痛风险项结果',
+    title: '3.4 盆底肌评估结果·严重问题',
+    path: '功能二 > 盆底肌评估 > 严重问题结果',
     content: `
-## 3.4 评估结果（疼痛·风险项）
+## 盆底肌评估结果（严重问题评分 0-39分）
 
-### 触发条件
-- Q1 选了风险项
+### 评估总分：25分
 
-### 页面展示
-- 红色警告图标
-- 文案："\u26A0\uFE0F Please contact a healthcare professional before using the device."
-- 无分型、严重度、推荐训练板块
+⚠️ **重要提醒**：您的评估结果显示盆底肌功能存在较严重问题，建议咨询专业医疗人员。
+
+### 各阶段表现
+- ❌ **前静息阶段**：明显肌肉过度活动或异常收缩
+- ❌ **快速收缩**：爆发力严重不足
+- ❌ **紧张收缩**：力量明显缺乏
+- ❌ **耐力收缩**：持久性极差
+- ❌ **后静息阶段**：恢复能力不佳
+
+### 可能存在的问题
+- **严重肌肉松弛**：支撑功能显著下降
+- **神经肌肉失调**：控制能力严重受损
+- **肌肉高张**：过度紧张影响正常功能
+
+### 建议措施
+1. **优先咨询专业医疗人员**：获取专业诊断和治疗建议
+2. **医疗监督下的康复训练**：在专业指导下进行训练
+3. **综合治疗方案**：可能需要配合其他治疗手段
+
+### 下一步
+- 「咨询医疗专家」→ 获取专业医疗建议
+- 「了解康复方案」→ 查看适合的康复选项
 
 ### CTA
 - "Back to Home" → 返回设备主页
