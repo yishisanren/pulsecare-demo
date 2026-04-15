@@ -2077,6 +2077,80 @@ const prdMapping = {
 | Any | Yes | 显示医疗转诊建议，可选继续 | - | - |
     `
   },
+  'assess-exit-dialog': {
+    title: '3.3 问卷退出确认',
+    path: '功能三 > 问卷评估 > 退出确认弹窗',
+    content: `
+## 问卷退出确认弹窗
+
+### 触发条件
+用户在问卷填写过程中点击左上角「Cancel」按钮
+
+### 弹窗内容
+- **标题**："Save your progress?"
+- **描述**："You can save your answers as a draft and continue later."
+
+### 操作按钮
+- **"Save Draft"** → 保存所有已填答案到本地草稿，返回设备主页，主页顶部出现「继续评估」入口
+- **"Discard"** → 不保存，清除草稿，返回设备主页
+- **"Cancel"** → 关闭弹窗，继续填写问卷
+
+### 草稿箱规则
+- 仅本地保存（不上传云端）
+- 清除条件：问卷提交成功 / 用户选择 Discard / 用户清除 App 缓存
+- 恢复时回到草稿保存时的进度（哪个模块第几题）
+    `
+  },
+  'assess-loading': {
+    title: '3.3 评估结果生成中',
+    path: '功能三 > 问卷评估 > 结果生成',
+    content: `
+## 评估结果生成页
+
+### 触发条件
+用户完成所有选择的模块问卷并点击「Submit」后
+
+### 页面内容
+- 加载动画（spinner）
+- 文案："Generating your personalized plan..."
+- 无返回按钮，用户不可中断
+
+### 交互逻辑
+- 提交所有问卷数据到服务端
+- 服务端计算评估结果和推荐训练方案
+- 计算完成后自动跳转到评估结果页
+- 预计耗时 2-5 秒
+    `
+  },
+  'modal-modes': {
+    title: '4.2 训练模式选择',
+    path: '功能四 > 训练执行 > 模式选择面板',
+    content: `
+## 训练模式选择面板
+
+### 入口
+设备主页 Customize Training 卡片右上角「Change Mode」
+
+### 九种内置模式
+
+| 编号 | 名称 | 类型 | 时长 | 描述 |
+|------|------|------|------|------|
+| 01 | Activation | Basic · EMS | 15 min | 唤醒盆底肌群 |
+| 02 | Strength | Basic · EMS | 20 min | 增强肌肉力量 |
+| 03 | Endurance | Basic · EMS | 15 min | 提升耐力 |
+| 04 | Functional | Advanced · EMS | 20 min | 功能性训练 |
+| 05 | Relaxation Cycle | Advanced · EMS | 20 min | 放松循环 |
+| 06 | Pain Soothe | Pain · TENS | 20 min | 镇痛舒缓 |
+| 07 | Quick Pain Relief | Pain · TENS | 30 min | 快速止痛 |
+| 08 | SUI Training | UI | 20 min | 压力性尿失禁 |
+| 09 | UUI Training | UI | 20 min | 急迫性尿失禁 |
+
+### 交互规则
+- 点击选中模式 → 面板关闭 → 首页卡片更新为选中模式
+- 默认选中第一个模式（Activation）
+- 底部面板形式，支持滚动浏览全部模式
+    `
+  },
   // 评估结果
   'assess-result-first': {
     title: '3.4 评估结果·首次',
@@ -2367,6 +2441,30 @@ const prdMapping = {
 - 心情数据记录在训练记录中
     `
   },
+  'train-complete-partial': {
+    title: '4.5 训练完成激励 - 提前结束',
+    path: '功能四 > 训练执行 > 提前结束激励',
+    content: `
+## 训练提前结束激励页
+
+### 触发条件
+用户在训练过程中点击 Stop 并确认结束
+
+### 激励档位（根据完成进度）
+
+| 完成度 | 图标 | 标题 | 文案 |
+|--------|------|------|------|
+| 70-89% | 💪 | Almost there! | You were so close! Every minute counts. |
+| 50-69% | 👍 | Good effort! | You completed over half the session. That is real progress. |
+| < 50% | 🌱 | Every step counts | Even a short session helps. Keep building the habit! |
+
+### 页面内容
+- 激励图标 + 标题 + 文案
+- 训练数据卡片：模式名称、实际训练时长、完成进度百分比
+- 心情反馈入口（5 级表情）
+- 底部按钮："Back to Home"
+    `
+  },
   'train-rest-reminder': {
     title: '4.3.6 累计使用提醒',
     path: '功能四 > 训练执行 > Rest Reminder',
@@ -2534,7 +2632,7 @@ const prdMapping = {
 右上角列表图标，点击进入所有日程的汇总页面。
     `
   },
-  'sched-leave': {
+  'sched-skip': {
     title: '5.2 请假确认弹窗',
     path: '功能五 > 训练日程管理 > 请假流程',
     content: `
@@ -2655,7 +2753,7 @@ const prdMapping = {
 - "Cancel"：保持现有日程不变
     `
   },
-  'reminder': {
+  'sched-reminder': {
     title: '5.6 训练提醒机制',
     path: '功能五 > 训练日程管理 > 提醒机制',
     content: `
@@ -2691,7 +2789,7 @@ const prdMapping = {
     `
   },
   // 数据记录
-  'train-records': {
+  'rec-training': {
     title: '6.2 训练记录',
     path: '功能六 > 数据记录与统计 > 训练记录',
     content: `
@@ -2736,7 +2834,7 @@ const prdMapping = {
 尚无训练记录时显示空状态引导，建议用户开始首次训练。
     `
   },
-  'assess-records': {
+  'rec-assessment': {
     title: '6.1 评估记录',
     path: '功能六 > 数据记录与统计 > 评估记录',
     content: `
