@@ -722,6 +722,19 @@ function goTo(pageId) {
   const el = document.querySelector('[data-page="' + pageId + '"]');
   if (el) showPage(el);
 }
+let _lpTimer=null,_lpFired=false;
+function lpStart(el,skipPage){
+  _lpFired=false;
+  el.style.transition='background 0.3s';
+  el.style.background='#fff0f0';
+  _lpTimer=setTimeout(()=>{_lpFired=true;el.style.background='';goTo(skipPage);},600);
+}
+function lpEnd(el,tapPage){
+  clearTimeout(_lpTimer);
+  el.style.background='';
+  if(!_lpFired)goTo(tapPage);
+}
+function lpCancel(){clearTimeout(_lpTimer);_lpFired=false;}
 
 function handleScreenOpt(el){
   el.classList.toggle('sel');
@@ -1587,15 +1600,15 @@ const pages = {
   </div>
   <div style="padding:4px 16px 8px;font-size:13px;font-weight:600;color:#1a1a1a">Wednesday, Apr 16</div>
   <div class="task-list">
-    <div class="task-card" onclick="goTo('train-complete')" style="cursor:pointer">
+    <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
       <div class="tc-num" style="background:#fce4ec;color:#c4787a">01</div>
       <div class="tc-info"><div class="tc-name">Activation</div><div class="tc-meta">EMS · 24 min</div></div>
-      <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i>
+      <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
     </div>
-    <div class="task-card" onclick="goTo('train-complete')" style="cursor:pointer">
+    <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
       <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
       <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
-      <i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i>
+      <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
     </div>
     <div class="task-card completed">
       <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
