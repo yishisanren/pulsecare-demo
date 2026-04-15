@@ -590,8 +590,7 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="train-complete-partial" onclick="showPage(this)">
         <span class="dot orange"></span>训练完成 · 提前结束
       </div>
-      <div class="sidebar-item" data-page="train-mood" onclick="showPage(this)">
-        <span class="dot blue"></span>心情反馈
+      <!-- train-mood merged into train-complete pages -->
       </div>
     </div>
     <div class="sidebar-group">
@@ -1543,22 +1542,6 @@ const pages = {
     </div>
   </div>`,
 
-  'train-mood': () => h.statusBar() + `<div class="nav-bar">
-    <div style="width:32px"></div>
-    <span class="title">How do you feel?</span>
-    <div class="back-btn" onclick="goTo('home-connected')" style="font-size:13px;color:#999;width:auto">Skip</div>
-  </div>
-  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
-    <div style="font-size:15px;color:#1a1a1a;font-weight:600;margin-bottom:24px;text-align:center">How did this session feel?</div>
-    <div style="display:flex;gap:16px;margin-bottom:32px">
-      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😁</div><div style="font-size:11px;color:#666;margin-top:4px">Feeling<br>Great</div></div>
-      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😊</div><div style="font-size:11px;color:#666;margin-top:4px">Pretty<br>Good</div></div>
-      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😐</div><div style="font-size:11px;color:#666;margin-top:4px">Okay</div></div>
-      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😕</div><div style="font-size:11px;color:#666;margin-top:4px">Not So<br>Good</div></div>
-      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😣</div><div style="font-size:11px;color:#666;margin-top:4px">Uncom-<br>fortable</div></div>
-    </div>
-    <button class="btn-primary" style="width:100%;max-width:280px;border-radius:12px" onclick="goTo('home-connected')">Done</button>
-  </div>`,
 
   'sched-home': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
@@ -1683,35 +1666,27 @@ const pages = {
     </div>
   </div>`,
 
-  'sched-skip-multi': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training Schedule</span>
-    <div style="width:32px"></div>
-  </div>
-  <div style="flex:1;display:flex;align-items:center;justify-content:center">
-    <div class="stop-dialog" style="max-width:300px">
+  'sched-skip-multi': () => {
+    const bg = pages['sched-home'] ? pages['sched-home']() : '';
+    return bg + `<div class="overlay" style="display:flex"><div class="stop-dialog" style="max-width:300px">
       <div class="stop-dialog-title">Skip Training</div>
       <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">You have 2 sessions scheduled today. Which would you like to skip?</div>
-      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#e65100" onclick="goTo('sched-home')">Skip this session</button>
-      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#c4787a" onclick="goTo('sched-home')">Skip all today's sessions</button>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#e65100" onclick="goTo('sched-home-skipped')">Skip this session</button>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#c4787a" onclick="goTo('sched-home-all-skipped')">Skip all today's sessions</button>
       <button class="btn-ghost" onclick="goTo('sched-home')">Cancel</button>
-    </div>
-  </div>`,
+    </div></div>`;
+  },
 
-  'sched-skip-streak': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Training Schedule</span>
-    <div style="width:32px"></div>
-  </div>
-  <div style="flex:1;display:flex;align-items:center;justify-content:center">
-    <div class="stop-dialog" style="max-width:300px">
+  'sched-skip-streak': () => {
+    const bg = pages['sched-home'] ? pages['sched-home']() : '';
+    return bg + `<div class="overlay" style="display:flex"><div class="stop-dialog" style="max-width:300px">
       <div style="font-size:36px;text-align:center;margin-bottom:12px">💤</div>
       <div class="stop-dialog-title">We miss you!</div>
       <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">You've taken a break for <b>3 days</b> in a row. Consistency is key to making progress. Even one session today can help you get back on track.</div>
       <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('train-complete')">Let's train</button>
       <button class="btn-ghost" onclick="goTo('sched-skip')">I still need rest</button>
-    </div>
-  </div>`,
+    </div></div>`;
+  },
 
   'sched-home-skipped': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
@@ -1830,20 +1805,16 @@ const pages = {
     <button class="btn-primary" style="border-radius:12px" onclick="goTo('sched-summary')">Save Changes</button>
   </div>`,
 
-  'sched-delete': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-edit')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Edit Schedule</span>
-    <div style="width:32px"></div>
-  </div>
-  <div style="flex:1;display:flex;align-items:center;justify-content:center">
-    <div class="stop-dialog" style="max-width:300px">
+  'sched-delete': () => {
+    const bg = pages['sched-edit'] ? pages['sched-edit']() : '';
+    return bg + `<div class="overlay" style="display:flex"><div class="stop-dialog" style="max-width:300px">
       <div style="font-size:36px;text-align:center;margin-bottom:12px">🗑️</div>
       <div class="stop-dialog-title">Delete this schedule?</div>
       <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">Future training sessions will be removed. Your completed training records will be preserved.</div>
       <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#e53935" onclick="goTo('home-no-schedule')">Delete</button>
       <button class="btn-ghost" onclick="goTo('sched-edit')">Cancel</button>
-    </div>
-  </div>`,
+    </div></div>`;
+  },
 
   'rec-training': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
@@ -2372,36 +2343,104 @@ const prdMapping = {
     content: `
 ## 3.4 评估结果展示（首次评估）
 
-首次评估**不显示趋势图**，仅展示本次评估的完整结果。
+首次评估**不显示趋势图**。
 
-### 页面结构（从上到下）
+### 通用页面结构（从上到下）
+1. 评估得分（百分比大号） 2. 分型结果 3. 严重度 4. 日常生活影响 5. 推荐训练计划 6. 免责声明
 
-**1. 评估得分（突出展示）**
-- 百分比得分居中大号显示（如 57%）
-- 下方标注原始分数（如 ICIQ-UI SF: 12/21）
+---
 
-**2. 分型结果**
-- 尿失禁类型（3IQ）：Stress / Urge / Mixed / Other
-- 次级特征（UDI-6）：是否存在额外症状标签
+### 模块 1：尿失禁 结果板块
 
-**3. 严重度**
-- 等级标签：Slight / Moderate / Severe / Very Severe
-- 进度条可视化
-- 说明 ICIQ 基础分 + UDI-6 修正逻辑
+**得分**：ICIQ 总分 ÷ 21 × 100 = 百分比
+- 满分（0/21 = 0%）时显示："No urinary incontinence symptoms detected. No training is recommended at this time."
 
-**4. 日常生活影响评估**
-- IIQ-7 总分 ≥9.5 → "Impacted"
-- 具体影响描述
+**分型文案**（3IQ Q3）：
 
-**5. 推荐训练计划**
-- 推荐模式（编号+名称）
-- 频率 + 周期 + 总次数
-- 背景色区分卡片
+| Q3 选项 | 类型 | 英文文案 |
+|---------|------|---------|
+| a | Stress (SUI) | "Stress Urinary Incontinence (SUI) — leakage related to physical activity, coughing, or sneezing" |
+| b | Urge (UUI) | "Urge Urinary Incontinence (UUI) — leakage associated with a sudden, strong urge to urinate" |
+| c | Mixed (MUI) | "Mixed Urinary Incontinence (MUI) — combination of stress and urge symptoms" |
+| d | Other | "Other type — leakage mechanism does not fit typical stress or urge patterns. Professional evaluation recommended." |
 
-**6. 免责声明**
+**次级特征（UDI-6）**：
+- 有额外症状："Additional symptoms detected: [具体症状标签]"
+- 无额外症状："No additional urinary symptoms detected beyond primary classification."
+
+**严重度**（ICIQ + UDI-6 修正后）：
+
+| 等级 | ICIQ 范围 | 英文文案 | 颜色 |
+|------|----------|---------|------|
+| Slight | 1-5 | "Slight — minimal impact, occasional symptoms" | 绿色 |
+| Moderate | 6-12 | "Moderate — noticeable symptoms affecting some daily activities" | 黄色 |
+| Severe | 13-18 | "Severe — significant impact on daily life and activities" | 橙色 |
+| Very Severe | 19-21 | "Very Severe — persistent symptoms greatly limiting daily function" | 红色 |
+
+**日常生活影响（IIQ-7）**：
+
+| IIQ-7 总分 | 等级 | 英文文案 |
+|-----------|------|---------|
+| 0 | No Impact | "No measurable impact on daily activities." |
+| 1-7 | Mild | "Mild impact — slight adjustments to daily routines." |
+| 8-14 | Moderate | "Moderate impact — affects household chores, social outings, and physical activities." |
+| 15-21 | Severe | "Severe impact — significantly limits daily life including work, travel, and social participation." |
+
+---
+
+### 模块 2：疼痛 结果板块
+
+**得分**：NRS 疼痛评分 ÷ 10 × 100 = 百分比
+- 满分（0/10 = 0%）时显示："No significant pain reported. No training is recommended at this time."
+- Q1 选了风险项时：不计分，显示红色警告："⚠️ Risk factors detected. We recommend consulting a healthcare professional before starting any training program."
+
+**分型文案**：
+
+| 条件 | 类型 | 英文文案 |
+|------|------|---------|
+| Q2 疼痛持续 >6 周 | Chronic | "Chronic pelvic pain — persistent pain lasting more than 6 weeks" |
+| Q2 疼痛持续 ≤6 周 | Acute | "Acute pelvic pain — recent onset, less than 6 weeks duration" |
+
+**严重度**（NRS）：
+
+| NRS | 等级 | 英文文案 | 颜色 |
+|-----|------|---------|------|
+| 1-3 | Mild | "Mild pain — manageable, does not significantly interfere with activities" | 绿色 |
+| 4-6 | Moderate | "Moderate pain — interferes with some daily activities" | 黄色 |
+| 7-8 | Severe | "Severe pain — substantially limits daily function" | 橙色 |
+| 9-10 | Very Severe | "Very Severe pain — debilitating, requires immediate clinical attention" | 红色 |
+
+---
+
+### 模块 3：臀腿功能 结果板块
+
+**得分**：PGQ 综合得分百分比 = 各维度加权平均
+- 满分（100%）时显示："Your hip and lower limb function is excellent. No training is recommended at this time."
+
+**三维度评估**：
+
+| 维度 | 计算 | 低分文案（<30%） | 中分文案（30-70%） | 高分文案（>70%） |
+|------|------|----------------|------------------|----------------|
+| Control | Q均分/max | "Good pelvic floor control" | "Moderate control — room for improvement" | "Reduced control — targeted training recommended" |
+| Endurance | Q均分/max | "Good muscle endurance" | "Moderate endurance — some fatigue observed" | "Reduced endurance — stamina training recommended" |
+| Strength | Q均分/max | "Good muscle strength" | "Moderate strength — strengthening beneficial" | "Reduced strength — strength training recommended" |
+
+注意：低分代表功能好（症状少），高分代表功能差（症状多）
+
+**日常生活影响**（PGQ 功能限制题）：
+
+| 得分范围 | 等级 | 英文文案 |
+|---------|------|---------|
+| 0-25% | No Impact | "No measurable functional limitations." |
+| 26-50% | Mild | "Mild functional limitations in some physical activities." |
+| 51-75% | Moderate | "Moderate limitations affecting mobility, exercise, and daily tasks." |
+| 76-100% | Severe | "Severe functional limitations — significant impact on movement and independence." |
+
+---
 
 ### CTA按钮
 - "Create Training Plan" → 进入训练计划配置
+- 如果所有模块都是满分/无推荐 → 按钮隐藏，显示："All assessments indicate good health. No training program is recommended at this time."
     `
   },
   'assess-result-multi': {
@@ -2410,50 +2449,36 @@ const prdMapping = {
     content: `
 ## 3.4 评估结果展示（非首次·多模块）
 
-非首次评估结果页，展示多次评估的趋势对比和多模块结果卡片。
-
 ### 页面结构
 
-**1. 趋势图区域**
-- 多条线展示各模块历史评分变化
-- 粉色实线 = ICIQ Score（0-21 scale）
-- 橙色虚线 = Pain NRS（0-10 scale）
-- X轴：评估时间点（Wk 1, Wk 4, Wk 8...）
-- Y轴：原始分数
-- 最多显示最近7次评估记录
-- 右上角显示趋势标签："Overall Improving" / "Stable" / "Worsened"
+**1. 趋势图**（顶部）
+- 所有已评估模块在同一张图上
+- 最多显示最近 7 次
+- 纵轴百分比（0-100%）
+- 颜色区分：粉色=尿失禁，橙色=疼痛，蓝色=臀腿
+- 如果本次只评估了某模块，趋势图只显示该模块
+- 右上角趋势标签："Improving" / "Stable" / "Worsened"
 
-**2. Incontinence 结果卡片**
+**2. 各模块结果卡片**（紧凑排列）
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| Severity Badge | 当前严重度 | Mild (绿色) |
-| Change Badge | 相比上次变化 | ↓ Improved |
-| Score | 当前分数 | ICIQ: 8/21 |
-| Type | 3IQ 分型（不变） | SUI |
-| Previous → Current | 评分变化 | 12 (Moderate) → 8 (Mild) |
-| QoL Impact | 生活影响 | Reduced — less daily interference |
-| Updated Recommendation | 新推荐 | Mode 9 (Maintenance) · 3x/week · 4 weeks |
+每个模块一张大卡片，包含：
+- 标题行：模块名 + 当前得分百分比
+- 分型结果 + 严重度标签 + 变化标签（↓ Improved / → Stable / ↑ Worsened）
+- 日常生活影响
+- 推荐训练计划（等重呈现，独立色块卡片）
 
-**3. Pain 结果卡片**
+**各模块分型/严重度/QoL文案规则同首次评估，额外增加变化对比：**
+- 分数降低 → 绿色 "↓ Improved"
+- 分数不变 → 灰色 "→ Stable"
+- 分数上升 → 红色 "↑ Worsened"
 
-| 字段 | 说明 | 示例 |
-|------|------|------|
-| Severity Badge | 当前严重度 | Moderate (橙色) |
-| Change Badge | 变化 | ↓ Improved |
-| Score | 当前NRS分数 | NRS: 5/10 |
-| Pain Type | 疼痛分型 | Chronic Pelvic Pain |
-| Previous → Current | 评分变化 | 7 (Severe) → 5 (Moderate) |
-| Red Flags | 红旗筛查结果 | None detected |
-| Updated Recommendation | 新推荐 | Mode 3 (Pain Soothe) · 3x/week · 6 weeks |
-
-**4. 改善逻辑**
-- 同一分型内严重度降低 → 自动降级训练强度（如 Mode 8 → Mode 9 维持模式）
-- 严重度上升 → 提示增加训练频率
-- 出现新 red-flag → 顶部显示医疗转诊建议
+**3. 满分处理**
+- 某模块得分 0%（无症状）→ 该模块卡片显示：✅ "No symptoms detected. Great progress!"
+- 不推荐模式，不生成训练计划
+- 如果所有模块都满分 → CTA隐藏
 
 ### CTA按钮
-- "Customize Training Plan" → 进入多模块训练计划配置（plan-config with tabs）
+- "Create Training Plan"
     `
   },
   // 训练计划配置
