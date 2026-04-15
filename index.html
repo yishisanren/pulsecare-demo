@@ -2750,106 +2750,92 @@ const prdMapping = {
     title: '3.4 评估结果·首次',
     path: '功能三 > 问卷评估 > 首次结果展示',
     content: `
-## 3.4 评估结果展示（首次评估）
+## 评估结果页面说明
 
-首次评估**不显示趋势图**。
+### 功能概述
+评估结果页面展示用户完成问卷后的个性化分析结果，包括症状严重度、分型诊断、日常生活影响评估，并基于结果推荐相应的训练方案。
 
-### 通用页面结构（从上到下）
-1. 评估得分（百分比大号） 2. 分型结果 3. 严重度 4. 日常生活影响 5. 推荐训练计划 6. 免责声明
+### 页面结构（从上到下）
+1. **评估得分** - 百分比形式显示症状严重度
+2. **分型结果** - 根据问卷回答确定的具体类型
+3. **严重度等级** - 基于评分的症状严重程度
+4. **日常生活影响** - 症状对生活质量的影响评估
+5. **推荐训练计划** - 个性化的训练模式建议
+6. **免责声明** - 医疗建议和使用注意事项
 
 ---
 
-### 模块 1：尿失禁 结果板块
+## 尿失禁评估结果解释
 
-**得分**：ICIQ 总分 ÷ 21 × 100 = 百分比
-- 满分（0/21 = 0%）时显示："No urinary incontinence symptoms detected. No training is recommended at this time."
+### 评分计算方法
+- **ICIQ总分** ÷ 21 × 100 = 症状严重度百分比
+- 满分21分代表最严重症状，0分表示无症状
+- 分数越高表示症状越严重
 
-**分型文案**（3IQ Q3）：
+### 尿失禁分型说明
 
-| Q3 选项 | 类型 | 英文文案 |
-|---------|------|---------|
-| a | Stress (SUI) | "Stress Urinary Incontinence (SUI) — leakage related to physical activity, coughing, or sneezing" |
-| b | Urge (UUI) | "Urge Urinary Incontinence (UUI) — leakage associated with a sudden, strong urge to urinate" |
-| c | Mixed (MUI) | "Mixed Urinary Incontinence (MUI) — combination of stress and urge symptoms" |
-| d | Other | "Other type — leakage mechanism does not fit typical stress or urge patterns. Professional evaluation recommended." |
+**压力性尿失禁 (SUI)**
+- 与体力活动相关的漏尿，如咳嗽、打喷嚏、运动时
+- 通常由盆底肌肉松弛或支撑结构薄弱导致
 
-**次级特征（UDI-6）**：
-- 有额外症状："Additional symptoms detected: [具体症状标签]"
-- 无额外症状："No additional urinary symptoms detected beyond primary classification."
+**急迫性尿失禁 (UUI)**
+- 突然强烈尿意后的不自主漏尿
+- 通常与膀胱过度活动或神经控制异常有关
 
-**严重度**（ICIQ + UDI-6 修正后）：
+**混合性尿失禁 (MUI)**
+- 同时存在压力性和急迫性症状
+- 需要综合性的训练方案
 
-| 等级 | ICIQ 范围 | 英文文案 | 颜色 |
+**其他类型**
+- 不符合典型压力性或急迫性模式的漏尿
+- 建议寻求专业医疗评估
+
+### 严重度等级
+
+| 等级 | ICIQ范围 | 症状描述 | 建议 |
 |------|----------|---------|------|
-| Slight | 1-5 | "Slight — minimal impact, occasional symptoms" | 绿色 |
-| Moderate | 6-12 | "Moderate — noticeable symptoms affecting some daily activities" | 黄色 |
-| Severe | 13-18 | "Severe — significant impact on daily life and activities" | 橙色 |
-| Very Severe | 19-21 | "Very Severe — persistent symptoms greatly limiting daily function" | 红色 |
+| **轻度 (Slight)** | 1-5分 | 偶发症状，对日常生活影响较小 | 预防性训练 |
+| **中度 (Moderate)** | 6-12分 | 明显症状，影响部分日常活动 | 规律性训练 |
+| **重度 (Severe)** | 13-18分 | 严重症状，显著影响日常生活 | 密集训练计划 |
+| **极重度 (Very Severe)** | 19-21分 | 持续性症状，严重限制功能 | 综合治疗方案 |
 
-**日常生活影响（IIQ-7）**：
+### 日常生活影响评估 (IIQ-7)
 
-| IIQ-7 总分 | 等级 | 英文文案 |
-|-----------|------|---------|
-| 0 | No Impact | "No measurable impact on daily activities." |
-| 1-7 | Mild | "Mild impact — slight adjustments to daily routines." |
-| 8-14 | Moderate | "Moderate impact — affects household chores, social outings, and physical activities." |
-| 15-21 | Severe | "Severe impact — significantly limits daily life including work, travel, and social participation." |
+**无影响 (No Impact)**
+- 对日常活动无明显影响
 
----
+**轻度影响 (Mild)**
+- 需要对日常生活做轻微调整
 
-### 模块 2：疼痛 结果板块
+**中度影响 (Moderate)**
+- 影响家务、社交活动和体力活动
 
-**得分**：NRS 疼痛评分 ÷ 10 × 100 = 百分比
-- 满分（0/10 = 0%）时显示："No significant pain reported. No training is recommended at this time."
-- Q1 选了风险项时：不计分，显示红色警告："⚠️ Risk factors detected. We recommend consulting a healthcare professional before starting any training program."
+**重度影响 (Severe)**
+- 严重限制工作、出行和社交参与
 
-**分型文案**：
+### 训练模式推荐原则
 
-| 条件 | 类型 | 英文文案 |
-|------|------|---------|
-| Q2 疼痛持续 >6 周 | Chronic | "Chronic pelvic pain — persistent pain lasting more than 6 weeks" |
-| Q2 疼痛持续 ≤6 周 | Acute | "Acute pelvic pain — recent onset, less than 6 weeks duration" |
+系统会根据分型结果和严重度自动推荐最适合的训练模式：
 
-**严重度**（NRS）：
+- **压力性尿失禁** → 盆底肌强化训练
+- **急迫性尿失禁** → 膀胱训练和神经调节
+- **混合性尿失禁** → 综合性训练方案
+- **轻度症状** → 预防性维持训练
+- **重度症状** → 密集康复训练
 
-| NRS | 等级 | 英文文案 | 颜色 |
-|-----|------|---------|------|
-| 1-3 | Mild | "Mild pain — manageable, does not significantly interfere with activities" | 绿色 |
-| 4-6 | Moderate | "Moderate pain — interferes with some daily activities" | 黄色 |
-| 7-8 | Severe | "Severe pain — substantially limits daily function" | 橙色 |
-| 9-10 | Very Severe | "Very Severe pain — debilitating, requires immediate clinical attention" | 红色 |
+### 结果解读注意事项
 
----
+1. **个体差异** - 评估结果仅供参考，每个人的情况可能有所不同
+2. **动态变化** - 症状可能随时间和训练而改善或变化
+3. **专业建议** - 严重症状或特殊情况建议咨询医疗专业人士
+4. **持续监测** - 建议定期重新评估以跟踪进展情况
 
-### 模块 3：臀腿功能 结果板块
-
-**得分**：PGQ 综合得分百分比 = 各维度加权平均
-- 满分（100%）时显示："Your hip and lower limb function is excellent. No training is recommended at this time."
-
-**三维度评估**：
-
-| 维度 | 计算 | 低分文案（<30%） | 中分文案（30-70%） | 高分文案（>70%） |
-|------|------|----------------|------------------|----------------|
-| Control | Q均分/max | "Good pelvic floor control" | "Moderate control — room for improvement" | "Reduced control — targeted training recommended" |
-| Endurance | Q均分/max | "Good muscle endurance" | "Moderate endurance — some fatigue observed" | "Reduced endurance — stamina training recommended" |
-| Strength | Q均分/max | "Good muscle strength" | "Moderate strength — strengthening beneficial" | "Reduced strength — strength training recommended" |
-
-注意：低分代表功能好（症状少），高分代表功能差（症状多）
-
-**日常生活影响**（PGQ 功能限制题）：
-
-| 得分范围 | 等级 | 英文文案 |
-|---------|------|---------|
-| 0-25% | No Impact | "No measurable functional limitations." |
-| 26-50% | Mild | "Mild functional limitations in some physical activities." |
-| 51-75% | Moderate | "Moderate limitations affecting mobility, exercise, and daily tasks." |
-| 76-100% | Severe | "Severe functional limitations — significant impact on movement and independence." |
-
----
-
-### CTA按钮
-- "Create Training Plan" → 进入训练计划配置
-- 如果所有模块都是满分/无推荐 → 按钮隐藏，显示："All assessments indicate good health. No training program is recommended at this time."
+### 无症状情况 (0分)
+当ICIQ总分为0时，页面会显示：
+- ✅ "No urinary incontinence symptoms detected"
+- "No training is recommended at this time"
+- 不显示分型、严重度等板块
+- 提供返回主页选项
     `
   },
   'assess-result-zero': {
