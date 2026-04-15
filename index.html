@@ -546,7 +546,31 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
         <span class="dot blue"></span>结果生成中
       </div>
       <div class="sidebar-item" data-page="assess-result-first" onclick="showPage(this)">
-        <span class="dot green"></span>评估结果 · 首次
+        <span class="dot green"></span>评估结果 · 尿失禁首次
+      </div>
+      <div class="sidebar-item" data-page="assess-result-zero" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 尿失禁0分
+      </div>
+      <div class="sidebar-item" data-page="assess-result-pain-first" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 疼痛首次
+      </div>
+      <div class="sidebar-item" data-page="assess-result-pain-zero" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 疼痛0分
+      </div>
+      <div class="sidebar-item" data-page="assess-result-pain-risk" onclick="showPage(this)">
+        <span class="dot red"></span>评估结果 · 疼痛风险项
+      </div>
+      <div class="sidebar-item" data-page="assess-result-pain-nonFirst" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 疼痛非首次
+      </div>
+      <div class="sidebar-item" data-page="assess-result-hip-first" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 臀腿首次
+      </div>
+      <div class="sidebar-item" data-page="assess-result-hip-zero" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 臀腿0分
+      </div>
+      <div class="sidebar-item" data-page="assess-result-hip-nonFirst" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 臀腿非首次
       </div>
       <div class="sidebar-item" data-page="assess-result-multi" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 非首次多模块
@@ -1199,8 +1223,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">Classification</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">Incontinence Type (3IQ)</div><div class="rc-value" style="font-size:14px;font-weight:600">Stress Urinary Incontinence (SUI)</div></div></div>
-          <div class="rc-row" style="margin-top:4px"><div><div class="rc-label">Secondary Features (UDI-6)</div><div class="rc-value" style="font-size:13px">Urgency symptoms detected</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">尿失禁分型 (3IQ)</div><div class="rc-value" style="font-size:14px;font-weight:600">主要为Stress 漏尿</div></div></div>
         </div>
       </div>
 
@@ -1210,7 +1233,6 @@ const pages = {
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge moderate">Moderate</span>
-            <span style="font-size:12px;color:#999">ICIQ 12/21 · UDI-6 adjusted</span>
           </div>
           <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:57%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
           <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Slight</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
@@ -1219,13 +1241,20 @@ const pages = {
 
       <!-- QoL impact -->
       <div class="result-section">
-        <div class="result-section-title">Quality of Life Impact</div>
+        <div class="result-section-title">日常生活影响</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#e65100"></div>
-            <span style="font-size:14px;font-weight:500;color:#e65100">Impacted</span>
+            <div style="width:8px;height:8px;border-radius:50%;background:#4caf50"></div>
+            <span style="font-size:14px;font-weight:500;color:#2e7d32">生活质量未受显著影响</span>
           </div>
-          <div style="font-size:12px;color:#666;margin-top:6px">IIQ-7 score ≥ 9.5 — affects daily activities including household chores and social outings.</div>
+        </div>
+      </div>
+
+      <!-- Combined output -->
+      <div class="result-section">
+        <div class="result-section-title">综合结论</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">症状moderate，生活质量未受显著影响。</div>
         </div>
       </div>
 
@@ -1246,6 +1275,395 @@ const pages = {
       </div>
 
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+    </div>
+  </div>`,
+
+  // 尿失禁0分 - Q1=No
+  'assess-result-zero': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <div style="text-align:center;padding:60px 24px">
+        <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
+        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">No Symptoms Detected</div>
+        <div style="font-size:14px;color:#999;line-height:1.6">No urinary incontinence symptoms detected. No training is recommended at this time.</div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('home-connected')">Back to Home</button>
+    </div>
+  </div>`,
+
+  // 疼痛首次
+  'assess-result-pain-first': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:24px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Pain Score</div>
+        <div style="font-size:52px;font-weight:800;color:#e65100;line-height:1">50<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">NRS: 5 / 10</div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort.</div>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="result-section">
+        <div class="result-section-title">Severity</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge moderate">Moderate pain</span>
+          </div>
+          <div style="font-size:13px;color:#666;margin-top:8px">Interferes with some activities, may need analgesics or non-pharmacological measures</div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Mild</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#fff8f0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · Chronic Pain Relief</div><div style="font-size:11px;color:#999">TENS · 20 mins per session</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333">
+            <div><span style="font-weight:600">5x</span>/week</div>
+            <div><span style="font-weight:600">3</span> weeks</div>
+            <div><span style="font-weight:600">15</span> sessions total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+    </div>
+  </div>`,
+
+  // 疼痛0分
+  'assess-result-pain-zero': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <div style="text-align:center;padding:60px 24px">
+        <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
+        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">No Pain</div>
+        <div style="font-size:14px;color:#999;line-height:1.6">No discomfort, normal activity not affected</div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('home-connected')">Back to Home</button>
+    </div>
+  </div>`,
+
+  // 疼痛风险项
+  'assess-result-pain-risk': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <div style="text-align:center;padding:60px 24px">
+        <div style="width:72px;height:72px;border-radius:50%;background:#fce4ec;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="alert-triangle" style="width:36px;height:36px;color:#c62828"></i></div>
+        <div style="font-size:16px;font-weight:700;color:#c62828;line-height:1.6">&#9888;&#65039; Please contact a healthcare professional before using the device.</div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('home-connected')">Back to Home</button>
+    </div>
+  </div>`,
+
+  // 疼痛非首次 (same as pain-first but with trend chart)
+  'assess-result-pain-nonFirst': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Trend chart -->
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">Pain Score Trend</div>
+          <span class="trend-change improved">Improving</span>
+        </div>
+        <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
+          <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <text x="2" y="15" font-size="8" fill="#ccc">100%</text>
+          <text x="2" y="48" font-size="8" fill="#ccc">50%</text>
+          <text x="2" y="83" font-size="8" fill="#ccc">0%</text>
+          <text x="80" y="95" font-size="8" fill="#ccc">#1</text>
+          <text x="140" y="95" font-size="8" fill="#ccc">#2</text>
+          <text x="200" y="95" font-size="8" fill="#ccc">#3</text>
+          <text x="248" y="95" font-size="8" fill="#ccc">Now</text>
+          <polyline points="85,25 145,35 205,40 255,45" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="85" cy="25" r="3" fill="#e65100"/><circle cx="145" cy="35" r="3" fill="#e65100"/><circle cx="205" cy="40" r="3" fill="#e65100"/><circle cx="255" cy="45" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="trend-legend">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>Pain</div>
+        </div>
+      </div>
+
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:16px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Pain Score</div>
+        <div style="font-size:52px;font-weight:800;color:#e65100;line-height:1">50<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">NRS: 5 / 10</div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort.</div>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="result-section">
+        <div class="result-section-title">Severity</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge moderate">Moderate pain</span>
+          </div>
+          <div style="font-size:13px;color:#666;margin-top:8px">Interferes with some activities, may need analgesics or non-pharmacological measures</div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#fff8f0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · Chronic Pain Relief</div><div style="font-size:11px;color:#999">TENS · 20 mins per session</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333">
+            <div><span style="font-weight:600">5x</span>/week</div>
+            <div><span style="font-weight:600">3</span> weeks</div>
+            <div><span style="font-weight:600">15</span> sessions total</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+    </div>
+  </div>`,
+
+  // 臀腿首次
+  'assess-result-hip-first': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:24px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score (PGQ)</div>
+        <div style="font-size:52px;font-weight:800;color:#2e7d32;line-height:1">45<span style="font-size:24px;font-weight:600">%</span></div>
+      </div>
+
+      <!-- Three dimension bars -->
+      <div class="result-section">
+        <div class="result-section-title">维度评估</div>
+        <div class="result-card">
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Control</span><span style="color:#e65100;font-weight:600">0.4 (&#8805;0.3 受损)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#e65100;border-radius:3px"></div></div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Endurance</span><span style="color:#e65100;font-weight:600">0.35 (&#8805;0.3 受损)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Strength</span><span style="color:#4caf50;font-weight:600">0.2 (&lt;0.3 良好)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">您的下肢在控制和耐力方面有一定受限，建议进行相关训练。</div>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="result-section">
+        <div class="result-section-title">Severity</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge moderate">中度功能受限</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#e8f5e9">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · Control &amp; Awakening</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · Endurance Training</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+    </div>
+  </div>`,
+
+  // 臀腿0分
+  'assess-result-hip-zero': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <div style="text-align:center;padding:60px 24px">
+        <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
+        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">功能良好</div>
+        <div style="font-size:14px;color:#999;line-height:1.6">您的下肢功能良好，无明显受限。</div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('home-connected')">Back to Home</button>
+    </div>
+  </div>`,
+
+  // 臀腿非首次 (same as hip-first but with trend chart)
+  'assess-result-hip-nonFirst': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">Assessment Result</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Trend chart -->
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">Hip & Leg Score Trend</div>
+          <span class="trend-change improved">Improving</span>
+        </div>
+        <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
+          <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <text x="2" y="15" font-size="8" fill="#ccc">100%</text>
+          <text x="2" y="48" font-size="8" fill="#ccc">50%</text>
+          <text x="2" y="83" font-size="8" fill="#ccc">0%</text>
+          <text x="80" y="95" font-size="8" fill="#ccc">#1</text>
+          <text x="140" y="95" font-size="8" fill="#ccc">#2</text>
+          <text x="200" y="95" font-size="8" fill="#ccc">#3</text>
+          <text x="248" y="95" font-size="8" fill="#ccc">Now</text>
+          <polyline points="85,20 145,30 205,38 255,42" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="85" cy="20" r="3" fill="#2e7d32"/><circle cx="145" cy="30" r="3" fill="#2e7d32"/><circle cx="205" cy="38" r="3" fill="#2e7d32"/><circle cx="255" cy="42" r="4" fill="#2e7d32" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="trend-legend">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#2e7d32"></div>Hip &amp; Leg</div>
+        </div>
+      </div>
+
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:16px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score (PGQ)</div>
+        <div style="font-size:52px;font-weight:800;color:#2e7d32;line-height:1">45<span style="font-size:24px;font-weight:600">%</span></div>
+      </div>
+
+      <!-- Three dimension bars -->
+      <div class="result-section">
+        <div class="result-section-title">维度评估</div>
+        <div class="result-card">
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Control</span><span style="color:#e65100;font-weight:600">0.4 (&#8805;0.3 受损)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#e65100;border-radius:3px"></div></div>
+          </div>
+          <div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Endurance</span><span style="color:#e65100;font-weight:600">0.35 (&#8805;0.3 受损)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
+          </div>
+          <div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">Strength</span><span style="color:#4caf50;font-weight:600">0.2 (&lt;0.3 良好)</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">Classification</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">您的下肢在控制和耐力方面有一定受限，建议进行相关训练。</div>
+        </div>
+      </div>
+
+      <!-- Severity -->
+      <div class="result-section">
+        <div class="result-section-title">Severity</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge moderate">中度功能受限</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">Recommended Training Plan</div>
+        <div class="result-card" style="background:#e8f5e9">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · Control &amp; Awakening</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · Endurance Training</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
@@ -1298,12 +1716,8 @@ const pages = {
             <span class="severity-badge mild">Mild</span>
             <span class="severity-badge improved">&darr; Improved</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:12px;margin-bottom:10px">
-            <div><span style="color:#999">Type:</span> <span style="color:#333">SUI (Stress)</span></div>
-            <div><span style="color:#999">ICIQ:</span> <span style="color:#333">12→8/21</span></div>
-            <div><span style="color:#999">QoL:</span> <span style="color:#2e7d32">Reduced impact</span></div>
-            <div><span style="color:#999">Severity:</span> <span style="color:#333">Moderate→Mild</span></div>
-          </div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px">主要为Stress漏尿，同时存在Urgency症状</div>
+          <div style="font-size:13px;color:#666;margin-bottom:10px">症状mild，生活质量受影响。</div>
           <div style="background:#fdf0f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">Recommended Training Plan</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1330,12 +1744,7 @@ const pages = {
             <span class="severity-badge moderate">Moderate</span>
             <span class="severity-badge improved">&darr; Improved</span>
           </div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px 12px;font-size:12px;margin-bottom:10px">
-            <div><span style="color:#999">Type:</span> <span style="color:#333">Chronic</span></div>
-            <div><span style="color:#999">NRS:</span> <span style="color:#333">7→5/10</span></div>
-            <div><span style="color:#999">Red Flags:</span> <span style="color:#2e7d32">None</span></div>
-            <div><span style="color:#999">Duration:</span> <span style="color:#333">&gt;6 weeks</span></div>
-          </div>
+          <div style="font-size:13px;color:#666;margin-bottom:10px">Moderate pain - Interferes with some activities</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">Recommended Training Plan</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -2441,6 +2850,188 @@ const prdMapping = {
 ### CTA按钮
 - "Create Training Plan" → 进入训练计划配置
 - 如果所有模块都是满分/无推荐 → 按钮隐藏，显示："All assessments indicate good health. No training program is recommended at this time."
+    `
+  },
+  'assess-result-zero': {
+    title: '3.4 评估结果·尿失禁0分',
+    path: '功能三 > 问卷评估 > 尿失禁0分结果',
+    content: `
+## 3.4 评估结果（尿失禁 Q1=No / 0分）
+
+### 触发条件
+- Q1 回答 No（无漏尿症状）
+
+### 页面展示
+- 绿色对勾图标
+- 文案："No urinary incontinence symptoms detected. No training is recommended at this time."
+- 无分型、严重度、QoL、推荐训练板块
+
+### CTA
+- "Back to Home" → 返回设备主页
+    `
+  },
+  'assess-result-pain-first': {
+    title: '3.4 评估结果·疼痛首次',
+    path: '功能三 > 问卷评估 > 疼痛首次结果',
+    content: `
+## 3.4 评估结果（疼痛·首次）
+
+### 得分
+- NRS 5/10 = 50%
+
+### 分型 (Classification)
+- Chronic nociceptive + 持续 1-6 weeks
+- 文案："You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort."
+
+### 严重度 (Severity)
+- Moderate pain
+- 文案："Interferes with some activities, may need analgesics or non-pharmacological measures"
+
+### 推荐训练
+- Mode 6 Chronic Pain Relief
+- TENS · 20 min per session
+- 5x/week · 3 weeks
+
+### CTA
+- "Create Training Plan" → 进入训练计划配置
+    `
+  },
+  'assess-result-pain-zero': {
+    title: '3.4 评估结果·疼痛0分',
+    path: '功能三 > 问卷评估 > 疼痛0分结果',
+    content: `
+## 3.4 评估结果（疼痛 NRS=0）
+
+### 触发条件
+- NRS 疼痛评分 = 0
+
+### 页面展示
+- 绿色对勾图标
+- 标题："No Pain"
+- 文案："No discomfort, normal activity not affected"
+- 无推荐训练板块
+
+### CTA
+- "Back to Home" → 返回设备主页
+    `
+  },
+  'assess-result-pain-risk': {
+    title: '3.4 评估结果·疼痛风险项',
+    path: '功能三 > 问卷评估 > 疼痛风险项结果',
+    content: `
+## 3.4 评估结果（疼痛·风险项）
+
+### 触发条件
+- Q1 选了风险项
+
+### 页面展示
+- 红色警告图标
+- 文案："\u26A0\uFE0F Please contact a healthcare professional before using the device."
+- 无分型、严重度、推荐训练板块
+
+### CTA
+- "Back to Home" → 返回设备主页
+    `
+  },
+  'assess-result-pain-nonFirst': {
+    title: '3.4 评估结果·疼痛非首次',
+    path: '功能三 > 问卷评估 > 疼痛非首次结果',
+    content: `
+## 3.4 评估结果（疼痛·非首次）
+
+### 与首次区别
+- 顶部增加趋势图（Pain Score Trend）
+- 其余板块同首次
+
+### 得分
+- NRS 5/10 = 50%
+
+### 分型 (Classification)
+- 文案："You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort."
+
+### 严重度 (Severity)
+- Moderate pain
+- 文案："Interferes with some activities, may need analgesics or non-pharmacological measures"
+
+### 推荐训练
+- Mode 6 Chronic Pain Relief · TENS · 20 min · 5x/week · 3 weeks
+    `
+  },
+  'assess-result-hip-first': {
+    title: '3.4 评估结果·臀腿首次',
+    path: '功能三 > 问卷评估 > 臀腿首次结果',
+    content: `
+## 3.4 评估结果（臀腿功能·首次）
+
+### 得分
+- PGQ 综合 45%
+
+### 三维度评估
+| 维度 | 得分 | 阈值 | 判定 |
+|------|------|------|------|
+| Control | 0.4 | ≥0.3 | 受损 |
+| Endurance | 0.35 | ≥0.3 | 受损 |
+| Strength | 0.2 | <0.3 | 良好 |
+
+### 分型 (Classification)
+- 文案（中文）："您的下肢在控制和耐力方面有一定受限，建议进行相关训练。"
+
+### 严重度 (Severity)
+- 文案（中文）："中度功能受限"
+
+### 推荐训练
+- Mode 1 Activation + Mode 3 Endurance
+
+### CTA
+- "Create Training Plan" → 进入训练计划配置
+    `
+  },
+  'assess-result-hip-zero': {
+    title: '3.4 评估结果·臀腿0分',
+    path: '功能三 > 问卷评估 > 臀腿0分结果',
+    content: `
+## 3.4 评估结果（臀腿功能·0分）
+
+### 触发条件
+- 所有维度 < 0.3
+
+### 页面展示
+- 绿色对勾图标
+- 文案（中文）："您的下肢功能良好，无明显受限。"
+- 无推荐训练板块
+
+### CTA
+- "Back to Home" → 返回设备主页
+    `
+  },
+  'assess-result-hip-nonFirst': {
+    title: '3.4 评估结果·臀腿非首次',
+    path: '功能三 > 问卷评估 > 臀腿非首次结果',
+    content: `
+## 3.4 评估结果（臀腿功能·非首次）
+
+### 与首次区别
+- 顶部增加趋势图（Hip & Leg Score Trend）
+- 其余板块同首次
+
+### 得分
+- PGQ 综合 45%
+
+### 三维度评估
+| 维度 | 得分 | 阈值 | 判定 |
+|------|------|------|------|
+| Control | 0.4 | ≥0.3 | 受损 |
+| Endurance | 0.35 | ≥0.3 | 受损 |
+| Strength | 0.2 | <0.3 | 良好 |
+
+### 分型 (Classification)
+- 文案（中文）："您的下肢在控制和耐力方面有一定受限，建议进行相关训练。"
+
+### 严重度 (Severity)
+- 文案（中文）："中度功能受限"
+
+### 推荐训练
+- Mode 1 Activation + Mode 3 Endurance
     `
   },
   'assess-result-multi': {
