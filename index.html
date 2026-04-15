@@ -602,14 +602,20 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="sched-skip" onclick="showPage(this)">
         <span class="dot orange"></span>请假确认弹窗
       </div>
+      <div class="sidebar-item" data-page="sched-home-skipped" onclick="showPage(this)">
+        <span class="dot blue"></span>日程主页 · 单任务已跳过
+      </div>
+      <div class="sidebar-item" data-page="sched-home-all-skipped" onclick="showPage(this)">
+        <span class="dot blue"></span>日程主页 · 全部已跳过
+      </div>
+      <div class="sidebar-item" data-page="sched-undo-skip" onclick="showPage(this)">
+        <span class="dot orange"></span>撤销请假弹窗
+      </div>
       <div class="sidebar-item" data-page="sched-skip-multi" onclick="showPage(this)">
         <span class="dot orange"></span>请假 · 多任务选择
       </div>
       <div class="sidebar-item" data-page="sched-skip-streak" onclick="showPage(this)">
         <span class="dot orange"></span>请假 · 连续≥3天提醒
-      </div>
-      <div class="sidebar-item" data-page="sched-undo-skip" onclick="showPage(this)">
-        <span class="dot blue"></span>撤销请假
       </div>
       <div class="sidebar-item" data-page="sched-summary" onclick="showPage(this)">
         <span class="dot blue"></span>日程汇总
@@ -1622,10 +1628,10 @@ const pages = {
     return bg.replace('class="task-list"', 'class="task-list" style="filter:brightness(0.6)"') + `<div class="overlay" style="z-index:30">
       <div class="reminder-dialog">
         <div class="rd-title">Skip this session?</div>
-        <div class="rd-desc">This training session will be marked as skipped. It will not be rescheduled to another day.</div>
-        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home')">Skip Session</button>
+        <div class="rd-desc">This session will be skipped.</div>
+        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home-skipped')">Skip Session</button>
         <div style="margin-bottom:8px">
-          <button class="btn-ghost" style="color:#999;font-size:13px;padding:8px" onclick="goTo('sched-home')">Skip all today's sessions</button>
+          <button class="btn-ghost" style="color:#999;font-size:13px;padding:8px" onclick="goTo('sched-home-all-skipped')">Skip all today's sessions</button>
         </div>
         <button class="btn-ghost" style="padding:8px" onclick="goTo('sched-home')">Cancel</button>
       </div>
@@ -1735,27 +1741,84 @@ const pages = {
     </div>
   </div>`,
 
-  'sched-undo-skip': () => h.statusBar() + `<div class="nav-bar">
-    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+  'sched-home-skipped': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Schedule</span>
-    <div style="width:32px"></div>
+    <div class="settings-btn" onclick="goTo('sched-summary')"><i data-lucide="list" style="width:20px;height:20px;color:#1a1a1a"></i></div>
   </div>
-  <div style="padding:16px">
-    <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #f0f0f0">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-        <div style="width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#999">01</div>
-        <div><div style="font-size:14px;font-weight:600;color:#999;text-decoration:line-through">Activation · 24 min</div><div style="font-size:11px;color:#e65100;font-weight:600">Skipped</div></div>
-      </div>
-      <div style="font-size:12px;color:#666;margin-bottom:12px">Wednesday, Apr 16 · Skipped</div>
-      <button class="btn-primary" style="border-radius:10px;padding:8px 16px;font-size:13px;width:100%" onclick="goTo('sched-home')">Undo Skip · Restore Training</button>
+  <div class="sched-cal">
+    <div class="sched-week-days">
+      <div class="sched-day-col past"><div class="sched-day-name">Mon</div><div class="sched-day-num">14</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
+      <div class="sched-day-col past"><div class="sched-day-name">Tue</div><div class="sched-day-num">15</div><div class="sched-day-dots"></div></div>
+      <div class="sched-day-col today"><div class="sched-day-name">Wed</div><div class="sched-day-num">16</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#e65100"></div></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Thu</div><div class="sched-day-num">17</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#e65100"></div></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Fri</div><div class="sched-day-num">18</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Sat</div><div class="sched-day-num">19</div><div class="sched-day-dots"></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Sun</div><div class="sched-day-num">20</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
     </div>
-    <div style="background:#f8f8f8;border-radius:10px;padding:12px;font-size:12px;color:#666;line-height:1.5">
-      <b>Undo rules:</b><br>
-      • Today's skip: can undo before midnight<br>
-      • Future date: can undo before that date<br>
-      • Past dates: cannot undo
+  </div>
+  <div style="padding:4px 16px 8px;font-size:13px;font-weight:600;color:#1a1a1a">Wednesday, Apr 16</div>
+  <div class="task-list">
+    <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
+      <div class="tc-num" style="background:#f5f5f5;color:#999">01</div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Activation</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+    </div>
+    <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
+      <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
+      <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
+      <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
+    </div>
+    <div class="task-card completed">
+      <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
+      <div class="tc-info"><div class="tc-name">Strength</div><div class="tc-meta">EMS · 24 min · Completed at 9:30 AM</div></div>
+      <div class="tc-status"><i data-lucide="check" style="width:14px;height:14px"></i></div>
     </div>
   </div>`,
+
+  'sched-home-all-skipped': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Schedule</span>
+    <div class="settings-btn" onclick="goTo('sched-summary')"><i data-lucide="list" style="width:20px;height:20px;color:#1a1a1a"></i></div>
+  </div>
+  <div class="sched-cal">
+    <div class="sched-week-days">
+      <div class="sched-day-col past"><div class="sched-day-name">Mon</div><div class="sched-day-num">14</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
+      <div class="sched-day-col past"><div class="sched-day-name">Tue</div><div class="sched-day-num">15</div><div class="sched-day-dots"></div></div>
+      <div class="sched-day-col today"><div class="sched-day-name">Wed</div><div class="sched-day-num">16</div><div class="sched-day-dots"></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Thu</div><div class="sched-day-num">17</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#e65100"></div></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Fri</div><div class="sched-day-num">18</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Sat</div><div class="sched-day-num">19</div><div class="sched-day-dots"></div></div>
+      <div class="sched-day-col"><div class="sched-day-name">Sun</div><div class="sched-day-num">20</div><div class="sched-day-dots"><div class="sched-day-dot" style="background:#c4787a"></div></div></div>
+    </div>
+  </div>
+  <div style="padding:4px 16px 8px;font-size:13px;font-weight:600;color:#1a1a1a">Wednesday, Apr 16</div>
+  <div class="task-list">
+    <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
+      <div class="tc-num" style="background:#f5f5f5;color:#999">01</div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Activation</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+    </div>
+    <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
+      <div class="tc-num" style="background:#f5f5f5;color:#999">06</div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Pain Soothe</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+    </div>
+    <div class="task-card completed">
+      <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
+      <div class="tc-info"><div class="tc-name">Strength</div><div class="tc-meta">EMS · 24 min · Completed at 9:30 AM</div></div>
+      <div class="tc-status"><i data-lucide="check" style="width:14px;height:14px"></i></div>
+    </div>
+  </div>`,
+
+  'sched-undo-skip': () => {
+    const bg = pages['sched-home-skipped']();
+    return bg.replace('class="task-list"', 'class="task-list" style="filter:brightness(0.6)"') + `<div class="overlay" style="z-index:30">
+      <div class="reminder-dialog">
+        <div class="rd-title">Undo skip?</div>
+        <div class="rd-desc">This session will be restored to your schedule.</div>
+        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home')">Restore Session</button>
+        <button class="btn-ghost" style="padding:8px" onclick="goTo('sched-home-skipped')">Cancel</button>
+      </div>
+    </div>`;
+  },
 
   'sched-edit': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('sched-summary')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
@@ -3120,6 +3183,46 @@ const prdMapping = {
 - 训练记录卡片中显示心情图标
     `
   },
+  'sched-home-skipped': {
+    title: '5.2 日程主页 · 单任务已跳过',
+    path: '功能五 > 训练日程管理 > 请假后状态',
+    content: `
+## 请假后日程主页
+
+### 跳过的任务显示
+- 任务卡片变为半透明（opacity 0.5）
+- 模式名称加删除线
+- 状态文字显示橙色 **Skipped**
+- 其他未跳过的任务保持正常
+
+### 撤销操作
+- 点击已跳过的任务卡片 → 弹出撤销确认弹窗
+- 确认后任务恢复为 Pending 状态
+
+### 撤销时限
+| 场景 | 时限 |
+|------|------|
+| 当天请假 | 当天 00:00 前可撤销 |
+| 未来日期请假 | 该日期到来前可撤销 |
+| 已过期日期 | 不可撤销 |
+    `
+  },
+  'sched-home-all-skipped': {
+    title: '5.2 日程主页 · 全部已跳过',
+    path: '功能五 > 训练日程管理 > 全部请假后状态',
+    content: `
+## 全部任务跳过后
+
+### 显示状态
+- 所有未完成任务卡片变为半透明 + 删除线 + Skipped
+- 已完成的任务不受影响
+- 日历当天圆点消失（无待完成任务）
+
+### 撤销
+- 点击任意已跳过任务可单独撤销
+- 每个任务独立撤销，不是"全部恢复"
+    `
+  },
   'sched-skip-multi': {
     title: '5.5 请假 - 多任务选择',
     path: '功能五 > 训练日程管理 > 请假 > 多任务场景',
@@ -3163,13 +3266,19 @@ const prdMapping = {
     `
   },
   'sched-undo-skip': {
-    title: '5.5 撤销请假',
+    title: '5.5 撤销请假弹窗',
     path: '功能五 > 训练日程管理 > 请假 > 撤销请假',
     content: `
-## 撤销请假
+## 撤销请假弹窗
 
-### 入口
-点击 Skipped 状态的任务卡片
+### 触发方式
+点击日程主页中标记为 **Skipped** 的任务卡片
+
+### 弹窗内容
+- 标题："Undo skip?"
+- 说明："This session will be restored to your schedule."
+- 「Restore Session」→ 任务恢复 Pending 状态
+- 「Cancel」→ 关闭弹窗
 
 ### 撤销时限
 
@@ -3181,8 +3290,6 @@ const prdMapping = {
 
 ### 撤销后处理
 - 任务恢复 Pending 状态
-- 顺延的任务回退
-- 日程结束日期相应回退
 - 连续请假计数器 -1
 - 日历标记恢复
 - Toast 提示："Training restored"
