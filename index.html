@@ -536,6 +536,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="assess-q-pain" onclick="showPage(this)">
         <span class="dot blue"></span>问卷填写 · 疼痛
       </div>
+      <div class="sidebar-item" data-page="assess-q-hip" onclick="showPage(this)">
+        <span class="dot blue"></span>问卷填写 · 臀腿功能
+      </div>
       <div class="sidebar-item" data-page="assess-exit-dialog" onclick="showPage(this)">
         <span class="dot orange"></span>退出确认弹窗
       </div>
@@ -587,6 +590,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="train-complete-partial" onclick="showPage(this)">
         <span class="dot orange"></span>训练完成 · 提前结束
       </div>
+      <div class="sidebar-item" data-page="train-mood" onclick="showPage(this)">
+        <span class="dot blue"></span>心情反馈
+      </div>
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">日程管理</div>
@@ -596,8 +602,23 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="sched-skip" onclick="showPage(this)">
         <span class="dot orange"></span>请假确认弹窗
       </div>
+      <div class="sidebar-item" data-page="sched-skip-multi" onclick="showPage(this)">
+        <span class="dot orange"></span>请假 · 多任务选择
+      </div>
+      <div class="sidebar-item" data-page="sched-skip-streak" onclick="showPage(this)">
+        <span class="dot orange"></span>请假 · 连续≥3天提醒
+      </div>
+      <div class="sidebar-item" data-page="sched-undo-skip" onclick="showPage(this)">
+        <span class="dot blue"></span>撤销请假
+      </div>
       <div class="sidebar-item" data-page="sched-summary" onclick="showPage(this)">
         <span class="dot blue"></span>日程汇总
+      </div>
+      <div class="sidebar-item" data-page="sched-edit" onclick="showPage(this)">
+        <span class="dot blue"></span>日程编辑
+      </div>
+      <div class="sidebar-item" data-page="sched-delete" onclick="showPage(this)">
+        <span class="dot red"></span>日程删除确认
       </div>
       <div class="sidebar-item" data-page="sched-complete" onclick="showPage(this)">
         <span class="dot green"></span>训练周期完成
@@ -1071,6 +1092,29 @@ const pages = {
     </div>
   </div>`,
 
+  'assess-q-hip': () => h.statusBar() + `<div class="q-nav">
+    <span class="q-cancel" onclick="goTo('assess-exit-dialog')">Cancel</span>
+    <span class="q-step-label">Q1 of 25</span>
+  </div>
+  <div class="q-progress"><div class="q-progress-bar" style="width:4%"></div></div>
+  <div class="q-body">
+    <div style="font-size:11px;color:#c4787a;font-weight:600;margin-bottom:4px">HIP & LEG FUNCTION · PGQ Part A</div>
+    <div class="q-title">How problematic is it for you because of your pelvic girdle pain to:</div>
+    <div class="q-subtitle" style="font-size:15px;font-weight:700;color:#1a1a1a;margin:8px 0">Q1. Dress yourself</div>
+    <div style="font-size:11px;color:#999;margin-bottom:12px">Dimension: Control</div>
+    <div class="q-option" onclick="this.parentElement.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">Not at all (0)</div>
+    <div class="q-option" onclick="this.parentElement.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">To a small extent (1)</div>
+    <div class="q-option" onclick="this.parentElement.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">To some extent (2)</div>
+    <div class="q-option" onclick="this.parentElement.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">To a large extent (3)</div>
+    <div class="q-option" onclick="this.parentElement.querySelectorAll('.q-option').forEach(o=>o.classList.remove('sel'));this.classList.add('sel')">Not applicable</div>
+  </div>
+  <div class="q-footer">
+    <div class="q-btns">
+      <button class="btn-prev" onclick="goTo('assess-q-pain')">Previous</button>
+      <button class="btn-next" onclick="goTo('assess-loading')">Next</button>
+    </div>
+  </div>`,
+
   'assess-exit-dialog': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel">Cancel</span>
     <span class="q-step-label">Q5 of 10</span>
@@ -1508,6 +1552,23 @@ const pages = {
     </div>
   </div>`,
 
+  'train-mood': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">How do you feel?</span>
+    <div class="back-btn" onclick="goTo('home-connected')" style="font-size:13px;color:#999;width:auto">Skip</div>
+  </div>
+  <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px">
+    <div style="font-size:15px;color:#1a1a1a;font-weight:600;margin-bottom:24px;text-align:center">How did this session feel?</div>
+    <div style="display:flex;gap:16px;margin-bottom:32px">
+      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😁</div><div style="font-size:11px;color:#666;margin-top:4px">Feeling<br>Great</div></div>
+      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😊</div><div style="font-size:11px;color:#666;margin-top:4px">Pretty<br>Good</div></div>
+      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😐</div><div style="font-size:11px;color:#666;margin-top:4px">Okay</div></div>
+      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😕</div><div style="font-size:11px;color:#666;margin-top:4px">Not So<br>Good</div></div>
+      <div style="text-align:center;cursor:pointer" onclick="document.querySelectorAll('.mood-btn').forEach(b=>b.style.opacity='0.3');this.querySelector('.mood-btn').style.opacity='1'"><div class="mood-btn" style="font-size:32px;opacity:0.3">😣</div><div style="font-size:11px;color:#666;margin-top:4px">Uncom-<br>fortable</div></div>
+    </div>
+    <button class="btn-primary" style="width:100%;max-width:280px;border-radius:12px" onclick="goTo('home-connected')">Done</button>
+  </div>`,
+
   'sched-home': () => h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Training Schedule</span>
@@ -1628,6 +1689,111 @@ const pages = {
       <div class="rd-desc">You have 1 session scheduled today:<br><b>Activation · 24 min</b></div>
       <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('train-complete')">Start Training</button>
       <button class="btn-ghost" onclick="goTo('sched-skip')">Rest today</button>
+    </div>
+  </div>`,
+
+  'sched-skip-multi': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Schedule</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div class="stop-dialog-title">Skip Training</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">You have 2 sessions scheduled today. Which would you like to skip?</div>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#e65100" onclick="goTo('sched-home')">Skip this session</button>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#c4787a" onclick="goTo('sched-home')">Skip all today's sessions</button>
+      <button class="btn-ghost" onclick="goTo('sched-home')">Cancel</button>
+    </div>
+  </div>`,
+
+  'sched-skip-streak': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Schedule</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div style="font-size:36px;text-align:center;margin-bottom:12px">💤</div>
+      <div class="stop-dialog-title">We miss you!</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">You've taken a break for <b>3 days</b> in a row. Consistency is key to making progress. Even one session today can help you get back on track.</div>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px" onclick="goTo('train-complete')">Let's train</button>
+      <button class="btn-ghost" onclick="goTo('sched-skip')">I still need rest</button>
+    </div>
+  </div>`,
+
+  'sched-undo-skip': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-home')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Training Schedule</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="padding:16px">
+    <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;border:1px solid #f0f0f0">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <div style="width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#999">01</div>
+        <div><div style="font-size:14px;font-weight:600;color:#999;text-decoration:line-through">Activation · 24 min</div><div style="font-size:11px;color:#e65100;font-weight:600">Skipped</div></div>
+      </div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px">Wednesday, Apr 16 · Rescheduled to Apr 18</div>
+      <button class="btn-primary" style="border-radius:10px;padding:8px 16px;font-size:13px;width:100%" onclick="goTo('sched-home')">Undo Skip · Restore Training</button>
+    </div>
+    <div style="background:#f8f8f8;border-radius:10px;padding:12px;font-size:12px;color:#666;line-height:1.5">
+      <b>Undo rules:</b><br>
+      • Today's skip: can undo before midnight<br>
+      • Future date: can undo before that date<br>
+      • Past dates: cannot undo
+    </div>
+  </div>`,
+
+  'sched-edit': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-summary')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Edit Schedule</span>
+    <div class="settings-btn" onclick="goTo('sched-delete')" style="color:#e53935;font-size:13px;font-weight:500;width:auto">Delete</div>
+  </div>
+  <div style="padding:16px;flex:1;overflow-y:auto">
+    <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #f0f0f0">
+      <div style="font-size:13px;font-weight:600;color:#999;margin-bottom:8px">TRAINING MODE</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:32px;height:32px;border-radius:50%;background:#fce4ec;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#c4787a">01</div>
+        <div><div style="font-size:15px;font-weight:600">Activation</div><div style="font-size:12px;color:#999">Basic · EMS · 24 min</div></div>
+      </div>
+      <div style="font-size:11px;color:#999;margin-top:8px"><i data-lucide="lock" style="width:12px;height:12px;vertical-align:-2px"></i> Cannot be changed. Delete and reassess to change mode.</div>
+    </div>
+    <div style="background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;border:1px solid #f0f0f0">
+      <div style="font-size:13px;font-weight:600;color:#999;margin-bottom:12px">TRAINING DAYS</div>
+      <div style="display:flex;gap:8px">
+        <div class="cal-day sel" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#c4787a;color:#fff;cursor:pointer">M</div>
+        <div class="cal-day" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#f5f5f5;color:#1a1a1a;cursor:pointer">T</div>
+        <div class="cal-day sel" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#c4787a;color:#fff;cursor:pointer">W</div>
+        <div class="cal-day" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#f5f5f5;color:#1a1a1a;cursor:pointer">T</div>
+        <div class="cal-day sel" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#c4787a;color:#fff;cursor:pointer">F</div>
+        <div class="cal-day" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#f5f5f5;color:#1a1a1a;cursor:pointer">S</div>
+        <div class="cal-day sel" onclick="this.classList.toggle('sel')" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;background:#c4787a;color:#fff;cursor:pointer">S</div>
+      </div>
+    </div>
+    <div style="background:#fff;border-radius:12px;padding:16px;border:1px solid #f0f0f0">
+      <div style="font-size:13px;font-weight:600;color:#999;margin-bottom:12px">REMINDER TIME</div>
+      <div style="display:flex;align-items:center;justify-content:space-between">
+        <span style="font-size:15px;font-weight:600">8:30 PM</span>
+        <div class="tp-toggle on" onclick="this.classList.toggle('on')"></div>
+      </div>
+    </div>
+  </div>
+  <div style="padding:16px;border-top:1px solid #f0f0f0">
+    <button class="btn-primary" style="border-radius:12px" onclick="goTo('sched-summary')">Save Changes</button>
+  </div>`,
+
+  'sched-delete': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('sched-edit')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Edit Schedule</span>
+    <div style="width:32px"></div>
+  </div>
+  <div style="flex:1;display:flex;align-items:center;justify-content:center">
+    <div class="stop-dialog" style="max-width:300px">
+      <div style="font-size:36px;text-align:center;margin-bottom:12px">🗑️</div>
+      <div class="stop-dialog-title">Delete this schedule?</div>
+      <div class="stop-dialog-desc" style="font-size:13px;line-height:1.5">Future training sessions will be removed. Your completed training records will be preserved.</div>
+      <button class="btn-primary" style="border-radius:12px;margin-bottom:8px;background:#e53935" onclick="goTo('home-no-schedule')">Delete</button>
+      <button class="btn-ghost" onclick="goTo('sched-edit')">Cancel</button>
     </div>
   </div>`,
 
@@ -2885,6 +3051,173 @@ const prdMapping = {
     `
   },
   // 连接引导
+  'assess-q-hip': {
+    title: '3.3 臀腿功能问卷 (PGQ)',
+    path: '功能三 > 问卷评估 > 模块3：臀腿功能',
+    content: `
+## 模块 3：臀腿功能评估（PGQ，25 题）
+
+### Part A：Activity（Q1-Q20）
+"How problematic is it for you because of your pelvic girdle pain to:"
+
+| 选项 | 分值 |
+|------|------|
+| Not at all | 0 |
+| To a small extent | 1 |
+| To some extent | 2 |
+| To a large extent | 3 |
+| Not applicable | 排除不计分 |
+
+**20 个活动项目**：Dress yourself / Stand <10min / Stand >60min / Bend down / Sit <10min / Sit >60min / Walk <10min / Walk >60min / Climb stairs / Do housework / Carry light objects / Carry heavy objects / Get up-sit down / Push shopping cart / Run / Sporting activities / Lie down / Roll over in bed / Normal sex life* / Push with one foot*
+
+**维度标签**：Control / Endurance / Strength（每题有对应维度标签）
+
+### Part B：Symptom（Q21-Q25）
+"How much pain/difficulty do you experience:"
+- Pain in the morning / Pain in the evening / Legs given way / Do things more slowly / Sleep interrupted
+
+### 计算
+- 三个维度各自计算标准化百分比
+- 维度得分 ≥ 0.3 → 对应推荐模式
+    `
+  },
+  'train-mood': {
+    title: '4.4 心情反馈',
+    path: '功能四 > 训练执行 > 心情反馈',
+    content: `
+## 4.4 心情反馈（P2）
+
+### 触发条件
+- 完整完成训练 或 提前结束（进度超过 50%）
+- 在训练完成激励页之后显示
+- 仅显示一次，用户可手动关闭（Skip）
+
+### 心情等级（5 级）
+
+| 图标 | 文案 | 说明 |
+|------|------|------|
+| 😁 | Feeling Great | 棒极了 |
+| 😊 | Pretty Good | 不错 |
+| 😐 | Okay | 还行 |
+| 😕 | Not So Good | 一般 |
+| 😣 | Uncomfortable | 不太舒服 |
+
+### 交互规则
+- 默认心情等级为空，用户不选择可直接 Skip
+- 选择后显示对应鼓励文案（如 Great → "Awesome! Keep up the great work!"）
+- 心情数据记录在训练记录中
+- 训练记录卡片中显示心情图标
+    `
+  },
+  'sched-skip-multi': {
+    title: '5.5 请假 - 多任务选择',
+    path: '功能五 > 训练日程管理 > 请假 > 多任务场景',
+    content: `
+## 跳过范围选择（多任务场景）
+
+### 触发条件
+当天有 **多条** 未完成训练任务时，点击 Skip 后弹出
+
+### 弹窗选项
+- **"Skip this session"** → 仅跳过本条，该条顺延至下一个训练日
+- **"Skip all today's sessions"** → 跳过当天全部未完成任务（已完成不受影响），所有被跳过的任务分别顺延
+- **"Cancel"** → 返回
+
+### 规则
+- 当天仅 1 条未完成任务时直接跳过，不弹此选择
+- 每条被跳过的任务独立顺延至各自日程的下一个训练日
+- 日程结束日期相应延长
+    `
+  },
+  'sched-skip-streak': {
+    title: '5.5 请假 - 连续≥3天提醒',
+    path: '功能五 > 训练日程管理 > 请假 > 连续请假提醒',
+    content: `
+## 连续请假提醒（≥3 天时触发）
+
+### 触发规则
+- 每满 3 天触发一次（第 3、6、9 天...）
+- 请假天数计算：当日**所有日程**的训练任务全部被请假，才计为 +1 天
+- 即某个日程请假了但训练了其他日程 → 当天不算请假
+
+### 弹窗文案
+"You've taken a break for [N] days in a row. Consistency is key to making progress. Even one session today can help you get back on track."
+
+### 按钮
+- **"Let's train"** → 关闭提醒，进入当天训练
+- **"I still need rest"** → 关闭提醒，进入正常请假确认弹窗
+
+### 重置
+完成一次训练后计数器归零
+    `
+  },
+  'sched-undo-skip': {
+    title: '5.5 撤销请假',
+    path: '功能五 > 训练日程管理 > 请假 > 撤销请假',
+    content: `
+## 撤销请假
+
+### 入口
+点击 Skipped 状态的任务卡片
+
+### 撤销时限
+
+| 场景 | 时限 |
+|------|------|
+| 当天请假 | 当天 00:00 前可撤销 |
+| 未来日期请假 | 该日期到来前可撤销 |
+| 已过期日期 | 不可撤销 |
+
+### 撤销后处理
+- 任务恢复 Pending 状态
+- 顺延的任务回退
+- 日程结束日期相应回退
+- 连续请假计数器 -1
+- 日历标记恢复
+- Toast 提示："Training restored"
+    `
+  },
+  'sched-edit': {
+    title: '5.6 日程编辑',
+    path: '功能五 > 训练日程管理 > 日程编辑',
+    content: `
+## 编辑日程
+
+### 入口
+日程汇总页 → 点击活跃日程卡片
+
+### 可修改项
+- **提醒时间**：滚轮选择器
+- **训练日安排**：选择每周哪几天训练（Mon-Sun）
+
+### 不可修改项
+- 训练模式和时长（需删除后重新评估生成）
+- 页面显示锁定图标和说明文案
+
+### 规则
+- 已完成日程不可编辑
+- 修改训练日后，已完成的训练不受影响
+- 右上角 Delete 按钮可删除日程
+    `
+  },
+  'sched-delete': {
+    title: '5.6 日程删除确认',
+    path: '功能五 > 训练日程管理 > 日程删除',
+    content: `
+## 删除日程
+
+### 确认弹窗
+- **文案**："Delete this schedule? Future training sessions will be removed. Your completed training records will be preserved."
+- **按钮**：「Delete」/「Cancel」
+
+### 删除后处理
+- 未来训练任务全部移除
+- 已完成训练记录保留（Archived 状态，淡色卡片 + "(Archived)" 标签）
+- 已完成数据仍计入统计
+- 日历对应日期圆点移除
+- 颜色回收可复用
+    `
+  },
   'connect-guide': {
     title: '2.4 设备连接引导',
     path: '功能二 > 设备连接 > 连接引导',
