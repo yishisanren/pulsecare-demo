@@ -1621,9 +1621,9 @@ const pages = {
     const bg = pages['sched-home']();
     return bg.replace('class="task-list"', 'class="task-list" style="filter:brightness(0.6)"') + `<div class="overlay" style="z-index:30">
       <div class="reminder-dialog">
-        <div class="rd-title">Take a rest today?</div>
-        <div class="rd-desc">This training will be skipped and rescheduled to your next available day. Your schedule will be extended by one day.</div>
-        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home')">Skip & Reschedule</button>
+        <div class="rd-title">Skip this session?</div>
+        <div class="rd-desc">This training session will be marked as skipped. It will not be rescheduled to another day.</div>
+        <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('sched-home')">Skip Session</button>
         <div style="margin-bottom:8px">
           <button class="btn-ghost" style="color:#999;font-size:13px;padding:8px" onclick="goTo('sched-home')">Skip all today's sessions</button>
         </div>
@@ -1746,7 +1746,7 @@ const pages = {
         <div style="width:28px;height:28px;border-radius:50%;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#999">01</div>
         <div><div style="font-size:14px;font-weight:600;color:#999;text-decoration:line-through">Activation · 24 min</div><div style="font-size:11px;color:#e65100;font-weight:600">Skipped</div></div>
       </div>
-      <div style="font-size:12px;color:#666;margin-bottom:12px">Wednesday, Apr 16 · Rescheduled to Apr 18</div>
+      <div style="font-size:12px;color:#666;margin-bottom:12px">Wednesday, Apr 16 · Skipped</div>
       <button class="btn-primary" style="border-radius:10px;padding:8px 16px;font-size:13px;width:100%" onclick="goTo('sched-home')">Undo Skip · Restore Training</button>
     </div>
     <div style="background:#f8f8f8;border-radius:10px;padding:12px;font-size:12px;color:#666;line-height:1.5">
@@ -2804,8 +2804,8 @@ const prdMapping = {
 
 ### 请假功能
 - 长按训练任务卡片触发请假选项
-- 请假后任务延至下一训练日
-- 日程周期相应延长
+- 跳过的任务标记为 Skipped，不重新安排到其他日期
+- 日程周期不变
 
 ### 日程汇总入口
 右上角列表图标，点击进入所有日程的汇总页面。
@@ -2821,31 +2821,29 @@ const prdMapping = {
 
 ### 弹窗选项
 
-**"Skip & Reschedule"**
-- 跳过今日任务并重新安排到下一训练日
-- 整体日程周期延长一天
-- 保持训练总次数不变
+**"Skip Session"**
+- 跳过该训练任务，标记为已跳过
+- **不会重新安排到其他日期**，该次训练直接跳过
+- 日程周期不变，训练总次数减一
 
-**"Skip All"**
+**"Skip All Today's Sessions"**
 - 跳过今日所有训练任务（多模块时）
-- 所有任务都延至下一个训练日
-- 日程周期统一延长
+- 所有任务标记为已跳过，不重新安排
 
 **"Cancel"**
-- 取消请假操作
-- 返回日程主页
+- 取消操作，返回日程主页
 - 任务状态不变
 
 ### 请假逻辑
-- 请假的任务不计入完成数
-- 自动调整后续训练日程
-- 在训练记录中标记为"请假"状态
-- 不影响训练计划的总体周期设定
+- 跳过的任务标记为"Skipped"，不计入完成数
+- **不延长日程周期，不重新安排任务**
+- 在训练记录中标记为"Skipped"状态
+- 日程总周期保持不变
 
 ### 多模块请假
 当一天有多个模块训练时：
-- "Skip & Reschedule"：仅跳过长按的那个任务
-- "Skip All"：跳过当天所有模块的任务
+- "Skip Session"：仅跳过长按的那个任务
+- "Skip All Today's Sessions"：跳过当天所有模块的任务
     `
   },
   'sched-summary': {
@@ -2956,9 +2954,9 @@ const prdMapping = {
 - 如有多个任务，进入任务列表选择
 
 **"Rest Today"**
-- 今日不训练，任务自动延至下一训练日
-- 等同于请假功能
-- 日程周期相应延长
+- 今日不训练，任务标记为 Skipped
+- 不重新安排到其他日期
+- 日程周期不变
 
 ### 提醒设置
 用户可在以下位置修改提醒设置：
@@ -3132,14 +3130,14 @@ const prdMapping = {
 当天有 **多条** 未完成训练任务时，点击 Skip 后弹出
 
 ### 弹窗选项
-- **"Skip this session"** → 仅跳过本条，该条顺延至下一个训练日
-- **"Skip all today's sessions"** → 跳过当天全部未完成任务（已完成不受影响），所有被跳过的任务分别顺延
+- **"Skip this session"** → 仅跳过本条任务，标记为 Skipped
+- **"Skip all today's sessions"** → 跳过当天全部未完成任务（已完成不受影响）
 - **"Cancel"** → 返回
 
 ### 规则
 - 当天仅 1 条未完成任务时直接跳过，不弹此选择
-- 每条被跳过的任务独立顺延至各自日程的下一个训练日
-- 日程结束日期相应延长
+- 跳过的任务标记为 Skipped，不重新安排到其他日期
+- 日程周期不变，训练总次数相应减少
     `
   },
   'sched-skip-streak': {
