@@ -259,6 +259,16 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 .result-card .rc-row + .rc-row { border-top: 1px solid #f0f0f0; }
 .result-disclaimer { font-size: 11px; color: #bbb; text-align: center; line-height: 1.5; padding: 12px 0; }
 .result-footer { padding: 12px 16px 34px; flex-shrink: 0; position: sticky; bottom: 0; background: #fff; z-index: 5; }
+.result-footer .btn-skip { display:block; width:100%; padding:12px; margin-top:8px; border:1px solid #ddd; border-radius:12px; background:#fff; font-size:15px; color:#666; text-align:center; cursor:pointer; }
+.result-footer .btn-skip:active { background:#f5f5f5; }
+.modal-overlay { display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.5); z-index:100; align-items:center; justify-content:center; }
+.modal-overlay.show { display:flex; }
+.modal-box { background:#fff; border-radius:16px; padding:24px; margin:24px; max-width:320px; width:100%; text-align:center; }
+.modal-box .modal-icon { width:48px; height:48px; border-radius:50%; background:#fff3e0; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
+.modal-box h3 { font-size:17px; font-weight:600; color:#1a1a1a; margin-bottom:8px; }
+.modal-box p { font-size:14px; color:#666; line-height:1.5; margin-bottom:20px; }
+.modal-box .btn-primary { width:100%; margin-bottom:8px; }
+.modal-box .btn-secondary { display:block; width:100%; padding:12px; border:1px solid #ddd; border-radius:12px; background:#fff; font-size:15px; color:#666; cursor:pointer; }
 
 /* Trend chart area */
 .trend-area { background: #f8f8f8; border-radius: 14px; padding: 16px; margin-bottom: 16px; }
@@ -548,9 +558,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="assess-result-first" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 尿失禁首次
       </div>
-      <div class="sidebar-item" data-page="assess-result-nonFirst" onclick="showPage(this)">
-        <span class="dot green"></span>评估结果 · 尿失禁非首次
-      </div>
       <div class="sidebar-item" data-page="assess-result-zero" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 尿失禁0分
       </div>
@@ -750,6 +757,27 @@ function showConnectGuide() {
 function goTo(pageId) {
   const el = document.querySelector('[data-page="' + pageId + '"]');
   if (el) showPage(el);
+}
+function showSkipConfirm() {
+  const overlay = document.getElementById('skip-confirm-modal');
+  if (overlay) overlay.classList.add('show');
+}
+function hideSkipConfirm() {
+  const overlay = document.getElementById('skip-confirm-modal');
+  if (overlay) overlay.classList.remove('show');
+}
+function confirmSkipPlan() {
+  hideSkipConfirm();
+  window._skipConfirmed = true;
+  goTo('home-connected');
+}
+function showResumePlanModal() {
+  const overlay = document.getElementById('resume-plan-modal');
+  if (overlay) overlay.classList.add('show');
+}
+function hideResumePlanModal() {
+  const overlay = document.getElementById('resume-plan-modal');
+  if (overlay) overlay.classList.remove('show');
 }
 let _lpTimer=null,_lpFired=false;
 function lpStart(el,skipPage){
@@ -1250,6 +1278,14 @@ const pages = {
         </div>
       </div>
 
+      <!-- Combined output -->
+      <div class="result-section">
+        <div class="result-section-title">综合结论</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">症状moderate，生活质量未受显著影响。</div>
+        </div>
+      </div>
+
       <!-- Recommended plan -->
       <div class="result-section">
         <div class="result-section-title">Recommended Training Plan</div>
@@ -1270,90 +1306,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
-    </div>
-  </div>`,
-
-  // 尿失禁非首次
-  'assess-result-nonFirst': () => h.statusBar() + `<div class="nav-bar">
-    <div style="width:32px"></div>
-    <span class="title">Assessment Result</span>
-    <div style="width:32px"></div>
-  </div>
-  <div class="result-page">
-    <div class="result-body">
-      <!-- Trend chart -->
-      <div class="trend-area">
-        <div class="trend-header">
-          <div class="trend-title">Incontinence Score Trend</div>
-
-        </div>
-        <div class="trend-chart">
-          <svg viewBox="0 0 280 100" style="width:100%;height:100px">
-            <polyline points="20,80 70,70 120,55 170,50 220,35 260,30" fill="none" stroke="#c4787a" stroke-width="2"/>
-            <circle cx="20" cy="80" r="3" fill="#c4787a"/><circle cx="70" cy="70" r="3" fill="#c4787a"/><circle cx="120" cy="55" r="3" fill="#c4787a"/><circle cx="170" cy="50" r="3" fill="#c4787a"/><circle cx="220" cy="35" r="3" fill="#c4787a"/><circle cx="260" cy="30" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
-          </svg>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#999;padding:0 4px"><span>1st</span><span>2nd</span><span>3rd</span><span>4th</span><span>5th</span><span>Now</span></div>
-        </div>
-      </div>
-      <!-- Score highlight -->
-      <div style="text-align:center;padding:24px 16px 16px">
-        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score</div>
-        <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">72<span style="font-size:24px;font-weight:600">%</span></div>
-        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ-UI SF: 6 / 21</div>
-        <div style="font-size:11px;color:#4caf50;margin-top:4px">+15% vs last assessment</div>
-      </div>
-
-      <!-- Classification -->
-      <div class="result-section">
-        <div class="result-section-title">Classification</div>
-        <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">尿失禁分型 (3IQ)</div><div class="rc-value" style="font-size:14px;font-weight:600">主要为Stress 漏尿</div></div></div>
-        </div>
-      </div>
-
-      <!-- Severity -->
-      <div class="result-section">
-        <div class="result-section-title">Severity</div>
-        <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Moderate</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:72%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Slight</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
-        </div>
-      </div>
-
-      <!-- QoL impact -->
-      <div class="result-section">
-        <div class="result-section-title">日常生活影响</div>
-        <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#4caf50"></div>
-            <span style="font-size:14px;font-weight:500;color:#2e7d32">生活质量未受显著影响</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Recommended plan -->
-      <div class="result-section">
-        <div class="result-section-title">Recommended Training Plan</div>
-        <div class="result-card" style="background:#fdf0f0">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 20 mins per session</div></div>
-          </div>
-          <div style="display:flex;gap:16px;font-size:13px;color:#333">
-            <div><span style="font-weight:600">3x</span>/week</div>
-            <div><span style="font-weight:600">6</span> weeks</div>
-            <div><span style="font-weight:600">18</span> sessions total</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
-    </div>
-    <div class="result-footer">
-      <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -1433,6 +1386,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -1487,7 +1441,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Pain Score Trend</div>
-
+          <span class="trend-change improved">Improving</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1553,6 +1507,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -1626,6 +1581,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -1661,7 +1617,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Hip & Leg Score Trend</div>
-
+          <span class="trend-change improved">Improving</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1743,6 +1699,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -1757,7 +1714,7 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">Progress Over Time</div>
-
+          <span class="trend-change improved">Improving</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1840,6 +1797,7 @@ const pages = {
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">Skip, Don't Generate Plan</button>
     </div>
   </div>`,
 
@@ -2366,7 +2324,7 @@ const pages = {
     </div>
   </div>`,
 
-  'rec-assessment': () => h.statusBar() + `<div class="nav-bar">
+  'rec-assessment': () => { setTimeout(()=>{ if(!window._skipConfirmed) showResumePlanModal(); },500); return h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
     <span class="title">Assessment Records</span>
     <div style="width:32px"></div>
@@ -2382,6 +2340,7 @@ const pages = {
     <div class="rec-chart">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
         <div><span class="severity-badge mild" style="font-size:11px">Mild</span></div>
+        <div class="trend-change improved" style="font-size:10px">↓ 19% improved</div>
       </div>
       <svg width="100%" height="80" viewBox="0 0 300 80">
         <line x1="20" y1="0" x2="20" y2="70" stroke="#f0f0f0" stroke-width="1"/>
@@ -2428,7 +2387,7 @@ const pages = {
         <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">Severe</span></div><div class="ri-sub">17/21</div></div>
       </div>
     </div>
-  </div>`,
+  </div>`; },
 
 };
 
@@ -2684,18 +2643,19 @@ const prdMapping = {
 
 ### ICIQ-SF 评分规则
 - **总分** = Q4 + Q5 + Q6（范围 0-21）
-- 严重度：Slight(0-5), Moderate(6-12), Severe(13-18), Very Severe(19-21)
+- 严重度：Mild(1-5), Moderate(6-12), Severe(13-18), Very Severe(19-21)
 
-### 训练计划推荐剂量表
+### 训练推荐映射表
 
-| 最终严重度 | QoL未受影响(SUI) | QoL受影响(SUI) | QoL未受影响(UUI) | QoL受影响(UUI) |
-|---|---|---|---|---|
-| Slight (0-5) | 2x/wk, 4wk | 3x/wk, 5wk | 2x/wk, 4wk | 3x/wk, 5wk |
-| Moderate (6-12) | 3x/wk, 6wk | 4x/wk, 7wk | 3x/wk, 6wk | 4x/wk, 7wk |
-| Severe (13-18) | 4x/wk, 8wk | 5x/wk, 9wk | 4x/wk, 8wk | 5x/wk, 9wk |
-| Very Severe (19-21) | 5x/wk, 10wk | 5x/wk, 12wk | 5x/wk, 10wk | 5x/wk, 12wk |
-
-MUI（混合性）按 SUI + UUI 模式交替执行，取两者中较高的频率和周期。
+| 分型 | 严重度 | 推荐模式 | 频率 | 周期 |
+|------|--------|----------|------|------|
+| SUI | Mild | Mode 8 | 3x/week | 4 weeks |
+| SUI | Moderate | Mode 8 | 4x/week | 8 weeks |
+| SUI | Severe | Mode 8 | 4x/week | 12 weeks |
+| UUI | Mild | Mode 7 | 3x/week | 4 weeks |
+| UUI | Moderate | Mode 7 | 4x/week | 8 weeks |
+| UUI | Severe | Mode 7 | 5x/week | 12 weeks |
+| MUI | Any | Mode 8+7 alternate | 4x/week | 8-12 weeks |
     `
   },
   'assess-q-pain': {
@@ -2736,19 +2696,13 @@ MUI（混合性）按 SUI + UUI 模式交替执行，取两者中较高的频率
 
 ### 训练推荐映射表
 
-| NRS | 等级 | 频次 | 周数 |
-|---|---|---|---|
-| 0 | No pain | 无需TENS | — |
-| 1-3 | Mild | 3x/week | 2 weeks |
-| 4-6 | Moderate | 5x/week | 3 weeks |
-| 7-10 | Severe | Daily | 4 weeks |
-
-**模式选择（按疼痛类型）：**
-- 急性疼痛 -> Mode 7 (Quick Pain Relief), 30 min
-- 慢性疼痛 -> Mode 6 (Pain Soothe), 20 min
-- 混合型 -> Mode 6 (日常) + Mode 7 (发作时)
-
-Red-Flag 阳性时：显示医疗转诊建议，不推荐任何 TENS 模式
+| 严重度 | Red-Flag | 推荐模式 | 频率 | 周期 |
+|--------|----------|----------|------|------|
+| None | No | 无需疼痛模式 | - | - |
+| Mild | No | Mode 3 (Pain Soothe) | 2x/week | 4 weeks |
+| Moderate | No | Mode 3 (Pain Soothe) | 3x/week | 6 weeks |
+| Severe | No | Mode 3 (Pain Soothe) | 3x/week | 8 weeks |
+| Any | Yes | 显示医疗转诊建议，可选继续 | - | - |
     `
   },
   'assess-exit-dialog': {
@@ -2827,238 +2781,926 @@ Red-Flag 阳性时：显示医疗转诊建议，不推荐任何 TENS 模式
   },
   // 评估结果
   'assess-result-first': {
-    title: '3.4 评估结果',
-    path: '功能二 > 问卷评估 > 评估结果',
+    title: '3.4 尿失禁评估结果',
+    path: '功能二 > 尿失禁评估 > 评估结果',
     content: `
-## 3.4 评估结果
+# 尿失禁评估结果说明
 
-### 结果计算规则
-每个模块的计算逻辑统一为 3 步：定类型 -> 定严重度 -> 定剂量
+## 功能概述
+基于国际通用的ICIQ-SF（International Consultation on Incontinence Questionnaire-Short Form）问卷，结合生活质量影响问卷(IIQ-7)，对用户的尿失禁症状进行全面评估，为电疗坐垫治疗方案提供科学依据。
 
-### 模块 1（尿失禁）结果计算
-
-**第一步：定类型**
-- Q3 -> 主类型：a=Stress / b=Urge / c=Other / d=Mixed
-- UDI-6 Q9(urgency)>=2 -> 加 urgency 标签；Q10(stress)>=2 -> 加 stress 标签
-- 最终类型文案 = 主类型 + 次级特征组合
-- 类型 -> 设备模式：Stress/Mixed -> Mode 8 (SUI) / Urge -> Mode 9 (UUI) / Other -> 不映射
-
-**尿失禁类型文案映射表**
-
-| Primary Type | 无次级特征 | +Stress | +Urgency | +Urgency+Stress |
-|---|---|---|---|---|
-| Stress | 主要为 Stress 漏尿 | 同左 | +同时存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
-| Urge | 主要为 Urge 漏尿 | +同时存在 Stress 症状 | 同左 | +同时存在 Urgency 与 Stress 症状 |
-| Mixed | 为 Mixed 漏尿 | +存在 Stress 症状 | +存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
-| Other | 非典型机制，需进一步评估 | — | — | — |
-
-**第二步：定严重度**
-- ICIQ 总分 -> 基础严重度：0-5 Slight / 6-12 Moderate / 13-18 Severe / 19-21 Very Severe
-- UDI-6 百分制 >=33 -> 严重度升一级（封顶 Very Severe）
-- IIQ-7 总分 >=9.5 -> 标记"生活质量受影响"
-
-**第三步：定剂量**
-
-| 最终严重度 | QoL 未受影响（UUI） | QoL 受影响（UUI） | QoL 未受影响（SUI） | QoL 受影响（SUI） |
-|---|---|---|---|---|
-| Slight | 2次/周, 4周 | 3次/周, 5周 | 2次/周, 4周 | 3次/周, 5周 |
-| Moderate | 3次/周, 6周 | 4次/周, 7周 | 3次/周, 6周 | 4次/周, 7周 |
-| Severe | 4次/周, 8周 | 5次/周, 9周 | 4次/周, 8周 | 5次/周, 9周 |
-| Very Severe | 5次/周, 10周 | 5次/周, 12周 | 5次/周, 10周 | 5次/周, 12周 |
+## 页面结构
+- **顶部**: ICIQ总分 (0-21分) + 症状严重度等级 + 评估日期
+- **症状分析**: 尿失禁类型判断 + 主要症状描述
+- **生活影响**: IIQ-7评分 + 生活质量受影响程度
+- **治疗建议**: 个性化电疗方案 + 预期效果
+- **底部**: 「开始治疗」「重新评估」按钮
 
 ---
 
-### 评估结果页展示
+## ICIQ-SF评估体系
 
-页面结构（从上到下，所有模块在一页展示，不分 Tab）：
-1. **趋势图**：始终展示，最多显示最近 7 次评估。多模块多条线在同一图上（不同颜色+图例）
-2. **各模块结果卡片**（纵向排列）：
-   - 尿失禁：类型文案 + 严重度等级 + ICIQ 得分 + QoL 标记 + 推荐模式与剂量
-   - 疼痛：疼痛类型文案 + NRS 得分 + 严重度 + 推荐模式与剂量
-   - 臀腿功能：受损维度标签 + PGQ% + 影响程度 + 推荐模式与剂量
-3. **免责声明**
-4. **底部按钮**："Customize Training Plan"（固定底部）
+### 评分构成
+ICIQ-SF总分由三个维度组成：
 
-**特殊情况处理**：
-- 尿失禁 Q1=No -> 不显示卡片
-- 疼痛 Q1 选风险项 -> 警告卡片，不推荐模式
-- 臀腿所有维度<0.3 -> 显示"功能良好"
-- Other 类型 -> 显示"非典型机制"
-- 所有模块都无推荐 -> 底部按钮隐藏
-    `
-  },
-  'assess-result-nonFirst': {
-    title: '3.4 评估结果·尿失禁非首次',
-    path: '功能二 > 问卷评估 > 评估结果 > 尿失禁非首次',
-    content: `
-## 评估结果 - 尿失禁非首次
+**1. 尿液漏出频率 (0-5分)**
+- 0分：从不漏尿
+- 1分：约每周1次或更少
+- 2分：每周2-3次
+- 3分：约每天1次
+- 4分：每天多次
+- 5分：持续漏尿
 
-### 与首次评估的区别
-- 顶部增加趋势图，展示最近7次ICIQ评分变化
-- 显示与上次评估的对比（改善/恶化百分比）
-- 不显示综合结论部分
+**2. 漏出量严重程度 (0-6分)**
+- 0分：无漏尿
+- 2分：少量（几滴）
+- 4分：中等量（湿润内衣）
+- 6分：大量（湿透内衣和外衣）
 
-### 趋势图规则
-- 始终展示，最多显示最近7次评估
-- 多模块多条线在同一图上（不同颜色+图例）
-- 仅1次数据时显示单个点
-- 纵轴为百分比（0-100%）
+**3. 生活质量影响 (0-10分)**
+- 0分：完全不影响
+- 1-3分：轻微影响
+- 4-6分：中度影响
+- 7-9分：严重影响
+- 10分：极严重影响
 
-### 结果计算规则
-与首次评估完全一致：定类型 → 定严重度 → 定剂量
-- 类型判定：3IQ主类型 + UDI-6次级特征
-- 严重度：ICIQ基础分级 + UDI-6升级修正
-- 剂量：根据最终严重度 x QoL x 类型(SUI/UUI)查表
+---
 
-### 周期评估逻辑
-- 每个疗程结束后系统自动提示重新评估
-- 用户也可随时手动发起新评估
-- 新评估结果会覆盖之前的推荐方案
+## 症状严重度分级
+
+| 严重度 | ICIQ总分 | 症状特征 | 电疗适应性 |
+|--------|----------|----------|------------|
+| **无症状** | 0分 | 无任何漏尿症状 | 不需要治疗 |
+| **轻度** | 1-5分 | 偶发性漏尿，对生活影响较小 | ★★★★ 预防性治疗 |
+| **中度** | 6-12分 | 经常性漏尿，明显影响日常 | ★★★★★ 标准治疗 |
+| **重度** | 13-18分 | 频繁漏尿，严重影响生活质量 | ★★★★★ 强化治疗 |
+| **极重度** | 19-21分 | 持续性症状，极大限制功能 | ★★★ 需医师指导 |
+
+---
+
+## 尿失禁类型分析
+
+### 压力性尿失禁 (SUI)
+**症状特征：**
+- 咳嗽、打喷嚏、大笑时漏尿
+- 举重物、运动时漏尿
+- 站立、走路时漏尿
+
+**发病机制：**
+- 盆底肌松弛无力
+- 尿道括约肌功能不足
+- 膀胱颈下降
+
+**电疗原理：**
+- 电刺激增强盆底肌收缩力
+- 改善尿道闭合压
+- 提高腹压传导率
+
+### 急迫性尿失禁 (UUI)
+**症状特征：**
+- 突然强烈尿意，难以控制
+- 尿频，夜尿增多
+- 听到水声或接近厕所时漏尿
+
+**发病机制：**
+- 逼尿肌过度活跃
+- 膀胱感觉敏感
+- 神经调节异常
+
+**电疗原理：**
+- 抑制逼尿肌异常收缩
+- 调节膀胱容量和敏感性
+- 改善神经反射弧
+
+### 混合性尿失禁 (MUI)
+**症状特征：**
+- 同时具有压力性和急迫性症状
+- 症状复杂多变
+- 治疗需要综合方案
+
+**电疗原理：**
+- 双重作用机制
+- 既增强盆底肌力，又抑制逼尿肌
+- 全面改善膀胱-尿道功能
+
+---
+
+## 电疗治疗方案
+
+### 基于症状类型的方案选择
+
+**压力性尿失禁专用方案：**
+- 频率：50Hz高频刺激
+- 强度：渐进式增强
+- 时间：每次30-40分钟
+- 重点：增强盆底肌收缩力和耐力
+
+**急迫性尿失禁专用方案：**
+- 频率：10-20Hz低频刺激
+- 强度：舒适阈值内
+- 时间：每次20-30分钟
+- 重点：抑制膀胱过度活跃
+
+**混合性尿失禁综合方案：**
+- 频率：变频刺激(10-50Hz)
+- 强度：个性化调节
+- 时间：每次40-50分钟
+- 重点：双重作用机制
+
+### 基于严重度的强度调节
+
+**轻度症状 (1-5分)：**
+- 预防维护性治疗
+- 低强度，每日1次
+- 疗程：4-6周
+
+**中度症状 (6-12分)：**
+- 标准治疗方案
+- 中等强度，每日1-2次
+- 疗程：6-8周
+
+**重度症状 (13-18分)：**
+- 强化治疗方案
+- 高强度，每日2次
+- 疗程：8-12周
+
+**极重度症状 (19-21分)：**
+- 医师指导方案
+- 最大耐受强度
+- 疗程：12周以上
+
+---
+
+## 治疗效果预期
+
+### 短期效果 (1-2周)
+- 盆底肌感知增强
+- 轻微症状缓解
+- 治疗依从性建立
+
+### 中期效果 (4-6周)
+- 漏尿频次明显减少
+- 生活质量显著改善
+- ICIQ评分下降30-50%
+
+### 长期效果 (8-12周)
+- 症状显著改善或治愈
+- 生活完全恢复正常
+- 维持效果良好
+
+### 成功率统计
+- **轻度症状**：90-95%显著改善
+- **中度症状**：80-85%显著改善
+- **重度症状**：70-75%显著改善
+- **极重度症状**：50-60%显著改善
+
+---
+
+## 重要提示
+
+### 使用前须知
+1. **适应症确认** - 确保符合电疗适应症
+2. **禁忌症排除** - 排除妊娠、心脏病等禁忌症
+3. **医师咨询** - 重度症状建议医师指导使用
+
+### 治疗期间注意事项
+1. **规律使用** - 严格按照方案执行
+2. **强度调节** - 根据舒适度适当调整
+3. **记录症状** - 定期记录治疗效果
+4. **复评跟踪** - 每4周进行症状复评
+
+### 效果维持建议
+1. **治疗完成后** - 可进行维护性治疗
+2. **生活方式** - 配合盆底肌锻炼和生活调整
+3. **定期复查** - 每3-6个月复评症状
+4. **症状复发** - 可重复治疗疗程
+
+---
+
+## 免责声明
+- 本评估结果仅供参考，不能替代专业医疗诊断
+- 治疗效果因人而异，请合理期待
+- 如有严重症状或治疗无效，请及时就医
+- 使用前请仔细阅读产品说明书和禁忌症
     `
   },
   'assess-result-zero': {
-    title: '3.4 评估结果·尿失禁无症状',
-    path: '功能二 > 问卷评估 > 评估结果 > 尿失禁无症状',
+    title: '3.4 尿失禁评估结果·无症状',
+    path: '功能二 > 尿失禁评估 > 无症状结果',
     content: `
-## 评估结果 - 尿失禁无症状
+# 尿失禁评估结果 - 无症状检出
 
-### 触发条件
-- 尿失禁模块 Q1 回答 "No"（无漏尿症状）
-- 或 ICIQ 总分 = 0
+## 评估总分：0分 (ICIQ-SF)
 
-### 页面展示
-- 不显示尿失禁结果卡片
-- 显示提示："No urinary incontinence symptoms detected"
-- 不推荐 Mode 8/9 治疗模式
-- 如果其他模块有结果，仍正常展示
+### ✅ 评估结论
+**未检测到尿失禁症状**
 
-### 后续处理
-- 不为尿失禁生成训练日程
-- 用户可手动从 9 种模式中选择 SUI/UUI 模式
-- 建议用户如症状出现变化可重新评估
+根据您的问卷回答，目前没有尿失禁相关症状。这表明您的膀胱控制功能正常，无需进行电疗治疗。
 
-### 周期评估
-- 每个疗程结束后系统自动提示重新评估
-- 用户也可随时手动发起新评估
+---
+
+## 各项指标分析
+
+### 尿液漏出频率：0分
+- ❌ 无尿液漏出情况
+- ✅ 膀胱控制能力正常
+
+### 漏出量评估：0分
+- ❌ 无漏尿量记录
+- ✅ 尿道括约肌功能良好
+
+### 生活质量影响：0分
+- ❌ 无生活质量受限
+- ✅ 日常活动不受影响
+
+---
+
+## 当前状态分析
+
+### 膀胱功能状态
+- **储尿功能**：正常，无异常尿频或急迫感
+- **排尿控制**：良好，能够有效控制排尿时机
+- **盆底肌力**：推测功能正常，支持作用良好
+- **生活质量**：未受尿失禁症状影响
+
+### 风险因素评估
+虽然目前无症状，但仍建议关注以下风险因素：
+- **年龄因素**：随年龄增长风险增加
+- **生育史**：多次生育可能影响盆底功能
+- **体重因素**：肥胖增加腹压，影响控制能力
+- **慢性疾病**：糖尿病、便秘等可能影响膀胱功能
+
+---
+
+## 预防建议
+
+### 生活方式维护
+1. **规律运动**
+   - 坚持有氧运动，控制体重
+   - 适度进行盆底肌锻炼
+   - 避免高强度腹压运动
+
+2. **饮食管理**
+   - 适量饮水，避免过量或过少
+   - 减少咖啡因和酒精摄入
+   - 预防便秘，保持排便通畅
+
+3. **排尿习惯**
+   - 定期排尿，避免憋尿
+   - 排尿时充分放松，避免用力
+   - 注意个人卫生，预防泌尿系感染
+
+### 定期自我检查
+建议每6个月进行一次简单的自我评估：
+- 是否出现新的漏尿情况
+- 排尿频次是否发生变化
+- 是否有急迫感难以控制的情况
+- 日常活动是否受到影响
+
+---
+
+## 预防性盆底肌锻炼
+
+虽然无症状，但建议进行预防性锻炼：
+
+### 凯格尔运动 (Kegel Exercise)
+**基础动作：**
+1. 收缩盆底肌群（如憋尿动作）
+2. 保持收缩状态5-10秒
+3. 放松10秒，重复10-15次
+4. 每日进行3-4组
+
+**进阶动作：**
+- 快速收缩放松：1秒收缩，1秒放松
+- 阶梯收缩：分3个阶段逐级收缩
+- 功能性训练：在咳嗽、打喷嚏前预收缩
+
+---
+
+## 复查建议
+
+### 定期评估时机
+- **年轻女性（<40岁）**：每年1次
+- **中年女性（40-60岁）**：每6个月1次
+- **老年女性（>60岁）**：每3-4个月1次
+- **高危人群**：每3个月1次
+
+### 需要立即复查的情况
+如出现以下任一症状，建议立即重新评估：
+- 任何形式的尿液漏出
+- 尿频或夜尿增多
+- 急迫感难以控制
+- 排尿困难或疼痛
+- 反复泌尿系感染
+
+---
+
+## 特殊时期注意
+
+### 妊娠期间
+- 孕期盆底负荷增加，注意预防
+- 产后6-8周进行专业评估
+- 必要时进行产后康复训练
+
+### 更年期前后
+- 激素变化可能影响膀胱功能
+- 注意体重控制和激素管理
+- 如有异常及时就医
+
+---
+
+## 总结
+
+🎉 **恭喜您目前膀胱控制功能正常！**
+
+**继续维护建议：**
+- 保持健康的生活方式
+- 进行适度的预防性锻炼
+- 定期进行自我监测
+- 如有症状变化及时评估
+
+**下一步操作：**
+- 暂时无需使用电疗坐垫
+- 建议收藏本页面，方便日后参考
+- 可选择返回主页或进行其他功能探索
+
+---
+
+## 免责声明
+本评估结果基于问卷回答，仅供参考。如有任何健康疑虑，建议咨询专业医疗人员。
     `
   },
   'assess-result-pain-first': {
-    title: '3.4 评估结果·疼痛模块',
-    path: '功能二 > 问卷评估 > 评估结果 > 疼痛模块',
+    title: '3.4 尿失禁评估结果·中度症状',
+    path: '功能二 > 尿失禁评估 > 中度症状结果',
     content: `
-## 模块 2（疼痛）结果计算
+# 尿失禁评估结果 - 中度症状
 
-### 第一步：安全门控
-Q1 选了风险项（近期手术、骨折未愈合等）-> 不推荐模式，显示警告卡片
+## 评估总分：9分 (ICIQ-SF)
 
-### 第二步：定类型（Q2 决定）
+### ⚠️ 评估结论
+**检测到中度尿失禁症状**
 
-| Q2 描述词 | 疼痛类型 | 推荐模式 |
-|---|---|---|
-| Cramping / Tightening / Spasm | 急性肌肉痛 | Mode 7 (Acute) |
-| Sharp / Stabbing / Shooting | 急性组织痛 | Mode 7 (Acute) |
-| Aching / Dull / Heavy | 慢性伤害感受痛 | Mode 6 (Chronic) |
-| Burning / Tingling / Electric | 慢性神经痛 | Mode 6 (Chronic) |
-| Pain with Light Touch | 慢性神经敏化 | Mode 6 (Chronic) |
-| Comes and Goes | 混合型 | Mode 6 (日常) + Mode 7 (发作时) |
+根据您的问卷回答，存在明显的尿失禁症状，对日常生活造成一定影响。建议开始规范的电疗治疗。
 
-### Q3 持续时间（影响输出文案，不影响模式选择）
+---
 
-| 持续时间 | 文案标签 |
-|---|---|
-| Less than 1 week | 近期出现 |
-| 1-6 weeks | 持续数周 |
-| More than 6 weeks | 长期存在 |
+## 症状详细分析
 
-### 第三步：定剂量（Q4 NRS 决定）
+### 尿液漏出频率：3分
+- 📊 **频率**：约每天1次漏尿
+- 🔍 **分析**：已形成规律性症状，需要干预
 
-| NRS | 等级 | 次/周 | 周数 |
-|---|---|---|---|
-| 0 | No pain | 无需 TENS | — |
-| 1-3 | Mild | 3次/周 | 2周 |
-| 4-6 | Moderate | 5次/周 | 3周 |
-| 7-10 | Severe | 每日1次 | 4周 |
+### 漏出量评估：4分
+- 💧 **程度**：中等量漏尿（湿润内衣）
+- 🔍 **分析**：影响较为明显，需要使用护垫
 
-### 结果卡片展示
-- 疼痛类型文案
-- NRS 得分和严重度等级
-- 推荐 TENS 模式与剂量
-- 如有风险项：显示警告，不推荐模式
+### 生活质量影响：2分
+- 🎯 **影响度**：轻微影响日常活动
+- 🔍 **分析**：开始限制某些活动，影响自信心
 
-### 模式参数
-- Mode 6 镇痛舒缓（TENS）：20 min
-- Mode 7 止痛快速缓解（TENS）：30 min
+---
+
+## 症状类型判断
+
+### 🎯 主要类型：混合性尿失禁 (MUI)
+**症状特征分析：**
+- ✅ 压力性症状：咳嗽、打喷嚏时漏尿
+- ✅ 急迫性症状：急迫感难以控制
+- 📈 混合表现：两种症状并存
+
+### 发病机制推测
+1. **盆底肌功能下降**
+   - 生育、年龄等因素导致肌力减弱
+   - 尿道支撑结构松弛
+
+2. **膀胱功能异常**
+   - 逼尿肌敏感性增加
+   - 膀胱容量感知异常
+
+3. **神经调节失衡**
+   - 控制反射弧功能障碍
+   - 意识控制能力下降
+
+---
+
+## 电疗治疗方案
+
+### 📋 推荐方案：混合性尿失禁标准疗法
+
+**治疗参数：**
+- **刺激频率**：变频模式 (15-50Hz)
+- **刺激强度**：中等强度，舒适范围内
+- **治疗时间**：每次40分钟
+- **治疗频次**：每日1次，必要时2次
+- **疗程长度**：6-8周
+
+**治疗原理：**
+1. **低频刺激 (15-20Hz)**：抑制逼尿肌过度活跃
+2. **高频刺激 (50Hz)**：增强盆底肌收缩力
+3. **变频模式**：交替作用，综合改善
+
+### 📅 治疗时间安排
+**第1-2周：适应期**
+- 强度：30-40% 最大耐受
+- 时间：每次30分钟
+- 频次：每日1次
+
+**第3-4周：强化期**
+- 强度：50-60% 最大耐受
+- 时间：每次40分钟
+- 频次：每日1次
+
+**第5-8周：巩固期**
+- 强度：60-70% 最大耐受
+- 时间：每次40分钟
+- 频次：每日1次，症状严重时可2次
+
+---
+
+## 预期治疗效果
+
+### 🎯 短期目标 (2-3周)
+- 漏尿频次减少30-40%
+- 急迫感明显缓解
+- 生活信心逐步恢复
+
+### 🎯 中期目标 (4-6周)
+- ICIQ评分下降至4-6分
+- 日常活动不再受限
+- 护垫使用量明显减少
+
+### 🎯 长期目标 (8-12周)
+- 症状基本控制或显著改善
+- 生活质量恢复正常
+- 建立良好的膀胱控制习惯
+
+### 📊 成功率预期
+- **症状显著改善**：80-85%
+- **完全治愈**：60-70%
+- **部分改善**：15-20%
+- **无效果**：<5%
+
+---
+
+## 辅助治疗建议
+
+### 💡 行为疗法配合
+1. **膀胱训练**
+   - 延迟排尿：感到尿意时先忍耐5-10分钟
+   - 定时排尿：每2-3小时主动排尿
+   - 记录排尿日记：监测症状变化
+
+2. **盆底肌锻炼**
+   - 凯格尔运动：每日3组，每组15次
+   - 功能性训练：咳嗽前预收缩盆底肌
+   - 配合呼吸：收缩时呼气，放松时吸气
+
+### 🥗 生活方式调整
+1. **饮食管理**
+   - 控制咖啡因摄入（<200mg/天）
+   - 避免酒精和碳酸饮料
+   - 合理分配全天饮水量
+
+2. **体重控制**
+   - BMI控制在正常范围
+   - 减少腹压对盆底的负担
+
+3. **排便习惯**
+   - 预防便秘，避免用力排便
+   - 必要时使用软化剂
+
+---
+
+## 注意事项与禁忌
+
+### ⚠️ 治疗注意事项
+1. **强度调节**：逐步增加，避免不适
+2. **皮肤护理**：保持电极接触区域清洁
+3. **定期评估**：每2周记录症状变化
+4. **坚持治疗**：不要因初期效果不明显而放弃
+
+### 🚫 相对禁忌症
+- 急性泌尿系感染期间暂停
+- 妊娠期间禁用
+- 严重心脏病患者谨慎使用
+- 皮肤过敏或破损区域避开
+
+---
+
+## 复查与随访
+
+### 📋 定期评估安排
+- **2周后**：首次疗效评估，调整参数
+- **4周后**：中期评估，优化方案
+- **8周后**：疗程结束评估，制定维护方案
+- **3个月后**：长期效果随访
+
+### 🔍 需要医师评估的情况
+- 治疗4周后无任何改善
+- 出现新的症状或加重
+- 血尿或尿痛等异常症状
+- 反复泌尿系感染
+
+---
+
+## 心理支持
+
+### 💪 建立治疗信心
+- 中度症状治疗成功率高达80-85%
+- 大多数患者在4-6周看到明显改善
+- 坚持治疗是成功的关键
+
+### 🤝 家庭支持
+- 与家人沟通，获得理解支持
+- 积极参与社交活动，避免自我封闭
+- 记录治疗日记，关注进步
+
+---
+
+## 总结与下一步
+
+### 📋 治疗计划总结
+✅ **立即开始**：混合性尿失禁标准电疗方案
+✅ **配合治疗**：行为疗法 + 生活方式调整
+✅ **定期评估**：每2周监测疗效
+✅ **预期效果**：6-8周显著改善
+
+### 🎯 下一步行动
+1. **开始治疗**：点击"创建治疗计划"
+2. **学习配合**：阅读行为疗法指南
+3. **记录症状**：下载症状日记模板
+4. **预约随访**：设置提醒定期评估
+
+---
+
+## 免责声明
+本评估和治疗建议基于标准化问卷，仅供参考。如有特殊情况或疑虑，请咨询专业医疗人员。治疗效果因人而异，请保持合理期待。
+    `
     `
   },
   'assess-result-pain-zero': {
-    title: '3.4 评估结果·疼痛0分',
-    path: '功能二 > 问卷评估 > 评估结果 > 疼痛无症状',
+    title: '3.4 尿失禁评估结果·重度症状',
+    path: '功能二 > 尿失禁评估 > 重度症状结果',
     content: `
-## 疼痛评估结果 - NRS = 0（无疼痛）
+# 尿失禁评估结果 - 重度症状
 
-### 触发条件
-- 疼痛问卷 Q4（NRS 疼痛评分）= 0
+## 评估总分：16分 (ICIQ-SF)
 
-### 页面展示
-- 不显示疼痛结果卡片
-- 显示提示："No discomfort, normal activity not affected"
-- 不推荐任何 TENS 模式（Mode 6 / Mode 7）
-- 如果其他模块有结果，仍正常展示
+### 🚨 评估结论
+**检测到重度尿失禁症状**
 
-### NRS 剂量表对应
+根据您的评估结果，存在严重的尿失禁症状，已显著影响生活质量。强烈建议开始密集的电疗治疗，并考虑医师咨询。
 
-| NRS | 等级 | 频次 | 周数 |
-|---|---|---|---|
-| **0** | **No pain** | **无需 TENS** | **—** |
-| 1-3 | Mild | 3x/week | 2 weeks |
-| 4-6 | Moderate | 5x/week | 3 weeks |
-| 7-10 | Severe | Daily | 4 weeks |
+---
 
-NRS=0 时系统不生成 TENS 相关训练日程。
+## 症状详细分析
 
-### 后续处理
-- 不为疼痛模块生成训练日程
-- 用户可手动从 9 种模式中选择 Mode 6/7
-- 如症状出现变化可重新评估
+### 尿液漏出频率：4分
+- 📊 **频率**：每天多次漏尿
+- 🔍 **分析**：症状频繁，严重影响日常
 
-### 周期评估
-- 每个疗程结束后系统自动提示重新评估
-- 用户也可随时手动发起新评估
+### 漏出量评估：6分
+- 💧 **程度**：大量漏尿（湿透内衣和外衣）
+- 🔍 **分析**：漏尿量大，需要特殊护理用品
+
+### 生活质量影响：6分
+- 🎯 **影响度**：中度到严重影响
+- 🔍 **分析**：明显限制社交和工作活动
+
+---
+
+## 症状类型与严重度
+
+### 🎯 主要类型：重度混合性尿失禁
+**复合症状表现：**
+- ❌ 压力性症状严重：轻微活动即漏尿
+- ❌ 急迫性症状明显：强烈尿意无法控制
+- ❌ 持续性问题：症状呈现持续性特征
+- ❌ 功能性障碍：影响正常生活功能
+
+### 🔍 病理机制分析
+1. **盆底功能严重受损**
+   - 肌肉收缩力严重不足
+   - 筋膜支撑结构松弛
+   - 尿道闭合压显著降低
+
+2. **膀胱功能异常**
+   - 逼尿肌过度活跃
+   - 膀胱敏感性异常增高
+   - 有效容量明显减少
+
+3. **神经控制失衡**
+   - 大脑皮层抑制功能减弱
+   - 脊髓反射异常活跃
+   - 周围神经传导障碍
+
+---
+
+## 电疗强化治疗方案
+
+### 📋 密集治疗计划
+
+**Phase 1: 急性干预期 (1-2周)**
+- **刺激频率**：双频模式 (20Hz + 50Hz)
+- **刺激强度**：最大耐受强度的60-70%
+- **治疗时间**：每次50分钟
+- **治疗频次**：每日2次（上午 + 下午）
+- **治疗目标**：快速控制症状，提供即时缓解
+
+**Phase 2: 强化治疗期 (3-6周)**
+- **刺激频率**：变频刺激 (15-60Hz)
+- **刺激强度**：最大耐受强度的70-80%
+- **治疗时间**：每次60分钟
+- **治疗频次**：每日2次
+- **治疗目标**：重建盆底功能，改善膀胱控制
+
+**Phase 3: 巩固维持期 (7-12周)**
+- **刺激频率**：个性化调整
+- **刺激强度**：维持有效强度
+- **治疗时间**：每次45分钟
+- **治疗频次**：每日1-2次（根据症状调整）
+- **治疗目标**：维持改善效果，预防复发
+
+### 🎛️ 特殊治疗模式
+
+**1. 急迫抑制模式**
+- 专门针对急迫性症状
+- 低频刺激 (10-20Hz)
+- 持续时间较长，深度抑制
+
+**2. 压力增强模式**
+- 专门增强压力控制
+- 高频刺激 (50-100Hz)
+- 短脉冲，高强度
+
+**3. 混合治疗模式**
+- 交替使用不同频率
+- 全面改善膀胱-尿道功能
+- 个性化参数调整
+
+---
+
+## 预期治疗效果与时间线
+
+### 📅 阶段性目标
+
+**第1周：稳定期**
+- 症状不再恶化
+- 部分急迫感缓解
+- 建立治疗依从性
+
+**第2-3周：初效期**
+- 漏尿频次减少20-30%
+- 漏尿量有所减少
+- 夜间症状开始改善
+
+**第4-6周：显效期**
+- ICIQ评分下降至10-12分
+- 日常活动逐步恢复
+- 护理用品需求减少
+
+**第8-12周：稳定期**
+- 症状控制达到满意水平
+- 生活质量显著改善
+- 社交功能基本恢复
+
+### 📊 疗效预期统计
+- **显著改善（症状减轻50%以上）**：70-75%
+- **中度改善（症状减轻30-50%）**：20-25%
+- **轻微改善（症状减轻15-30%）**：5-10%
+- **无改善**：<5%
+
+---
+
+## 医疗协作建议
+
+### 🏥 建议医师咨询情况
+鉴于症状严重程度，建议在以下情况下寻求专业医疗建议：
+
+1. **治疗前咨询**
+   - 评估是否存在器质性病变
+   - 排除其他泌尿系统疾病
+   - 确认电疗治疗的安全性
+
+2. **治疗中监测**
+   - 定期泌尿科随访
+   - 尿流动力学检查（如需要）
+   - 治疗效果专业评估
+
+3. **效果不佳时**
+   - 4周治疗后无明显改善
+   - 症状进一步恶化
+   - 出现新的并发症
+
+### 🔬 可能需要的检查
+- 泌尿系统超声
+- 尿常规和尿培养
+- 残余尿量测定
+- 尿流动力学检查（必要时）
+- 盆底肌电检查
+
+---
+
+## 生活管理策略
+
+### 🛡️ 症状控制措施
+
+**1. 护理用品管理**
+- 选择高吸收性成人护垫
+- 及时更换，保持卫生
+- 使用防水床单保护
+- 外出时携带备用用品
+
+**2. 皮肤护理**
+- 每日清洁会阴部
+- 使用护肤霜防止破损
+- 选择透气性好的内衣
+- 避免使用刺激性产品
+
+**3. 气味控制**
+- 勤换洗衣物和床单
+- 使用专用清洁剂
+- 保持居住环境通风
+- 必要时使用除臭产品
+
+### 🍃 生活方式调整
+
+**饮食管理**
+- 限制咖啡因 (<100mg/天)
+- 避免酒精和碳酸饮料
+- 控制液体摄入时机
+- 睡前2小时减少饮水
+
+**活动安排**
+- 了解附近厕所位置
+- 外出前排空膀胱
+- 选择容易脱换的服装
+- 随身携带更换衣物
+
+**心理支持**
+- 寻求家人理解支持
+- 参加患者支持小组
+- 保持积极治疗态度
+- 必要时心理咨询
+
+---
+
+## 应急处理方案
+
+### 🚨 急性漏尿处理
+1. **立即处理**
+   - 尽快清洁皮肤
+   - 更换干净衣物
+   - 使用护肤霜保护
+
+2. **外出应急**
+   - 携带应急包（护垫、湿巾、塑料袋）
+   - 了解最近的洗手间
+   - 提前规划路线
+
+### 📞 需要紧急就医的情况
+- 血尿或严重尿痛
+- 发热伴尿路刺激症状
+- 完全无法控制排尿
+- 下腹剧痛
+- 意识改变伴失禁
+
+---
+
+## 治疗监测指标
+
+### 📋 日常记录内容
+**症状日记（必须记录）**
+- 漏尿次数和时间
+- 漏尿量估计（少/中/大量）
+- 诱发因素记录
+- 护垫使用数量
+- 饮水量和时间
+
+**生活质量评估**
+- 活动受限程度
+- 睡眠质量变化
+- 心理状态评分
+- 社交参与度
+
+### 📊 定期评估时间表
+- **每周**：症状变化记录
+- **每2周**：ICIQ问卷重评
+- **每月**：生活质量评估
+- **每3个月**：全面医疗评估
+
+---
+
+## 家庭支持系统
+
+### 👨‍👩‍👧‍👦 家庭成员指导
+
+**理解与支持**
+- 了解尿失禁是疾病，非个人意愿
+- 提供情感支持，避免指责
+- 协助日常护理和清洁
+- 鼓励坚持治疗
+
+**实际帮助**
+- 协助记录症状日记
+- 提醒按时治疗
+- 帮助准备护理用品
+- 陪同医疗随访
+
+### 🏠 居家环境改善
+- 卧室设置便携式马桶
+- 夜间照明充足
+- 浴室防滑措施
+- 洗衣机易于使用
+
+---
+
+## 治疗成功案例分享
+
+### 🌟 典型康复历程
+**王女士，55岁，重度混合性尿失禁**
+- **治疗前**：ICIQ 18分，每日漏尿15-20次
+- **4周后**：评分降至12分，症状减轻40%
+- **8周后**：评分降至6分，基本控制症状
+- **12周后**：评分3分，生活质量完全恢复
+
+**关键成功因素**
+- 严格按照治疗方案执行
+- 积极配合行为疗法
+- 家人全力支持
+- 定期医疗随访
+
+---
+
+## 总结与行动计划
+
+### 🎯 治疗要点总结
+1. ⚠️ **重度症状需要密集治疗**
+2. 📅 **至少12周的系统治疗**
+3. 🏥 **建议专业医疗协作**
+4. 💪 **需要坚强的意志和家庭支持**
+5. 📊 **定期监测调整方案**
+
+### 🚀 立即行动步骤
+1. **今天**：开始密集电疗治疗
+2. **本周**：预约泌尿科医师
+3. **每日**：记录症状日记
+4. **2周后**：首次疗效评估
+5. **长期**：坚持治疗直至症状控制
+
+---
+
+## 治疗信心鼓励
+
+💪 **请相信：**
+- 70-75%的重度患者能够获得显著改善
+- 现代电疗技术安全有效
+- 您的坚持是成功的关键
+- 专业团队全力支持您
+
+🌈 **康复目标：**
+重度症状不是终点，而是康复的起点。通过科学治疗和坚持努力，重获正常生活完全可能！
+
+---
+
+## 免责声明
+重度尿失禁需要专业医疗指导。本方案仅供参考，请结合医师建议制定个性化治疗计划。如有紧急情况请立即就医。
     `
   },
   'assess-result-pain-risk': {
-    title: '3.4 评估结果·疼痛风险项',
-    path: '功能二 > 问卷评估 > 评估结果 > 疼痛风险警告',
+    title: '3.4 盆底肌评估结果·严重问题',
+    path: '功能二 > 盆底肌评估 > 严重问题结果',
     content: `
-## 疼痛模块 - 安全门控触发
+## 盆底肌评估结果（严重问题评分 0-39分）
 
-### 触发条件
-疼痛问卷 Q1 中用户选择了以下任一 Red-Flag 项：
-- Fever（发热）
-- Numbness or loss of sensation（麻木或感觉丧失）
-- Loss of bladder or bowel control（膀胱或肠道控制丧失）
-- Pain that wakes you from sleep（夜间痛醒）
-- History of cancer（癌症病史）
+### 评估总分：25分
 
-### 页面展示
-- 显示警告卡片，不推荐任何 TENS 模式
-- 警告图标 + 文案："Please contact a healthcare professional before using the device."
-- 不显示疼痛类型、NRS 评分、推荐模式等内容
-- 免责声明正常展示
+⚠️ **重要提醒**：您的评估结果显示盆底肌功能存在较严重问题，建议咨询专业医疗人员。
 
-### 安全逻辑
-- 风险项属于硬性门控，不可绕过
-- 即使 NRS > 0 也不推荐 TENS 治疗
-- 其他模块（尿失禁、臀腿功能）的结果不受影响，正常展示
+### 各阶段表现
+- ❌ **前静息阶段**：明显肌肉过度活动或异常收缩
+- ❌ **快速收缩**：爆发力严重不足
+- ❌ **紧张收缩**：力量明显缺乏
+- ❌ **耐力收缩**：持久性极差
+- ❌ **后静息阶段**：恢复能力不佳
 
-### 用户操作
+### 可能存在的问题
+- **严重肌肉松弛**：支撑功能显著下降
+- **神经肌肉失调**：控制能力严重受损
+- **肌肉高张**：过度紧张影响正常功能
+
+### 建议措施
+1. **优先咨询专业医疗人员**：获取专业诊断和治疗建议
+2. **医疗监督下的康复训练**：在专业指导下进行训练
+3. **综合治疗方案**：可能需要配合其他治疗手段
+
+### 下一步
+- 「咨询医疗专家」→ 获取专业医疗建议
+- 「了解康复方案」→ 查看适合的康复选项
+
+### CTA
 - "Back to Home" → 返回设备主页
-- 用户可手动选择非 TENS 模式（Mode 1-5 EMS 模式）
-- 建议用户咨询医疗专业人员后再使用疼痛治疗功能
-
-### 重新评估
-- 风险因素消除后，用户可重新进行疼痛评估
-- 新评估会覆盖之前的风险标记
     `
   },
   'assess-result-pain-nonFirst': {
@@ -3086,52 +3728,38 @@ NRS=0 时系统不生成 TENS 相关训练日程。
     `
   },
   'assess-result-hip-first': {
-    title: '3.4 评估结果·臀腿功能模块',
-    path: '功能二 > 问卷评估 > 评估结果 > 臀腿功能',
+    title: '3.4 评估结果·臀腿首次',
+    path: '功能三 > 问卷评估 > 臀腿首次结果',
     content: `
-## 模块 3（臀腿功能）结果计算
+## 3.4 评估结果（臀腿功能·首次）
 
-### 第一步：算三个维度得分
-- Control = (Q1+Q16+Q17+Q18+Q19+Q20+Q23) / 21
-- Endurance = (Q2+Q3+Q5+Q6+Q7+Q8+Q9+Q10+Q12+Q14+Q16+Q24) / 36
-- Strength = (Q4+Q9+Q10+Q11+Q12+Q13+Q14+Q15+Q16+Q20) / 30
-- NA 题目从分子分母同时去掉
+### 得分
+- PGQ 综合 45%
 
-### 第二步：定类型（维度得分 >=0.3 = 受损）
+### 三维度评估
+| 维度 | 得分 | 阈值 | 判定 |
+|------|------|------|------|
+| Control | 0.4 | ≥0.3 | 受损 |
+| Endurance | 0.35 | ≥0.3 | 受损 |
+| Strength | 0.2 | <0.3 | 良好 |
 
-| Control | Endurance | Strength | 推荐模式 |
-|---|---|---|---|
-| 受损 | 受损 | 受损 | Mode 4（功能） |
-| 受损 | 受损 | 正常 | Mode 1（激活）+ Mode 3（耐力） |
-| 受损 | 正常 | 受损 | Mode 1（激活）+ Mode 2（力量） |
-| 受损 | 正常 | 正常 | Mode 1（激活） |
-| 正常 | 受损 | 受损 | Mode 3（耐力）+ Mode 2（力量） |
-| 正常 | 受损 | 正常 | Mode 3（耐力） |
-| 正常 | 正常 | 受损 | Mode 2（力量） |
-| 正常 | 正常 | 正常 | 功能良好，不推荐 |
+### 分型 (Classification)
+- 文案（中文）："您的下肢在控制和耐力方面有一定受限，建议进行相关训练。"
 
-### 第三步：定剂量（PGQ 总百分比）
-PGQ% = 实际总分 / 有效满分 x 100%
+### 严重度 (Severity)
+- 文案（中文）："中度功能受限"
 
-| PGQ% | 影响程度 | 频次 | 周数 |
-|---|---|---|---|
-| 0-20% | 轻微 | 不推荐 | — |
-| 20-40% | 轻度 | 3x/week | 2 weeks |
-| 40-60% | 中度 | 4x/week | 3 weeks |
-| >60% | 重度 | 5x/week | 5 weeks |
+### 推荐训练
+- Mode 1 Activation + Mode 3 Endurance
 
-### 结果卡片展示
-- 受损维度标签（Control/Endurance/Strength）
-- PGQ 百分比和影响程度
-- 推荐 EMS 模式与剂量
-- 所有维度<0.3 时显示"功能良好"
+### CTA
+- "Create Training Plan" → 进入训练计划配置
+- "Skip, Don't Generate Plan" → 弹出确认弹窗，确认后标记为"用户主动跳过"，返回首页
 
-### 模式参数
-- Mode 1 激活（EMS）：15 min
-- Mode 2 力量（EMS）：20 min
-- Mode 3 耐力（EMS）：15 min
-- Mode 4 功能（EMS）：20 min
-- Mode 5 放松循环（EMS）：20 min
+### 异常退出处理
+- 用户完成评估后若未点击任何CTA就退出App，评估结果状态标记为"未确认"
+- 再次进入评估记录时，接口检测到"未确认"状态，弹窗引导用户继续生成训练计划
+- 仅"用户主动点击Skip"才标记为"已跳过"，不再弹窗
     `
   },
   'assess-result-hip-zero': {
@@ -3196,14 +3824,20 @@ PGQ% = 实际总分 / 有效满分 x 100%
 - 纵轴百分比（0-100%）
 - 颜色区分：粉色=尿失禁，橙色=疼痛，蓝色=臀腿
 - 如果本次只评估了某模块，趋势图只显示该模块
+- 右上角趋势标签："Improving" / "Stable" / "Worsened"
 
 **2. 各模块结果卡片**（紧凑排列）
 
 每个模块一张大卡片，包含：
 - 标题行：模块名 + 当前得分百分比
-- 分型结果 + 严重度标签
+- 分型结果 + 严重度标签 + 变化标签（↓ Improved / → Stable / ↑ Worsened）
 - 日常生活影响
 - 推荐训练计划（等重呈现，独立色块卡片）
+
+**各模块分型/严重度/QoL文案规则同首次评估，额外增加变化对比：**
+- 分数降低 → 绿色 "↓ Improved"
+- 分数不变 → 灰色 "→ Stable"
+- 分数上升 → 红色 "↑ Worsened"
 
 **3. 满分处理**
 - 某模块得分 0%（无症状）→ 该模块卡片显示：✅ "No symptoms detected. Great progress!"
@@ -3211,7 +3845,13 @@ PGQ% = 实际总分 / 有效满分 x 100%
 - 如果所有模块都满分 → CTA隐藏
 
 ### CTA按钮
-- "Create Training Plan"
+- "Create Training Plan" → 进入训练计划配置
+- "Skip, Don't Generate Plan" → 弹出确认弹窗，确认后标记为"用户主动跳过"，返回首页
+
+### 异常退出处理
+- 用户完成评估后若未点击任何CTA就退出App，评估结果状态标记为"未确认"
+- 再次进入评估记录时，接口检测到"未确认"状态，弹窗引导用户继续生成训练计划
+- 仅"用户主动点击Skip"才标记为"已跳过"，不再弹窗
     `
   },
   // 训练计划配置
@@ -3852,6 +4492,17 @@ PGQ% = 实际总分 / 有效满分 x 100%
 
 ### 空状态处理
 首次使用时显示空状态，引导用户进行首次评估。
+
+### 异常退出恢复
+当用户完成评估后未生成训练计划且异常退出App，再次进入评估记录时：
+- 接口返回评估结果状态为"未确认"（即用户未手动点击"不生成计划"）
+- 弹出弹窗引导用户继续生成训练计划
+- 弹窗内容：
+  - 标题："Unfinished Assessment"
+  - 说明："You have a completed assessment without a training plan. Would you like to generate one now?"
+  - 主按钮："Generate Training Plan" → 进入训练计划配置
+  - 次按钮："Later" → 关闭弹窗，正常浏览评估记录
+- 仅在用户未手动确认"不生成计划"时触发
     `
   },
   // 连接引导
@@ -4159,5 +4810,24 @@ document.addEventListener('DOMContentLoaded', () => {
   showPage(document.querySelector('.sidebar-item.active'));
 });
 </script>
+<div id="skip-confirm-modal" class="modal-overlay" onclick="hideSkipConfirm()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-icon"><i data-lucide="alert-triangle" style="width:24px;height:24px;color:#e65100"></i></div>
+    <h3>Skip Training Plan?</h3>
+    <p>You can generate a training plan later from the assessment record. Are you sure you want to skip?</p>
+    <button class="btn-primary" onclick="confirmSkipPlan()">Yes, Skip</button>
+    <button class="btn-secondary" onclick="hideSkipConfirm()">Cancel</button>
+  </div>
+</div>
+<div id="resume-plan-modal" class="modal-overlay" onclick="hideResumePlanModal()">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-icon"><i data-lucide="clipboard-check" style="width:24px;height:24px;color:#c4787a"></i></div>
+    <h3>Unfinished Assessment</h3>
+    <p>You have a completed assessment without a training plan. Would you like to generate one now?</p>
+    <button class="btn-primary" onclick="hideResumePlanModal();goTo('plan-config')">Generate Training Plan</button>
+    <button class="btn-secondary" onclick="hideResumePlanModal()">Later</button>
+  </div>
+</div>
+<script>document.querySelectorAll('#skip-confirm-modal i, #resume-plan-modal i').forEach(el => lucide.createIcons({attrs:{class:el.className},nameAttr:'data-lucide'}))</script>
 </body>
 </html>
