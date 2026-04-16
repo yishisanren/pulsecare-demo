@@ -1413,7 +1413,7 @@ const pages = {
           </div>
           <div style="font-size:13px;color:#666;margin-top:8px">NRS 4-6 分，中等强度疼痛</div>
           <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Mild</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1542,7 +1542,8 @@ const pages = {
           <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge moderate">Level 3</span>
           </div>
-          <div style="font-size:13px;color:#666;margin-top:8px">NRS 4-6 分，中等强度疼痛</div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1562,6 +1563,10 @@ const pages = {
         </div>
       </div>
 
+      <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #475569;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
+        <div>本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。</div>
+      </div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">定制训练计划</button>
@@ -1606,7 +1611,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损，建议进行激活 + 耐力训练</div>
+          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损</div>
         </div>
       </div>
 
@@ -1615,8 +1620,10 @@ const pages = {
         <div class="result-section-title">评分等级</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3 · 中度影响</span>
+            <span class="severity-badge moderate">Level 3</span>
           </div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:75%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1654,10 +1661,14 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
-      <div style="text-align:center;padding:60px 24px">
+      <div style="text-align:center;padding:60px 24px 24px">
         <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
         <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">功能良好</div>
         <div style="font-size:14px;color:#999;line-height:1.6">您的下肢功能良好，无需训练。</div>
+      </div>
+      <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #475569;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
+        <div>本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。</div>
       </div>
     </div>
     <div class="result-footer">
@@ -1725,7 +1736,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损，建议进行激活 + 耐力训练</div>
+          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损</div>
         </div>
       </div>
 
@@ -1734,8 +1745,10 @@ const pages = {
         <div class="result-section-title">评分等级</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3 · 中度影响</span>
+            <span class="severity-badge moderate">Level 3</span>
           </div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:75%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1754,6 +1767,10 @@ const pages = {
         </div>
       </div>
 
+      <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #475569;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
+        <div>本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。</div>
+      </div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">定制训练计划</button>
@@ -1808,8 +1825,7 @@ const pages = {
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge mild">Level 1</span>
           </div>
-          <div style="font-size:13px;color:#333;margin-bottom:6px">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
-          <div style="font-size:13px;color:#666;margin-bottom:10px">症状 Level 1，生活质量受影响。</div>
+          <div style="font-size:13px;color:#333;margin-bottom:10px">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
           <div style="background:#fdf0f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1835,7 +1851,7 @@ const pages = {
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge moderate">Level 3</span>
           </div>
-          <div style="font-size:13px;color:#666;margin-bottom:10px">慢性伤害感受痛，中等强度疼痛</div>
+          <div style="font-size:13px;color:#333;margin-bottom:10px">慢性伤害感受痛</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1861,8 +1877,7 @@ const pages = {
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge moderate">Level 3</span>
           </div>
-          <div style="font-size:13px;color:#333;margin-bottom:6px">控制力 + 耐力 受损</div>
-          <div style="font-size:13px;color:#666;margin-bottom:10px">中度功能受限，建议进行激活 + 耐力训练。</div>
+          <div style="font-size:13px;color:#333;margin-bottom:10px">控制力 + 耐力 受损</div>
           <div style="background:#e8f5e9;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -1882,6 +1897,10 @@ const pages = {
         </div>
       </div>
 
+      <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #475569;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
+        <div>本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。</div>
+      </div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">定制训练计划</button>
@@ -1941,6 +1960,8 @@ const pages = {
           <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge mild">Level 2</span>
           </div>
+          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
