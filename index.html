@@ -564,6 +564,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
       <div class="sidebar-item" data-page="assess-result-zero" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 尿失禁0分
       </div>
+      <div class="sidebar-item" data-page="assess-result-ui-nonFirst" onclick="showPage(this)">
+        <span class="dot green"></span>评估结果 · 尿失禁非首次
+      </div>
       <div class="sidebar-item" data-page="assess-result-pain-first" onclick="showPage(this)">
         <span class="dot green"></span>评估结果 · 疼痛首次
       </div>
@@ -1498,7 +1501,6 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">疼痛得分趋势</div>
-          <span class="trend-change improved">&darr; 改善中</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1674,8 +1676,7 @@ const pages = {
       <!-- Trend chart -->
       <div class="trend-area">
         <div class="trend-header">
-          <div class="trend-title">Hip & Leg Score Trend</div>
-          <span class="trend-change improved">&darr; 改善中</span>
+          <div class="trend-title">臀腿得分趋势</div>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1771,7 +1772,6 @@ const pages = {
       <div class="trend-area">
         <div class="trend-header">
           <div class="trend-title">进展趋势</div>
-          <span class="trend-change improved">&darr; 改善中</span>
         </div>
         <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
           <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
@@ -1788,10 +1788,13 @@ const pages = {
           <circle cx="65" cy="25" r="3" fill="#c4787a"/><circle cx="115" cy="32" r="3" fill="#c4787a"/><circle cx="165" cy="38" r="3" fill="#c4787a"/><circle cx="215" cy="44" r="3" fill="#c4787a"/><circle cx="255" cy="52" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
           <polyline points="65,14 115,21 165,35 215,42 255,45" fill="none" stroke="#e65100" stroke-width="2" stroke-linecap="round" stroke-dasharray="4,3"/>
           <circle cx="65" cy="14" r="3" fill="#e65100"/><circle cx="115" cy="21" r="3" fill="#e65100"/><circle cx="165" cy="35" r="3" fill="#e65100"/><circle cx="215" cy="42" r="3" fill="#e65100"/><circle cx="255" cy="45" r="4" fill="#e65100" stroke="#fff" stroke-width="2"/>
+          <polyline points="65,40 115,46 165,48 215,50 255,55" fill="none" stroke="#2e7d32" stroke-width="2" stroke-linecap="round" stroke-dasharray="2,2"/>
+          <circle cx="65" cy="40" r="3" fill="#2e7d32"/><circle cx="115" cy="46" r="3" fill="#2e7d32"/><circle cx="165" cy="48" r="3" fill="#2e7d32"/><circle cx="215" cy="50" r="3" fill="#2e7d32"/><circle cx="255" cy="55" r="4" fill="#2e7d32" stroke="#fff" stroke-width="2"/>
         </svg>
         <div class="trend-legend">
           <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>尿失禁</div>
           <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#e65100"></div>疼痛</div>
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#2e7d32"></div>臀腿</div>
         </div>
       </div>
 
@@ -1804,7 +1807,6 @@ const pages = {
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge mild">Level 1</span>
-            <span class="severity-badge improved">&darr; 改善</span>
           </div>
           <div style="font-size:13px;color:#333;margin-bottom:6px">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
           <div style="font-size:13px;color:#666;margin-bottom:10px">症状 Level 1，生活质量受影响。</div>
@@ -1832,7 +1834,6 @@ const pages = {
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
             <span class="severity-badge moderate">Level 3</span>
-            <span class="severity-badge improved">&darr; 改善</span>
           </div>
           <div style="font-size:13px;color:#666;margin-bottom:10px">慢性伤害感受痛，中等强度疼痛</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
@@ -1850,6 +1851,128 @@ const pages = {
         </div>
       </div>
 
+      <!-- Hip & Leg card -->
+      <div class="result-section" style="margin-bottom:10px">
+        <div class="result-card" style="padding:16px">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#2e7d32"></div><span style="font-size:14px;font-weight:600">臀腿</span></div>
+            <div style="font-size:22px;font-weight:800;color:#2e7d32">45<span style="font-size:14px">%</span></div>
+          </div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
+            <span class="severity-badge moderate">Level 3</span>
+          </div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px">控制力 + 耐力 受损</div>
+          <div style="font-size:13px;color:#666;margin-bottom:10px">中度功能受限，建议进行激活 + 耐力训练。</div>
+          <div style="background:#e8f5e9;border-radius:10px;padding:12px">
+            <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · 每次 15 分钟</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+              <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · 每次 15 分钟</div></div>
+            </div>
+            <div style="display:flex;gap:16px;font-size:13px;color:#333">
+              <div><span style="font-weight:600">4 次</span>/周</div>
+              <div><span style="font-weight:600">3</span> 周</div>
+              <div>共 <span style="font-weight:600">12</span> 次</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('plan-config')">定制训练计划</button>
+      <button class="btn-skip" onclick="showSkipConfirm()">暂不制定</button>
+    </div>
+  </div>`,
+
+  'assess-result-ui-nonFirst': () => h.statusBar() + `<div class="nav-bar">
+    <div style="width:32px"></div>
+    <span class="title">评估结果</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body">
+      <!-- Trend chart -->
+      <div class="trend-area">
+        <div class="trend-header">
+          <div class="trend-title">尿失禁得分趋势</div>
+        </div>
+        <svg width="100%" height="100" viewBox="0 0 300 100" preserveAspectRatio="xMidYMid meet">
+          <line x1="30" y1="10" x2="30" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <line x1="30" y1="80" x2="280" y2="80" stroke="#f0f0f0" stroke-width="1"/>
+          <text x="2" y="15" font-size="8" fill="#ccc">100%</text>
+          <text x="2" y="48" font-size="8" fill="#ccc">50%</text>
+          <text x="2" y="83" font-size="8" fill="#ccc">0%</text>
+          <text x="80" y="95" font-size="8" fill="#ccc">#1</text>
+          <text x="140" y="95" font-size="8" fill="#ccc">#2</text>
+          <text x="200" y="95" font-size="8" fill="#ccc">#3</text>
+          <text x="248" y="95" font-size="8" fill="#ccc">Now</text>
+          <polyline points="85,22 145,32 205,40 255,48" fill="none" stroke="#c4787a" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="85" cy="22" r="3" fill="#c4787a"/><circle cx="145" cy="32" r="3" fill="#c4787a"/><circle cx="205" cy="40" r="3" fill="#c4787a"/><circle cx="255" cy="48" r="4" fill="#c4787a" stroke="#fff" stroke-width="2"/>
+        </svg>
+        <div class="trend-legend">
+          <div class="trend-legend-item"><div class="trend-legend-dot" style="background:#c4787a"></div>尿失禁</div>
+        </div>
+      </div>
+
+      <!-- Score highlight -->
+      <div style="text-align:center;padding:16px 16px 16px">
+        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分</div>
+        <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">40<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ 总分：8 / 21</div>
+      </div>
+
+      <!-- Classification -->
+      <div class="result-section">
+        <div class="result-section-title">分型结果</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333;line-height:1.6">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
+        </div>
+      </div>
+
+      <!-- Level -->
+      <div class="result-section">
+        <div class="result-section-title">评分等级</div>
+        <div class="result-card">
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="severity-badge mild">Level 2</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- QoL -->
+      <div class="result-section">
+        <div class="result-section-title">生活质量影响</div>
+        <div class="result-card">
+          <div style="font-size:14px;color:#333">生活质量受影响</div>
+          <div style="font-size:12px;color:#999;margin-top:4px">IIQ-7 得分：12.5 （≥9.5）</div>
+        </div>
+      </div>
+
+      <!-- Recommended plan -->
+      <div class="result-section">
+        <div class="result-section-title">推荐训练计划</div>
+        <div class="result-card" style="background:#fdf0f0">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333">
+            <div><span style="font-weight:600">4 次</span>/周</div>
+            <div><span style="font-weight:600">7</span> 周</div>
+            <div>共 <span style="font-weight:600">28</span> 次</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #475569;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
+        <div>本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。</div>
+      </div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">定制训练计划</button>
@@ -2395,8 +2518,7 @@ const pages = {
     </div>
     <div class="rec-chart">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div><span class="severity-badge mild" style="font-size:11px">Mild</span></div>
-        <div class="trend-change improved" style="font-size:10px">↓ 19% improved</div>
+        <div><span class="severity-badge mild" style="font-size:11px">Level 2</span></div>
       </div>
       <svg width="100%" height="80" viewBox="0 0 300 80">
         <line x1="20" y1="0" x2="20" y2="70" stroke="#f0f0f0" stroke-width="1"/>
@@ -2962,6 +3084,61 @@ const prdMapping = {
 
 **English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.`
   },
+  'assess-result-ui-nonFirst': {
+    title: '3.4 尿失禁评估结果·非首次',
+    path: '功能三 > 问卷评估 > 尿失禁评估结果（非首次）',
+    content: `### 评估结果 · 尿失禁（非首次）
+
+---
+
+### 与首次的差异 / Difference from First Assessment
+
+| 场景 | 中文 | English |
+|------|------|---------|
+| 趋势图 | 显示最近 7 次评估的百分比趋势 | Shows trend of last 7 assessment scores (%) |
+| 页面结构 | 顶部新增趋势图，其他板块与首次相同 | Trend chart added on top; other sections same as first assessment |
+
+### 分型文案（与首次一致） / Classification Copy
+
+| 主类型 (Q3) | 无次级特征 | +Stress | +Urgency | +Urgency+Stress |
+|------|------|------|------|------|
+| a = Stress | 主要为 Stress 漏尿 | 同左 | +同时存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
+| b = Urge | 主要为 Urge 漏尿 | +同时存在 Stress 症状 | 同左 | +同时存在 Urgency 与 Stress 症状 |
+| c = Other | 非典型机制，需进一步评估 | — | — | — |
+| d = Mixed | 为 Mixed 漏尿 | +存在 Stress 症状 | +存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
+
+次级特征判定：UDI-6 Q9 ≥2 → 加 urgency 标签；Q10 ≥2 → 加 stress 标签
+
+### 评分等级 / Score Level
+
+- ICIQ 总分 → 基础 Level：0-5 Level 1 / 6-12 Level 2 / 13-18 Level 3 / 19-21 Level 4
+- UDI-6 百分制 ≥33 → Level 升一级（封顶 Level 4）
+- IIQ-7 ≥9.5 → 标记"生活质量受影响"
+
+### 生活质量影响 / Quality of Life
+
+| IIQ-7 | 中文 | English |
+|-------|------|---------|
+| <9.5 | 生活质量未受显著影响 | No significant impact on quality of life |
+| ≥9.5 | 生活质量受影响 | Quality of life impacted |
+
+### 推荐训练计划 / Recommended Training Plan
+
+按最终 Level × QoL × 类型查训练频次映射表 / Query frequency map by final Level × QoL × Type
+
+设备模式映射：
+- Stress/Mixed → Mode 8 (SUI)
+- Urge → Mode 9 (UUI)
+- Other → 不映射
+
+---
+
+### 免责声明 / Disclaimer
+
+**中文**：本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。
+
+**English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.`
+  },
   'assess-result-pain-first': {
     title: '3.4 疼痛评估结果·首次',
     path: '功能三 > 问卷评估 > 疼痛评估结果（首次）',
@@ -3074,14 +3251,6 @@ Q1 选了任一风险项（如持续剧痛、发热、血尿等）/ Q1 selected 
 - 始终展示，最多显示最近 7 次评估 / Always visible, shows up to 7 most recent assessments
 - 纵轴为百分比，横轴为评估次序 / Y-axis: percentage, X-axis: assessment index
 - 1 次数据显示 1 个点 / With 1 data point, show a single point
-
-#### 变化标签 / Trend Change Labels
-
-| 中文 | English | 触发条件 |
-|------|---------|---------|
-| ↓ 改善 | ↓ Improved | 得分较上次下降 |
-| → 稳定 | → Stable | 得分变化 <5% |
-| ↑ 加重 | ↑ Worsened | 得分较上次上升 |
 
 
 ---
@@ -3207,14 +3376,6 @@ Control、Endurance、Strength 三维度得分均 <0.3 / All three dimension sco
 
 - 始终展示，最多显示最近 7 次评估 / Always visible, shows up to 7 most recent assessments
 - 纵轴为百分比，横轴为评估次序 / Y-axis: percentage, X-axis: assessment index
-
-#### 变化标签 / Trend Change Labels
-
-| 中文 | English | 触发条件 |
-|------|---------|---------|
-| ↓ 改善 | ↓ Improved | 得分较上次下降 |
-| → 稳定 | → Stable | 得分变化 <5% |
-| ↑ 加重 | ↑ Worsened | 得分较上次上升 |
 
 
 ---
@@ -3366,14 +3527,6 @@ Control、Endurance、Strength 三维度得分均 <0.3 / All three dimension sco
 | 20-40% | Level 2 · 轻度影响 | Level 2 · Mild impact |
 | 40-60% | Level 3 · 中度影响 | Level 3 · Moderate impact |
 | > 60% | Level 4 · 重度影响 | Level 4 · Severe impact |
-
-#### 非首次变化标签 / Trend Change Labels
-
-| 中文 | English | 触发条件 |
-|------|---------|---------|
-| ↓ 改善 | ↓ Improved | 得分较上次下降 / Score decreased from last |
-| → 稳定 | → Stable | 得分变化 <5% |
-| ↑ 加重 | ↑ Worsened | 得分较上次上升 / Score increased from last |
 
 ---
 
