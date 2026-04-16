@@ -534,6 +534,9 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
     </div>
     <div class="sidebar-group">
       <div class="sidebar-group-title">评估与训练流程</div>
+      <div class="sidebar-item" data-page="contraindications" onclick="showPage(this)">
+        <span class="dot red"></span>禁忌使用说明
+      </div>
       <div class="sidebar-item" data-page="assess-consent" onclick="showPage(this)">
         <span class="dot blue"></span>知情同意页
       </div>
@@ -700,8 +703,8 @@ const MODES = [
   { name: 'Relaxation Cycle', cat: 'Recovery', desc: 'Relieve muscle fatigue', time: '20 mins', icon: 'cloud' },
   { name: 'Pain Soothe', cat: 'Pain', desc: 'Relieve chronic pain', time: '20 mins', icon: 'heart-pulse' },
   { name: 'Quick Relief', cat: 'Pain', desc: 'Rapid pain relief', time: '15 mins', icon: 'shield' },
-  { name: 'Mid-Frequency', cat: 'Therapy', desc: 'Mid-frequency electrotherapy', time: '25 mins', icon: 'activity' },
-  { name: 'Low-Frequency', cat: 'Therapy', desc: 'Low-frequency electrotherapy', time: '25 mins', icon: 'radio' },
+  { name: 'Mid-Frequency', cat: 'Program', desc: 'Mid-frequency electrotherapy', time: '25 mins', icon: 'activity' },
+  { name: 'Low-Frequency', cat: 'Program', desc: 'Low-frequency electrotherapy', time: '25 mins', icon: 'radio' },
 ];
 
 const state = { selectedMode: 0, currentPage: 'home-connected' };
@@ -972,6 +975,45 @@ function planFormHTML(modeName, icon, modeMeta, recWeeks, recDays) {
 }
 
 const pages = {
+  'contraindications': () => h.statusBar() + `<div class="nav-bar">
+    <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
+    <span class="title">Safety Information</span>
+    <div style="width:32px"></div>
+  </div>
+  <div class="result-page">
+    <div class="result-body" style="padding:20px 18px">
+      <div style="background:#FFEBEE;border-radius:10px;padding:16px;margin-bottom:18px;border-left:4px solid #D32F2F">
+        <div style="font-weight:700;font-size:15px;color:#C62828;margin-bottom:10px">&#10060; Do NOT use this device if you:</div>
+        <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.7;color:#5D4037">
+          <li>Are currently pregnant</li>
+          <li>Have given birth less than 6 weeks ago</li>
+          <li>Have a cardiac pacemaker, defibrillator, or other electronic implants</li>
+          <li>Have a history of epilepsy, severe arrhythmia, or malignant tumors</li>
+          <li>Have broken skin, infection, or eczema at the usage area</li>
+          <li>Have metal implants at the usage area</li>
+          <li>Have sensory nerve dysfunction</li>
+        </ul>
+      </div>
+      <div style="background:#FFF8E1;border-radius:10px;padding:16px;margin-bottom:18px;border-left:4px solid #F9A825">
+        <div style="font-weight:700;font-size:15px;color:#E65100;margin-bottom:10px">&#9888;&#65039; Usage Precautions:</div>
+        <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.7;color:#5D4037">
+          <li>Start current intensity from 0 and increase slowly</li>
+          <li>Stop immediately if you feel sharp pain, burning, or dizziness</li>
+          <li>Do not exceed the recommended session duration</li>
+          <li>Avoid use in water, damp environments, or while driving</li>
+          <li>First-time use recommended with a family member present</li>
+        </ul>
+      </div>
+      <label style="display:flex;align-items:flex-start;gap:10px;padding:14px;background:#F5F5F5;border-radius:10px;font-size:12px;line-height:1.5;color:#424242;cursor:pointer">
+        <input type="checkbox" style="margin-top:2px;flex-shrink:0" />
+        <span>I confirm that none of the above conditions apply to me, and I understand the usage precautions.</span>
+      </label>
+    </div>
+    <div class="result-footer">
+      <button class="btn-primary" onclick="goTo('assess-consent')">Continue</button>
+    </div>
+  </div>`,
+
   'home-connected': () => h.statusBar() + h.navBar('My PulseCare', false) + '<div class="page-content">' +
     h.device(true, 67) +
     h.schedule([{name:'Activation',type:'EMS',time:'24 mins'},{name:'Strength Mode',type:'EMS',time:'24 mins'}]) +
@@ -1255,15 +1297,15 @@ const pages = {
         </div>
       </div>
 
-      <!-- Severity -->
+      <!-- Level -->
       <div class="result-section">
-        <div class="result-section-title">Severity</div>
+        <div class="result-section-title">Level</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Moderate</span>
+            <span class="severity-badge moderate">Level 2</span>
           </div>
           <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:57%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Slight</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1302,7 +1344,11 @@ const pages = {
         </div>
       </div>
 
-      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis. Consult a healthcare professional for clinical advice.</div>
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
+      </div>
+      <div class="result-disclaimer">This assessment is for reference only and does not replace a medical evaluation. Consult a healthcare professional for clinical advice.</div>
     </div>
     <div class="result-footer">
       <button class="btn-primary" onclick="goTo('plan-config')">Create Training Plan</button>
@@ -1322,6 +1368,10 @@ const pages = {
         <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
         <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">No Symptoms Detected</div>
         <div style="font-size:14px;color:#999;line-height:1.6">No urinary incontinence symptoms detected. No training is recommended at this time.</div>
+      </div>
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
       </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
@@ -1353,16 +1403,16 @@ const pages = {
         </div>
       </div>
 
-      <!-- Severity -->
+      <!-- Level -->
       <div class="result-section">
-        <div class="result-section-title">Severity</div>
+        <div class="result-section-title">Level</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Moderate pain</span>
+            <span class="severity-badge moderate">Level 2 pain</span>
           </div>
           <div style="font-size:13px;color:#666;margin-top:8px">Interferes with some activities, may need analgesics or non-pharmacological measures</div>
           <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Mild</span><span>Moderate</span><span>Severe</span><span>Very Severe</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Mild</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
         </div>
       </div>
 
@@ -1382,6 +1432,10 @@ const pages = {
         </div>
       </div>
 
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
+      </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
     <div class="result-footer">
@@ -1403,6 +1457,10 @@ const pages = {
         <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">No Pain</div>
         <div style="font-size:14px;color:#999;line-height:1.6">No discomfort, normal activity not affected</div>
       </div>
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
+      </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
     <div class="result-footer">
@@ -1421,6 +1479,10 @@ const pages = {
       <div style="text-align:center;padding:60px 24px">
         <div style="width:72px;height:72px;border-radius:50%;background:#fce4ec;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="alert-triangle" style="width:36px;height:36px;color:#c62828"></i></div>
         <div style="font-size:16px;font-weight:700;color:#c62828;line-height:1.6">&#9888;&#65039; Please contact a healthcare professional before using the device.</div>
+      </div>
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
       </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
@@ -1476,12 +1538,12 @@ const pages = {
         </div>
       </div>
 
-      <!-- Severity -->
+      <!-- Level -->
       <div class="result-section">
-        <div class="result-section-title">Severity</div>
+        <div class="result-section-title">Level</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Moderate pain</span>
+            <span class="severity-badge moderate">Level 2 pain</span>
           </div>
           <div style="font-size:13px;color:#666;margin-top:8px">Interferes with some activities, may need analgesics or non-pharmacological measures</div>
         </div>
@@ -1552,9 +1614,9 @@ const pages = {
         </div>
       </div>
 
-      <!-- Severity -->
+      <!-- Level -->
       <div class="result-section">
-        <div class="result-section-title">Severity</div>
+        <div class="result-section-title">Level</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge moderate">中度功能受限</span>
@@ -1577,6 +1639,10 @@ const pages = {
         </div>
       </div>
 
+      <div class="disclaimer-box" style="background: #FFF4E6; border-left: 3px solid #FFA500; padding: 12px 14px; border-radius: 6px; margin: 16px 0; font-size: 11px; line-height: 1.5; color: #8A6D3B;">
+        <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; Disclaimer</div>
+        <div>This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.</div>
+      </div>
       <div class="result-disclaimer">This assessment is for reference only and does not replace a medical diagnosis.</div>
     </div>
     <div class="result-footer">
@@ -1670,9 +1736,9 @@ const pages = {
         </div>
       </div>
 
-      <!-- Severity -->
+      <!-- Level -->
       <div class="result-section">
-        <div class="result-section-title">Severity</div>
+        <div class="result-section-title">Level</div>
         <div class="result-card">
           <div style="display:flex;align-items:center;gap:8px">
             <span class="severity-badge moderate">中度功能受限</span>
@@ -1774,10 +1840,10 @@ const pages = {
             <div style="font-size:22px;font-weight:800;color:#e65100">50<span style="font-size:14px">%</span></div>
           </div>
           <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="severity-badge moderate">Moderate</span>
+            <span class="severity-badge moderate">Level 2</span>
             <span class="severity-badge improved">&darr; Improved</span>
           </div>
-          <div style="font-size:13px;color:#666;margin-bottom:10px">Moderate pain - Interferes with some activities</div>
+          <div style="font-size:13px;color:#666;margin-bottom:10px">Level 2 pain - Interferes with some activities</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">Recommended Training Plan</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
@@ -2361,6 +2427,10 @@ const pages = {
         <text x="260" y="80" font-size="7" fill="#ccc" text-anchor="middle">Apr</text>
       </svg>
     </div>
+    <div class="data-note" style="background: #F0F8FF; border-left: 3px solid #4A90E2; padding: 10px 12px; border-radius: 6px; margin: 12px 16px; font-size: 11px; line-height: 1.5; color: #4A6B8A;">
+      <div style="font-weight: 600; margin-bottom: 3px;">&#128202; Data Note</div>
+      <div>This trend is based on your self-reported assessment data, reflecting your subjective feelings over time, not clinical outcomes. Personalized recommendations update dynamically based on your records.</div>
+    </div>
     <div style="padding:8px 16px;display:flex;justify-content:space-between;align-items:center">
       <span style="font-size:13px;font-weight:600;color:#1a1a1a">History</span>
       <span style="font-size:12px;color:#c4787a;font-weight:500;cursor:pointer">Compare</span>
@@ -2374,17 +2444,17 @@ const pages = {
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
         <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Mar 1, 2026 · 2:15 PM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Moderate</span></div><div class="ri-sub">12/21</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Level 2</span></div><div class="ri-sub">12/21</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
         <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Jan 15, 2026 · 9:00 AM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Moderate</span></div><div class="ri-sub">14/21</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Level 2</span></div><div class="ri-sub">14/21</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
         <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Dec 10, 2025 · 11:00 AM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">Severe</span></div><div class="ri-sub">17/21</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">Level 3</span></div><div class="ri-sub">17/21</div></div>
       </div>
     </div>
   </div>`; },
@@ -2393,6 +2463,47 @@ const pages = {
 
 // PRD章节映射
 const prdMapping = {
+  'contraindications': {
+    title: '2.2 禁忌使用说明',
+    path: '功能一 › 首次使用引导',
+    content: `## 禁忌使用说明
+
+### 功能目的
+首次使用设备时，告知用户禁忌事项并引导用户确认，避免误用风险。
+
+### 触发时机
+设备蓝牙连接成功后，首次进入设备控制页时自动触发全屏弹出。
+
+### 页面结构
+1. **禁止使用人群清单**（红色警示区）
+2. **使用风险提示**（黄色提醒区）
+3. **用户勾选确认区**
+4. **Continue 按钮**（勾选后才可点击）
+
+### 禁忌人群
+- 孕期女性
+- 分娩后未满 6 周
+- 植入心脏起搏器、除颤器或其他电子植入设备者
+- 癫痫、严重心律失常、恶性肿瘤病史者
+- 使用部位有皮肤破损、感染、湿疹者
+- 使用部位植入金属器械者
+- 感觉神经功能障碍者
+
+### 使用风险提示
+- 电流强度应从 0 开始缓慢调节
+- 若出现刺痛、灼热、眩晕应立即停止
+- 单次使用时长不超过模式规定时间
+- 避免在水中、潮湿环境、驾驶中使用
+- 首次使用建议家属陪同
+
+### 合规留痕
+- 后台记录用户确认时间
+- 记录禁忌说明版本号
+- 用户必须完整查看并勾选后才能进入下一步
+
+### 具体内容来源
+详细文案由整机端最终提供，需法务和健康顾问会签后定稿。`,
+  },
   // 设备主页
   'home-connected': {
     title: '2.3 设备主页',
@@ -2551,7 +2662,7 @@ const prdMapping = {
 - 用途：生成个性化训练方案
 
 **2. Non-Diagnostic Disclaimer**
-- 明确声明：本评估不是医学诊断
+- 明确声明：本评估不是医学评估
 - 结果仅供参考，不替代专业医疗建议
 - 症状严重请咨询医生
 
@@ -2613,7 +2724,7 @@ const prdMapping = {
     content: `
 ## 3.2 尿失禁问卷
 
-分为两阶段：3IQ 分型筛查 → ICIQ-SF 严重度评分。共约16题。
+分为两阶段：3IQ 分型筛查 → ICIQ-SF 评分区间评分。共约16题。
 
 ### 阶段一：3IQ（3 Incontinence Questions）分型
 
@@ -2632,29 +2743,29 @@ const prdMapping = {
 | c (no trigger) | Other | Mode 6 |
 | d (both equally) | MUI（混合性） | Mode 8+7 交替 |
 
-### 阶段二：ICIQ-SF 严重度评分（Question 4-16）
+### 阶段二：ICIQ-SF 评分区间评分（Question 4-16）
 
 | 题号 | 问题 | 选项 | 计分 |
 |------|------|------|------|
 | Q4 | How often do you leak urine? | Never(0) / Once a week(1) / 2-3x week(2) / Once a day(3) / Several times/day(4) / All the time(5) | 0-5 |
-| Q5 | How much urine do you usually leak? | None(0) / Small(2) / Moderate(4) / Large(6) | 0-6 |
+| Q5 | How much urine do you usually leak? | None(0) / Small(2) / Level 2(4) / Large(6) | 0-6 |
 | Q6 | Overall, how much does leaking urine interfere with your everyday life? | 0-10 scale | 0-10 |
 | Q7-Q16 | When does urine leak? (situational) | Multiple checkbox options | 不计分，用于临床参考 |
 
 ### ICIQ-SF 评分规则
 - **总分** = Q4 + Q5 + Q6（范围 0-21）
-- 严重度：Mild(1-5), Moderate(6-12), Severe(13-18), Very Severe(19-21)
+- 评分区间：Mild(1-5), Level 2(6-12), Level 3(13-18), Level 4(19-21)
 
 ### 训练推荐映射表
 
-| 分型 | 严重度 | 推荐模式 | 频率 | 周期 |
+| 分型 | 评分区间 | 推荐模式 | 频率 | 周期 |
 |------|--------|----------|------|------|
 | SUI | Mild | Mode 8 | 3x/week | 4 weeks |
-| SUI | Moderate | Mode 8 | 4x/week | 8 weeks |
-| SUI | Severe | Mode 8 | 4x/week | 12 weeks |
+| SUI | Level 2 | Mode 8 | 4x/week | 8 weeks |
+| SUI | Level 3 | Mode 8 | 4x/week | 12 weeks |
 | UUI | Mild | Mode 7 | 3x/week | 4 weeks |
-| UUI | Moderate | Mode 7 | 4x/week | 8 weeks |
-| UUI | Severe | Mode 7 | 5x/week | 12 weeks |
+| UUI | Level 2 | Mode 7 | 4x/week | 8 weeks |
+| UUI | Level 3 | Mode 7 | 5x/week | 12 weeks |
 | MUI | Any | Mode 8+7 alternate | 4x/week | 8-12 weeks |
     `
   },
@@ -2692,16 +2803,16 @@ const prdMapping = {
 
 ### NRS 评分规则
 - **总分** = Q2 单项（范围 0-10）
-- 严重度：None(0), Mild(1-3), Moderate(4-6), Severe(7-10)
+- 评分区间：None(0), Mild(1-3), Level 2(4-6), Level 3(7-10)
 
 ### 训练推荐映射表
 
-| 严重度 | Red-Flag | 推荐模式 | 频率 | 周期 |
+| 评分区间 | Red-Flag | 推荐模式 | 频率 | 周期 |
 |--------|----------|----------|------|------|
 | None | No | 无需疼痛模式 | - | - |
 | Mild | No | Mode 3 (Pain Soothe) | 2x/week | 4 weeks |
-| Moderate | No | Mode 3 (Pain Soothe) | 3x/week | 6 weeks |
-| Severe | No | Mode 3 (Pain Soothe) | 3x/week | 8 weeks |
+| Level 2 | No | Mode 3 (Pain Soothe) | 3x/week | 6 weeks |
+| Level 3 | No | Mode 3 (Pain Soothe) | 3x/week | 8 weeks |
 | Any | Yes | 显示医疗转诊建议，可选继续 | - | - |
     `
   },
@@ -2787,14 +2898,14 @@ const prdMapping = {
 # 尿失禁评估结果说明
 
 ## 功能概述
-基于国际通用的ICIQ-SF（International Consultation on Incontinence Questionnaire-Short Form）问卷，结合生活质量影响问卷(IIQ-7)，对用户的尿失禁症状进行全面评估，为电疗坐垫治疗方案提供科学依据。
+基于国际通用的ICIQ-SF（International Consultation on Incontinence Questionnaire-Short Form）问卷，结合生活质量影响问卷(IIQ-7)，对用户的尿失禁症状进行全面评估，为电疗坐垫训练方案提供科学依据。
 
 ## 页面结构
-- **顶部**: ICIQ总分 (0-21分) + 症状严重度等级 + 评估日期
+- **顶部**: ICIQ总分 (0-21分) + 症状评分等级 + 评估日期
 - **症状分析**: 尿失禁类型判断 + 主要症状描述
 - **生活影响**: IIQ-7评分 + 生活质量受影响程度
-- **治疗建议**: 个性化电疗方案 + 预期效果
-- **底部**: 「开始治疗」「重新评估」按钮
+- **训练建议**: 个性化电疗方案 + 预期效果
+- **底部**: 「开始训练」「重新评估」按钮
 
 ---
 
@@ -2811,7 +2922,7 @@ ICIQ-SF总分由三个维度组成：
 - 4分：每天多次
 - 5分：持续漏尿
 
-**2. 漏出量严重程度 (0-6分)**
+**2. 漏出量评分区间 (0-6分)**
 - 0分：无漏尿
 - 2分：少量（几滴）
 - 4分：中等量（湿润内衣）
@@ -2826,14 +2937,14 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 症状严重度分级
+## 症状评分区间分级
 
-| 严重度 | ICIQ总分 | 症状特征 | 电疗适应性 |
+| 评分区间 | ICIQ总分 | 症状特征 | 电疗适应性 |
 |--------|----------|----------|------------|
-| **无症状** | 0分 | 无任何漏尿症状 | 不需要治疗 |
-| **轻度** | 1-5分 | 偶发性漏尿，对生活影响较小 | ★★★★ 预防性治疗 |
-| **中度** | 6-12分 | 经常性漏尿，明显影响日常 | ★★★★★ 标准治疗 |
-| **重度** | 13-18分 | 频繁漏尿，严重影响生活质量 | ★★★★★ 强化治疗 |
+| **无症状** | 0分 | 无任何漏尿症状 | 不需要训练 |
+| **轻度** | 1-5分 | 偶发性漏尿，对生活影响较小 | ★★★★ 预防性训练 |
+| **中度** | 6-12分 | 经常性漏尿，明显影响日常 | ★★★★★ 标准训练 |
+| **重度** | 13-18分 | 频繁漏尿，严重影响生活质量 | ★★★★★ 强化训练 |
 | **极重度** | 19-21分 | 持续性症状，极大限制功能 | ★★★ 需医师指导 |
 
 ---
@@ -2876,7 +2987,7 @@ ICIQ-SF总分由三个维度组成：
 **症状特征：**
 - 同时具有压力性和急迫性症状
 - 症状复杂多变
-- 治疗需要综合方案
+- 训练需要综合方案
 
 **电疗原理：**
 - 双重作用机制
@@ -2885,7 +2996,7 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 电疗治疗方案
+## 电疗训练方案
 
 ### 基于症状类型的方案选择
 
@@ -2907,20 +3018,20 @@ ICIQ-SF总分由三个维度组成：
 - 时间：每次40-50分钟
 - 重点：双重作用机制
 
-### 基于严重度的强度调节
+### 基于评分区间的强度调节
 
 **轻度症状 (1-5分)：**
-- 预防维护性治疗
+- 预防维护性训练
 - 低强度，每日1次
 - 疗程：4-6周
 
 **中度症状 (6-12分)：**
-- 标准治疗方案
+- 标准训练方案
 - 中等强度，每日1-2次
 - 疗程：6-8周
 
 **重度症状 (13-18分)：**
-- 强化治疗方案
+- 强化训练方案
 - 高强度，每日2次
 - 疗程：8-12周
 
@@ -2931,12 +3042,12 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 治疗效果预期
+## 训练效果预期
 
 ### 短期效果 (1-2周)
 - 盆底肌感知增强
 - 轻微症状缓解
-- 治疗依从性建立
+- 训练依从性建立
 
 ### 中期效果 (4-6周)
 - 漏尿频次明显减少
@@ -2963,24 +3074,24 @@ ICIQ-SF总分由三个维度组成：
 2. **禁忌症排除** - 排除妊娠、心脏病等禁忌症
 3. **医师咨询** - 重度症状建议医师指导使用
 
-### 治疗期间注意事项
+### 训练期间注意事项
 1. **规律使用** - 严格按照方案执行
 2. **强度调节** - 根据舒适度适当调整
-3. **记录症状** - 定期记录治疗效果
+3. **记录症状** - 定期记录训练效果
 4. **复评跟踪** - 每4周进行症状复评
 
 ### 效果维持建议
-1. **治疗完成后** - 可进行维护性治疗
+1. **训练完成后** - 可进行维护性训练
 2. **生活方式** - 配合盆底肌锻炼和生活调整
 3. **定期复查** - 每3-6个月复评症状
-4. **症状复发** - 可重复治疗疗程
+4. **症状复发** - 可重复训练疗程
 
 ---
 
 ## 免责声明
-- 本评估结果仅供参考，不能替代专业医疗诊断
-- 治疗效果因人而异，请合理期待
-- 如有严重症状或治疗无效，请及时就医
+- 本评估结果仅供参考，不能替代专业医疗评估
+- 训练效果因人而异，请合理期待
+- 如有严重症状或训练无效，请及时就医
 - 使用前请仔细阅读产品说明书和禁忌症
     `
   },
@@ -2995,7 +3106,7 @@ ICIQ-SF总分由三个维度组成：
 ### ✅ 评估结论
 **未检测到尿失禁症状**
 
-根据您的问卷回答，目前没有尿失禁相关症状。这表明您的膀胱控制功能正常，无需进行电疗治疗。
+根据您的问卷回答，目前没有尿失禁相关症状。这表明您的膀胱控制功能正常，无需进行电疗训练。
 
 ---
 
@@ -3141,7 +3252,7 @@ ICIQ-SF总分由三个维度组成：
 ### ⚠️ 评估结论
 **检测到中度尿失禁症状**
 
-根据您的问卷回答，存在明显的尿失禁症状，对日常生活造成一定影响。建议开始规范的电疗治疗。
+根据您的问卷回答，存在明显的尿失禁症状，对日常生活造成一定影响。建议开始规范的电疗训练。
 
 ---
 
@@ -3184,23 +3295,23 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 电疗治疗方案
+## 电疗训练方案
 
 ### 📋 推荐方案：混合性尿失禁标准疗法
 
-**治疗参数：**
+**训练参数：**
 - **刺激频率**：变频模式 (15-50Hz)
 - **刺激强度**：中等强度，舒适范围内
-- **治疗时间**：每次40分钟
-- **治疗频次**：每日1次，必要时2次
+- **训练时间**：每次40分钟
+- **训练频次**：每日1次，必要时2次
 - **疗程长度**：6-8周
 
-**治疗原理：**
+**训练原理：**
 1. **低频刺激 (15-20Hz)**：抑制逼尿肌过度活跃
 2. **高频刺激 (50Hz)**：增强盆底肌收缩力
 3. **变频模式**：交替作用，综合改善
 
-### 📅 治疗时间安排
+### 📅 训练时间安排
 **第1-2周：适应期**
 - 强度：30-40% 最大耐受
 - 时间：每次30分钟
@@ -3218,7 +3329,7 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 预期治疗效果
+## 预期训练效果
 
 ### 🎯 短期目标 (2-3周)
 - 漏尿频次减少30-40%
@@ -3243,7 +3354,7 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 辅助治疗建议
+## 辅助训练建议
 
 ### 💡 行为疗法配合
 1. **膀胱训练**
@@ -3274,11 +3385,11 @@ ICIQ-SF总分由三个维度组成：
 
 ## 注意事项与禁忌
 
-### ⚠️ 治疗注意事项
+### ⚠️ 训练注意事项
 1. **强度调节**：逐步增加，避免不适
 2. **皮肤护理**：保持电极接触区域清洁
 3. **定期评估**：每2周记录症状变化
-4. **坚持治疗**：不要因初期效果不明显而放弃
+4. **坚持训练**：不要因初期效果不明显而放弃
 
 ### 🚫 相对禁忌症
 - 急性泌尿系感染期间暂停
@@ -3291,13 +3402,13 @@ ICIQ-SF总分由三个维度组成：
 ## 复查与随访
 
 ### 📋 定期评估安排
-- **2周后**：首次疗效评估，调整参数
+- **2周后**：首次效果评估，调整参数
 - **4周后**：中期评估，优化方案
 - **8周后**：疗程结束评估，制定维护方案
 - **3个月后**：长期效果随访
 
 ### 🔍 需要医师评估的情况
-- 治疗4周后无任何改善
+- 训练4周后无任何改善
 - 出现新的症状或加重
 - 血尿或尿痛等异常症状
 - 反复泌尿系感染
@@ -3306,28 +3417,28 @@ ICIQ-SF总分由三个维度组成：
 
 ## 心理支持
 
-### 💪 建立治疗信心
-- 中度症状治疗成功率高达80-85%
+### 💪 建立训练信心
+- 中度症状训练成功率高达80-85%
 - 大多数患者在4-6周看到明显改善
-- 坚持治疗是成功的关键
+- 坚持训练是成功的关键
 
 ### 🤝 家庭支持
 - 与家人沟通，获得理解支持
 - 积极参与社交活动，避免自我封闭
-- 记录治疗日记，关注进步
+- 记录训练日记，关注进步
 
 ---
 
 ## 总结与下一步
 
-### 📋 治疗计划总结
+### 📋 训练计划总结
 ✅ **立即开始**：混合性尿失禁标准电疗方案
-✅ **配合治疗**：行为疗法 + 生活方式调整
-✅ **定期评估**：每2周监测疗效
+✅ **配合训练**：行为疗法 + 生活方式调整
+✅ **定期评估**：每2周监测效果
 ✅ **预期效果**：6-8周显著改善
 
 ### 🎯 下一步行动
-1. **开始治疗**：点击"创建治疗计划"
+1. **开始训练**：点击"创建训练计划"
 2. **学习配合**：阅读行为疗法指南
 3. **记录症状**：下载症状日记模板
 4. **预约随访**：设置提醒定期评估
@@ -3335,8 +3446,7 @@ ICIQ-SF总分由三个维度组成：
 ---
 
 ## 免责声明
-本评估和治疗建议基于标准化问卷，仅供参考。如有特殊情况或疑虑，请咨询专业医疗人员。治疗效果因人而异，请保持合理期待。
-    `
+本评估和训练建议基于标准化问卷，仅供参考。如有特殊情况或疑虑，请咨询专业医疗人员。训练效果因人而异，请保持合理期待。
     `
   },
   'assess-result-pain-zero': {
@@ -3350,7 +3460,7 @@ ICIQ-SF总分由三个维度组成：
 ### 🚨 评估结论
 **检测到重度尿失禁症状**
 
-根据您的评估结果，存在严重的尿失禁症状，已显著影响生活质量。强烈建议开始密集的电疗治疗，并考虑医师咨询。
+根据您的评估结果，存在严重的尿失禁症状，已显著影响生活质量。强烈建议开始密集的电疗训练，并考虑医师咨询。
 
 ---
 
@@ -3370,7 +3480,7 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 症状类型与严重度
+## 症状类型与评分区间
 
 ### 🎯 主要类型：重度混合性尿失禁
 **复合症状表现：**
@@ -3397,32 +3507,32 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 电疗强化治疗方案
+## 电疗强化训练方案
 
-### 📋 密集治疗计划
+### 📋 密集训练计划
 
 **Phase 1: 急性干预期 (1-2周)**
 - **刺激频率**：双频模式 (20Hz + 50Hz)
 - **刺激强度**：最大耐受强度的60-70%
-- **治疗时间**：每次50分钟
-- **治疗频次**：每日2次（上午 + 下午）
-- **治疗目标**：快速控制症状，提供即时缓解
+- **训练时间**：每次50分钟
+- **训练频次**：每日2次（上午 + 下午）
+- **训练目标**：快速控制症状，提供即时缓解
 
-**Phase 2: 强化治疗期 (3-6周)**
+**Phase 2: 强化训练期 (3-6周)**
 - **刺激频率**：变频刺激 (15-60Hz)
 - **刺激强度**：最大耐受强度的70-80%
-- **治疗时间**：每次60分钟
-- **治疗频次**：每日2次
-- **治疗目标**：重建盆底功能，改善膀胱控制
+- **训练时间**：每次60分钟
+- **训练频次**：每日2次
+- **训练目标**：重建盆底功能，改善膀胱控制
 
 **Phase 3: 巩固维持期 (7-12周)**
 - **刺激频率**：个性化调整
 - **刺激强度**：维持有效强度
-- **治疗时间**：每次45分钟
-- **治疗频次**：每日1-2次（根据症状调整）
-- **治疗目标**：维持改善效果，预防复发
+- **训练时间**：每次45分钟
+- **训练频次**：每日1-2次（根据症状调整）
+- **训练目标**：维持改善效果，预防复发
 
-### 🎛️ 特殊治疗模式
+### 🎛️ 特殊训练模式
 
 **1. 急迫抑制模式**
 - 专门针对急迫性症状
@@ -3434,21 +3544,21 @@ ICIQ-SF总分由三个维度组成：
 - 高频刺激 (50-100Hz)
 - 短脉冲，高强度
 
-**3. 混合治疗模式**
+**3. 混合训练模式**
 - 交替使用不同频率
 - 全面改善膀胱-尿道功能
 - 个性化参数调整
 
 ---
 
-## 预期治疗效果与时间线
+## 预期训练效果与时间线
 
 ### 📅 阶段性目标
 
 **第1周：稳定期**
 - 症状不再恶化
 - 部分急迫感缓解
-- 建立治疗依从性
+- 建立训练依从性
 
 **第2-3周：初效期**
 - 漏尿频次减少20-30%
@@ -3465,7 +3575,7 @@ ICIQ-SF总分由三个维度组成：
 - 生活质量显著改善
 - 社交功能基本恢复
 
-### 📊 疗效预期统计
+### 📊 效果预期统计
 - **显著改善（症状减轻50%以上）**：70-75%
 - **中度改善（症状减轻30-50%）**：20-25%
 - **轻微改善（症状减轻15-30%）**：5-10%
@@ -3476,20 +3586,20 @@ ICIQ-SF总分由三个维度组成：
 ## 医疗协作建议
 
 ### 🏥 建议医师咨询情况
-鉴于症状严重程度，建议在以下情况下寻求专业医疗建议：
+鉴于症状评分区间，建议在以下情况下寻求专业医疗建议：
 
-1. **治疗前咨询**
+1. **训练前咨询**
    - 评估是否存在器质性病变
    - 排除其他泌尿系统疾病
-   - 确认电疗治疗的安全性
+   - 确认电疗训练的安全性
 
-2. **治疗中监测**
+2. **训练中监测**
    - 定期泌尿科随访
    - 尿流动力学检查（如需要）
-   - 治疗效果专业评估
+   - 训练效果专业评估
 
 3. **效果不佳时**
-   - 4周治疗后无明显改善
+   - 4周训练后无明显改善
    - 症状进一步恶化
    - 出现新的并发症
 
@@ -3541,7 +3651,7 @@ ICIQ-SF总分由三个维度组成：
 **心理支持**
 - 寻求家人理解支持
 - 参加患者支持小组
-- 保持积极治疗态度
+- 保持积极训练态度
 - 必要时心理咨询
 
 ---
@@ -3568,7 +3678,7 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 治疗监测指标
+## 训练监测指标
 
 ### 📋 日常记录内容
 **症状日记（必须记录）**
@@ -3600,11 +3710,11 @@ ICIQ-SF总分由三个维度组成：
 - 了解尿失禁是疾病，非个人意愿
 - 提供情感支持，避免指责
 - 协助日常护理和清洁
-- 鼓励坚持治疗
+- 鼓励坚持训练
 
 **实际帮助**
 - 协助记录症状日记
-- 提醒按时治疗
+- 提醒按时训练
 - 帮助准备护理用品
 - 陪同医疗随访
 
@@ -3616,17 +3726,17 @@ ICIQ-SF总分由三个维度组成：
 
 ---
 
-## 治疗成功案例分享
+## 训练成功案例分享
 
 ### 🌟 典型康复历程
 **王女士，55岁，重度混合性尿失禁**
-- **治疗前**：ICIQ 18分，每日漏尿15-20次
+- **训练前**：ICIQ 18分，每日漏尿15-20次
 - **4周后**：评分降至12分，症状减轻40%
 - **8周后**：评分降至6分，基本控制症状
 - **12周后**：评分3分，生活质量完全恢复
 
 **关键成功因素**
-- 严格按照治疗方案执行
+- 严格按照训练方案执行
 - 积极配合行为疗法
 - 家人全力支持
 - 定期医疗随访
@@ -3635,23 +3745,23 @@ ICIQ-SF总分由三个维度组成：
 
 ## 总结与行动计划
 
-### 🎯 治疗要点总结
-1. ⚠️ **重度症状需要密集治疗**
-2. 📅 **至少12周的系统治疗**
+### 🎯 训练要点总结
+1. ⚠️ **重度症状需要密集训练**
+2. 📅 **至少12周的系统训练**
 3. 🏥 **建议专业医疗协作**
 4. 💪 **需要坚强的意志和家庭支持**
 5. 📊 **定期监测调整方案**
 
 ### 🚀 立即行动步骤
-1. **今天**：开始密集电疗治疗
+1. **今天**：开始密集电疗训练
 2. **本周**：预约泌尿科医师
 3. **每日**：记录症状日记
-4. **2周后**：首次疗效评估
-5. **长期**：坚持治疗直至症状控制
+4. **2周后**：首次效果评估
+5. **长期**：坚持训练直至症状控制
 
 ---
 
-## 治疗信心鼓励
+## 训练信心鼓励
 
 💪 **请相信：**
 - 70-75%的重度患者能够获得显著改善
@@ -3660,12 +3770,12 @@ ICIQ-SF总分由三个维度组成：
 - 专业团队全力支持您
 
 🌈 **康复目标：**
-重度症状不是终点，而是康复的起点。通过科学治疗和坚持努力，重获正常生活完全可能！
+重度症状不是终点，而是康复的起点。通过科学训练和坚持努力，重获正常生活完全可能！
 
 ---
 
 ## 免责声明
-重度尿失禁需要专业医疗指导。本方案仅供参考，请结合医师建议制定个性化治疗计划。如有紧急情况请立即就医。
+重度尿失禁需要专业医疗指导。本方案仅供参考，请结合医师建议制定个性化训练计划。如有紧急情况请立即就医。
     `
   },
   'assess-result-pain-risk': {
@@ -3691,9 +3801,9 @@ ICIQ-SF总分由三个维度组成：
 - **肌肉高张**：过度紧张影响正常功能
 
 ### 建议措施
-1. **优先咨询专业医疗人员**：获取专业诊断和治疗建议
+1. **优先咨询专业医疗人员**：获取专业评估和训练建议
 2. **医疗监督下的康复训练**：在专业指导下进行训练
-3. **综合治疗方案**：可能需要配合其他治疗手段
+3. **综合训练方案**：可能需要配合其他训练手段
 
 ### 下一步
 - 「咨询医疗专家」→ 获取专业医疗建议
@@ -3719,8 +3829,8 @@ ICIQ-SF总分由三个维度组成：
 ### 分型 (Classification)
 - 文案："You are experiencing ongoing dull or aching pain. Daily TENS can help relieve background discomfort."
 
-### 严重度 (Severity)
-- Moderate pain
+### 评分区间 (Level)
+- Level 2 pain
 - 文案："Interferes with some activities, may need analgesics or non-pharmacological measures"
 
 ### 推荐训练
@@ -3746,7 +3856,7 @@ ICIQ-SF总分由三个维度组成：
 ### 分型 (Classification)
 - 文案（中文）："您的下肢在控制和耐力方面有一定受限，建议进行相关训练。"
 
-### 严重度 (Severity)
+### 评分区间 (Level)
 - 文案（中文）："中度功能受限"
 
 ### 推荐训练
@@ -3803,7 +3913,7 @@ ICIQ-SF总分由三个维度组成：
 ### 分型 (Classification)
 - 文案（中文）："您的下肢在控制和耐力方面有一定受限，建议进行相关训练。"
 
-### 严重度 (Severity)
+### 评分区间 (Level)
 - 文案（中文）："中度功能受限"
 
 ### 推荐训练
@@ -3830,11 +3940,11 @@ ICIQ-SF总分由三个维度组成：
 
 每个模块一张大卡片，包含：
 - 标题行：模块名 + 当前得分百分比
-- 分型结果 + 严重度标签 + 变化标签（↓ Improved / → Stable / ↑ Worsened）
+- 分型结果 + 评分区间标签 + 变化标签（↓ Improved / → Stable / ↑ Worsened）
 - 日常生活影响
 - 推荐训练计划（等重呈现，独立色块卡片）
 
-**各模块分型/严重度/QoL文案规则同首次评估，额外增加变化对比：**
+**各模块分型/评分区间/QoL文案规则同首次评估，额外增加变化对比：**
 - 分数降低 → 绿色 "↓ Improved"
 - 分数不变 → 灰色 "→ Stable"
 - 分数上升 → 红色 "↑ Worsened"
@@ -3892,7 +4002,7 @@ ICIQ-SF总分由三个维度组成：
 | 3 次/周 | 周一、周三、周五 | 隔天训练 |
 | 4 次/周 | 周一、周三、周五、周日 | 均匀分布，间隔≥1天 |
 | 5 次/周 | 周一至周三、周五、周六 | 周四和周日休息 |
-| 每日 1 次 | 全选 | 仅疼痛 Severe 场景 |
+| 每日 1 次 | 全选 | 仅疼痛 Level 3 场景 |
 
 ### Step 3: 模式确认
 - 显示评估推荐的训练模式
@@ -3933,7 +4043,7 @@ ICIQ-SF总分由三个维度组成：
 | 3 次/周 | 周一、周三、周五 | 隔天训练 |
 | 4 次/周 | 周一、周三、周五、周日 | 均匀分布，间隔≥1天 |
 | 5 次/周 | 周一至周三、周五、周六 | 周四和周日休息 |
-| 每日 1 次 | 全选 | 仅疼痛 Severe 场景 |
+| 每日 1 次 | 全选 | 仅疼痛 Level 3 场景 |
 
 用户可手动调整（点击日期切换选中/取消）。
     `
@@ -4460,7 +4570,7 @@ ICIQ-SF总分由三个维度组成：
 
 **统计信息**
 每个Tab显示对应模块的：
-- 最新评估等级：Mild/Moderate/Severe
+- 最新评估等级：Mild/Level 2/Level 3
 - 最新评估时间
 - 评估次数统计
 
@@ -4486,7 +4596,7 @@ ICIQ-SF总分由三个维度组成：
 ### 评估记录列表
 **记录条目**
 - 评估日期
-- 严重程度等级
+- 评分区间等级
 - 评分详情：如"ICIQ 8/21"
 - 改善标识：相比上次的变化趋势
 
