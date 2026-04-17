@@ -700,15 +700,15 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
 
 <script>
 const MODES = [
-  { name: 'Activation', cat: 'Basic', desc: 'Awaken pelvic floor and hip-leg muscles', time: '24 mins', icon: 'zap' },
-  { name: 'Strength', cat: 'Advanced', desc: 'Enhance muscle strength', time: '24 mins', icon: 'dumbbell' },
-  { name: 'Endurance', cat: 'Advanced', desc: 'Improve muscle endurance', time: '30 mins', icon: 'timer' },
-  { name: 'Functional', cat: 'Advanced', desc: 'Improve functional performance', time: '24 mins', icon: 'target' },
-  { name: 'Relaxation Cycle', cat: 'Recovery', desc: 'Relieve muscle fatigue', time: '20 mins', icon: 'cloud' },
-  { name: 'Pain Soothe', cat: 'Pain', desc: 'Relieve chronic pain', time: '20 mins', icon: 'heart-pulse' },
-  { name: 'Quick Relief', cat: 'Pain', desc: 'Rapid pain relief', time: '15 mins', icon: 'shield' },
-  { name: 'Mid-Frequency', cat: 'Program', desc: 'Mid-frequency electrotherapy', time: '25 mins', icon: 'activity' },
-  { name: 'Low-Frequency', cat: 'Program', desc: 'Low-frequency electrotherapy', time: '25 mins', icon: 'radio' },
+  { name: '01 Activation Mode', cat: 'Basic', desc: 'Awaken pelvic floor and hip-leg muscles', time: '15 mins', icon: 'zap' },
+  { name: '02 Strength Mode', cat: 'Advanced', desc: 'Enhance muscle strength', time: '20 mins', icon: 'dumbbell' },
+  { name: '03 Endurance Mode', cat: 'Advanced', desc: 'Improve muscle endurance', time: '15 mins', icon: 'timer' },
+  { name: '04 Function Mode', cat: 'Advanced', desc: 'Improve functional performance', time: '20 mins', icon: 'target' },
+  { name: '05 Relaxation Cycle Mode', cat: 'Recovery', desc: 'Relieve muscle fatigue', time: '20 mins', icon: 'cloud' },
+  { name: '06 Chronic Mode', cat: 'Pain', desc: 'Relieve chronic pain (dull, aching, neuropathic)', time: '20 mins', icon: 'heart-pulse' },
+  { name: '07 Acute Mode', cat: 'Pain', desc: 'Rapid acute pain relief (spasm, sharp, stabbing)', time: '30 mins', icon: 'shield' },
+  { name: '08 SUI Mode', cat: 'Training', desc: 'Stress Urinary Incontinence training', time: '20 mins', icon: 'activity' },
+  { name: '09 UUI Mode', cat: 'Training', desc: 'Urge Urinary Incontinence training', time: '20 mins', icon: 'radio' },
 ];
 
 const state = { selectedMode: 0, currentPage: 'home-connected' };
@@ -860,7 +860,7 @@ const h = {
         <svg viewBox="0 0 180 180" style="width:100%;transform:rotate(-90deg)"><circle cx="90" cy="90" r="82" fill="none" stroke="#eee" stroke-width="8"/><circle cx="90" cy="90" r="82" fill="none" stroke="#c4787a" stroke-width="8" stroke-dasharray="309 515" stroke-linecap="round"/></svg>
         <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center"><div style="font-size:32px;font-weight:800;color:#1a1a1a">14:28</div><div style="font-size:12px;color:#999">/ 24:00</div></div>
       </div>
-      <div style="font-size:14px;color:#666">01 Activation · EMS · 24 min</div>
+      <div style="font-size:14px;color:#666">01 01 Activation Mode · EMS · 24 min</div>
       <div style="display:flex;gap:12px;margin-top:16px;align-items:center"><div style="width:36px;height:36px;background:#f0f0f0;border-radius:50%;display:flex;align-items:center;justify-content:center">−</div><span style="font-size:18px;font-weight:700">5 / 99</span><div style="width:36px;height:36px;background:#f0f0f0;border-radius:50%;display:flex;align-items:center;justify-content:center">+</div></div>
     </div>`,
 
@@ -1020,7 +1020,7 @@ const pages = {
 
   'home-connected': () => h.statusBar() + h.navBar('My PulseCare', false) + '<div class="page-content">' +
     h.device(true, 67) +
-    h.schedule([{name:'Activation',type:'EMS',time:'24 mins'},{name:'Strength Mode',type:'EMS',time:'24 mins'}]) +
+    h.schedule([{name:'01 Activation Mode',type:'EMS',time:'15 mins'},{name:'02 Strength Mode',type:'EMS',time:'20 mins'}]) +
     h.customize() +
     h.trainingRecord(11, [3,3,3,12,28,35,40]) +
     h.assessmentRecord(80) +
@@ -1040,12 +1040,12 @@ const pages = {
 
   'home-disconnected': () => h.statusBar() + h.navBar('My PulseCare', false) + '<div class="page-content">' +
     h.device(false) +
-    h.schedule([{name:'Activation',type:'EMS',time:'24 mins'},{name:'Strength Mode',type:'EMS',time:'24 mins'}]) +
+    h.schedule([{name:'01 Activation Mode',type:'EMS',time:'15 mins'},{name:'02 Strength Mode',type:'EMS',time:'20 mins'}]) +
     h.customize() + h.trainingRecord(11, [3,3,3,12,28,35,40]) + h.assessmentRecord(80) + h.assessmentCTA() + '</div>',
 
   'home-draft': () => h.statusBar() + h.navBar('My PulseCare', false) + '<div class="page-content">' +
     h.device(true, 67) + h.draft() +
-    h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) +
+    h.schedule([{name:'01 Activation Mode',type:'EMS',time:'15 mins'}]) +
     h.customize() + h.trainingRecord(8, [3,10,15,22,28,30,32]) + h.assessmentRecord(65) + h.assessmentCTA() + '</div>',
 
 
@@ -1083,7 +1083,7 @@ const pages = {
       <i data-lucide="chevron-right" class="mi-arrow" style="width:16px;height:16px"></i>
     </div>`).join('');
     return h.statusBar() + h.navBar('My PulseCare', false) +
-      '<div class="page-content" style="filter:brightness(0.6)">' + h.device(true, 67) + h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) + '</div>' +
+      '<div class="page-content" style="filter:brightness(0.6)">' + h.device(true, 67) + h.schedule([{name:'01 Activation Mode',type:'EMS',time:'15 mins'}]) + '</div>' +
       `<div class="mode-panel"><div class="mode-handle"></div><div class="mode-panel-title">Select Training Mode</div><div class="mode-list">${items}</div></div>`;
   },
 
@@ -1315,7 +1315,7 @@ const pages = {
         <div class="result-card" style="background:#fdf0f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">08 SUI Mode · 压力性尿失禁模式</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1379,7 +1379,7 @@ const pages = {
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
           <div class="rc-row"><div><div class="rc-label">疼痛类型（Q2 描述词 × Q3 持续时间）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">慢性伤害感受痛 · 持续 >6 周</div></div></div>
-          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期慢性伤害感受痛，建议结合训练与专科评估。</div>
+          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期钝痛或酸痛。产后超过 6 周仍存在慢性疼痛。</div>
         </div>
       </div>
 
@@ -1387,7 +1387,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度疼痛</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">干扰部分活动，可能需要止痛药或非药物措施</div>
         </div>
       </div>
 
@@ -1397,7 +1397,7 @@ const pages = {
         <div class="result-card" style="background:#fff8f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">06 Chronic Mode · 慢性疼痛模式</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">5 次</span>/周</div>
@@ -1513,7 +1513,7 @@ const pages = {
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
           <div class="rc-row"><div><div class="rc-label">疼痛类型（Q2 描述词 × Q3 持续时间）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">慢性伤害感受痛 · 持续 >6 周</div></div></div>
-          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期慢性伤害感受痛，建议结合训练与专科评估。</div>
+          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期钝痛或酸痛。产后超过 6 周仍存在慢性疼痛。</div>
         </div>
       </div>
 
@@ -1521,7 +1521,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度疼痛</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">干扰部分活动，可能需要止痛药或非药物措施</div>
         </div>
       </div>
 
@@ -1531,7 +1531,7 @@ const pages = {
         <div class="result-card" style="background:#fff8f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">06 Chronic Mode · 慢性疼痛模式</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">5 次</span>/周</div>
@@ -1576,11 +1576,11 @@ const pages = {
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:44%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 03 Endurance Mode</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 02 Strength Mode</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
           </div>
         </div>
@@ -1590,7 +1590,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有明显受限。</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有一定受限，建议进行相关训练。</div></div></div>
         </div>
       </div>
 
@@ -1598,7 +1598,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">影响程度</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度影响</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度功能受限</div>
         </div>
       </div>
 
@@ -1608,11 +1608,11 @@ const pages = {
         <div class="result-card" style="background:#e8f5e9">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">01 Activation Mode · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">03 Endurance Mode · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333;margin-top:12px">
             <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1700,11 +1700,11 @@ const pages = {
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:44%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 03 Endurance Mode</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 02 Strength Mode</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
           </div>
         </div>
@@ -1714,7 +1714,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有明显受限。</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有一定受限，建议进行相关训练。</div></div></div>
         </div>
       </div>
 
@@ -1722,7 +1722,7 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">影响程度</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度影响</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度功能受限</div>
         </div>
       </div>
 
@@ -1732,11 +1732,11 @@ const pages = {
         <div class="result-card" style="background:#e8f5e9">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">01 Activation Mode · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">03 Endurance Mode · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333;margin-top:12px">
             <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1807,7 +1807,7 @@ const pages = {
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">08 SUI Mode · 压力性尿失禁模式</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
               <div><span style="font-weight:600">3 次</span>/周</div>
@@ -1826,12 +1826,12 @@ const pages = {
             <div style="font-size:22px;font-weight:800;color:#e65100">50<span style="font-size:14px">%</span></div>
           </div>
           <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">慢性伤害感受痛 · 持续 >6 周</div>
-          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">中度疼痛 · 长期慢性伤害感受痛，建议结合训练与专科评估。</div>
+          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">干扰部分活动，可能需要止痛药或非药物措施 · 长期钝痛或酸痛。产后超过 6 周仍存在慢性疼痛。</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">06 Chronic Mode · 慢性疼痛模式</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
               <div><span style="font-weight:600">5 次</span>/周</div>
@@ -1849,17 +1849,17 @@ const pages = {
             <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#2e7d32"></div><span style="font-size:14px;font-weight:600">臀腿功能</span></div>
             <div style="font-size:22px;font-weight:800;color:#2e7d32">45<span style="font-size:14px">%</span></div>
           </div>
-          <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">您的下肢在控制和耐力方面有明显受限。</div>
-          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">中度影响</div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">您的下肢在控制和耐力方面有一定受限，建议进行相关训练。</div>
+          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">中度功能受限</div>
           <div style="background:#e8f5e9;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">01 Activation Mode · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">03 Endurance Mode · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
               <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1937,7 +1937,7 @@ const pages = {
         <div class="result-card" style="background:#fdf0f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">08 SUI Mode · 压力性尿失禁模式</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">3 次</span>/周</div>
@@ -1965,7 +1965,7 @@ const pages = {
   </div>
   <div class="plan-page">
     <div class="plan-body">
-      ${planFormHTML('Activation','zap','Basic · EMS · 24 mins per session',6,4)}
+      ${planFormHTML('01 Activation Mode','zap','Basic · EMS · 15 mins per session',6,4)}
     </div>
     <div class="plan-footer">
       <button class="btn-primary" onclick="goTo('plan-preview')">Preview Plan</button>
@@ -1976,8 +1976,8 @@ const pages = {
     state.planTab = state.planTab || 0;
     const tabs = ['Incontinence','Pain'];
     const configs = [
-      planFormHTML('Activation','zap','Basic · EMS · 24 mins per session',6,4),
-      planFormHTML('Pain Soothe','heart-pulse','Pain · EMS · 20 mins per session',6,3),
+      planFormHTML('01 Activation Mode','zap','Basic · EMS · 15 mins per session',6,4),
+      planFormHTML('06 Chronic Mode','heart-pulse','Pain · TENS · 20 mins per session',6,3),
     ];
     const tabHtml = tabs.map((t,i) => `<div class="plan-tab${i===state.planTab?' active':''}" onclick="state.planTab=${i};goTo('plan-config')">${t}</div>`).join('');
     const isLast = state.planTab === tabs.length - 1;
@@ -2001,8 +2001,8 @@ const pages = {
     state.previewTab = state.previewTab || 0;
     const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
     const plans = [
-      { name: 'Incontinence', mode: 'Activation', freq: '4x/week', time: '24 min', color: '#c4787a', total: 24, weeks: 6, days: [0,2,4,6] },
-      { name: 'Pain', mode: 'Pain Soothe', freq: '3x/week', time: '20 min', color: '#e65100', total: 18, weeks: 6, days: [0,2,4] },
+      { name: 'Incontinence', mode: '08 SUI Mode', freq: '4x/week', time: '20 min', color: '#c4787a', total: 24, weeks: 6, days: [0,2,4,6] },
+      { name: 'Pain', mode: '06 Chronic Mode', freq: '3x/week', time: '20 min', color: '#e65100', total: 18, weeks: 6, days: [0,2,4] },
     ];
     const p = plans[state.previewTab];
     const tabHtml = plans.map((pl,i) => `<div class="plan-tab${i===state.previewTab?' active':''}" onclick="state.previewTab=${i};goTo('plan-preview')">${pl.name}</div>`).join('');
@@ -2092,7 +2092,7 @@ const pages = {
     <div style="font-size:22px;font-weight:700;color:#1a1a1a;margin-bottom:4px">Amazing! Full Session!</div>
     <div style="font-size:13px;color:#2e7d32;margin-bottom:20px">You completed 100% of this training. Keep it up!</div>
     <div class="motivate-card">
-      <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation</span></div>
+      <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation Mode</span></div>
       <div class="motivate-row"><span class="ml">Duration</span><span class="mv">24:00 / 24:00</span></div>
       <div class="motivate-row"><span class="ml">Progress</span><span class="mv" style="color:#2e7d32">100%</span></div>
       <div class="motivate-row"><span class="ml">Schedule</span><span class="mv">Session 8 of 24</span></div>
@@ -2122,7 +2122,7 @@ const pages = {
     <div style="font-size:22px;font-weight:700;color:#1a1a1a;margin-bottom:4px">Good Effort!</div>
     <div style="font-size:13px;color:#e65100;margin-bottom:20px">You completed 60% of this session. Every bit counts!</div>
     <div class="motivate-card">
-      <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation</span></div>
+      <div class="motivate-row"><span class="ml">Mode</span><span class="mv">01 Activation Mode</span></div>
       <div class="motivate-row"><span class="ml">Duration</span><span class="mv">14:32 / 24:00</span></div>
       <div class="motivate-row"><span class="ml">Progress</span><span class="mv" style="color:#e65100">60%</span></div>
       <div class="motivate-row"><span class="ml">Schedule</span><span class="mv">Session 8 of 24</span></div>
@@ -2163,17 +2163,17 @@ const pages = {
   <div class="task-list">
     <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
       <div class="tc-num" style="background:#fce4ec;color:#c4787a">01</div>
-      <div class="tc-info"><div class="tc-name">Activation</div><div class="tc-meta">EMS · 24 min</div></div>
+      <div class="tc-info"><div class="tc-name">01 Activation Mode</div><div class="tc-meta">EMS · 15 min</div></div>
       <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
     </div>
     <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
       <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
-      <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
+      <div class="tc-info"><div class="tc-name">06 Chronic Mode</div><div class="tc-meta">TENS · 20 min</div></div>
       <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
     </div>
     <div class="task-card completed">
       <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
-      <div class="tc-info"><div class="tc-name">Strength</div><div class="tc-meta">EMS · 24 min · Completed at 9:30 AM</div></div>
+      <div class="tc-info"><div class="tc-name">02 Strength Mode</div><div class="tc-meta">EMS · 20 min · Completed at 9:30 AM</div></div>
       <div class="tc-status"><i data-lucide="check" style="width:14px;height:14px"></i></div>
     </div>
   </div>`,
@@ -2204,7 +2204,7 @@ const pages = {
       <div class="tc-num" style="background:#fce4ec;color:#c4787a">01</div>
       <div class="sc-info">
         <div class="sc-name">Incontinence Plan</div>
-        <div class="sc-meta">Activation · 4x/week · Apr 14 – May 25</div>
+        <div class="sc-meta">01 Activation Mode · 4x/week · Apr 14 – May 25</div>
       </div>
       <div class="sc-progress"><div class="sc-bar"><div class="sc-bar-fill" style="width:35%;background:#c4787a"></div></div><div class="sc-pct">8/24</div></div>
     </div>
@@ -2212,7 +2212,7 @@ const pages = {
       <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
       <div class="sc-info">
         <div class="sc-name">Pain Management Plan</div>
-        <div class="sc-meta">Pain Soothe · 3x/week · Apr 14 – May 25</div>
+        <div class="sc-meta">06 Chronic Mode · 3x/week · Apr 14 – May 25</div>
       </div>
       <div class="sc-progress"><div class="sc-bar"><div class="sc-bar-fill" style="width:22%;background:#e65100"></div></div><div class="sc-pct">4/18</div></div>
     </div>
@@ -2221,7 +2221,7 @@ const pages = {
       <div class="tc-num" style="background:#f0f0f0;color:#999">01</div>
       <div class="sc-info">
         <div class="sc-name">Previous Incontinence Plan</div>
-        <div class="sc-meta">Activation · Feb 1 – Mar 14 · Completed</div>
+        <div class="sc-meta">01 Activation Mode · Feb 1 – Mar 14 · Completed</div>
       </div>
       <div class="sc-progress"><div class="sc-bar"><div class="sc-bar-fill" style="width:100%;background:#ccc"></div></div><div class="sc-pct">24/24</div></div>
     </div>
@@ -2254,13 +2254,13 @@ const pages = {
   </div>
   <div class="page-content" style="filter:brightness(0.6)">` +
     h.device(true, 67) +
-    h.schedule([{name:'Activation',type:'EMS',time:'24 mins'}]) +
+    h.schedule([{name:'01 Activation Mode',type:'EMS',time:'15 mins'}]) +
   `</div>
   <div class="overlay" style="z-index:30">
     <div class="reminder-dialog">
       <div class="rd-illust"><i data-lucide="bell-ring" style="width:28px;height:28px;color:#c4787a"></i></div>
       <div class="rd-title">Time to Train!</div>
-      <div class="rd-desc">You have 1 session scheduled today:<br><b>Activation · 24 min</b></div>
+      <div class="rd-desc">You have 1 session scheduled today:<br><b>01 Activation Mode · 24 min</b></div>
       <button class="btn-primary" style="margin-bottom:8px;border-radius:12px" onclick="goTo('train-complete')">Start Training</button>
       <button class="btn-ghost" onclick="goTo('sched-skip')">Rest today</button>
     </div>
@@ -2308,16 +2308,16 @@ const pages = {
   <div class="task-list">
     <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
       <div class="tc-num" style="background:#f5f5f5;color:#999">01</div>
-      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Activation</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">01 Activation Mode</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
     </div>
     <div class="task-card" style="cursor:pointer" onmousedown="lpStart(this,'sched-skip')" onmouseup="lpEnd(this,'train-complete')" onmouseleave="lpCancel()" ontouchstart="lpStart(this,'sched-skip')" ontouchend="lpEnd(this,'train-complete')" ontouchcancel="lpCancel()">
       <div class="tc-num" style="background:#fff3e0;color:#e65100">06</div>
-      <div class="tc-info"><div class="tc-name">Pain Soothe</div><div class="tc-meta">EMS · 20 min</div></div>
+      <div class="tc-info"><div class="tc-name">06 Chronic Mode</div><div class="tc-meta">TENS · 20 min</div></div>
       <div style="display:flex;align-items:center;gap:4px"><span class="lp-hint" style="font-size:10px;color:#bbb;white-space:nowrap">Long press to skip</span><i data-lucide="chevron-right" style="width:16px;height:16px;color:#ccc"></i></div>
     </div>
     <div class="task-card completed">
       <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
-      <div class="tc-info"><div class="tc-name">Strength</div><div class="tc-meta">EMS · 24 min · Completed at 9:30 AM</div></div>
+      <div class="tc-info"><div class="tc-name">02 Strength Mode</div><div class="tc-meta">EMS · 20 min · Completed at 9:30 AM</div></div>
       <div class="tc-status"><i data-lucide="check" style="width:14px;height:14px"></i></div>
     </div>
   </div>`,
@@ -2342,15 +2342,15 @@ const pages = {
   <div class="task-list">
     <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
       <div class="tc-num" style="background:#f5f5f5;color:#999">01</div>
-      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Activation</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">01 Activation Mode</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
     </div>
     <div class="task-card" style="cursor:pointer;opacity:0.5" onclick="goTo('sched-undo-skip')">
       <div class="tc-num" style="background:#f5f5f5;color:#999">06</div>
-      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">Pain Soothe</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
+      <div class="tc-info"><div class="tc-name" style="text-decoration:line-through;color:#999">06 Chronic Mode</div><div class="tc-meta" style="color:#e65100;font-weight:600">Skipped</div></div>
     </div>
     <div class="task-card completed">
       <div class="tc-num" style="background:#f0f0f0;color:#999">02</div>
-      <div class="tc-info"><div class="tc-name">Strength</div><div class="tc-meta">EMS · 24 min · Completed at 9:30 AM</div></div>
+      <div class="tc-info"><div class="tc-name">02 Strength Mode</div><div class="tc-meta">EMS · 20 min · Completed at 9:30 AM</div></div>
       <div class="tc-status"><i data-lucide="check" style="width:14px;height:14px"></i></div>
     </div>
   </div>`,
@@ -2377,7 +2377,7 @@ const pages = {
       <div style="font-size:13px;font-weight:600;color:#999;margin-bottom:8px">TRAINING MODE</div>
       <div style="display:flex;align-items:center;gap:10px">
         <div style="width:32px;height:32px;border-radius:50%;background:#fce4ec;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#c4787a">01</div>
-        <div><div style="font-size:15px;font-weight:600">Activation</div><div style="font-size:12px;color:#999">Basic · EMS · 24 min</div></div>
+        <div><div style="font-size:15px;font-weight:600">01 Activation Mode</div><div style="font-size:12px;color:#999">Basic · EMS · 24 min</div></div>
       </div>
       <div style="font-size:11px;color:#999;margin-top:8px"><i data-lucide="lock" style="width:12px;height:12px;vertical-align:-2px"></i> Cannot be changed. Delete and reassess to change mode.</div>
     </div>
@@ -2453,29 +2453,29 @@ const pages = {
     </div>
     <div class="rec-chips">
       <div class="rec-chip active">All</div>
-      <div class="rec-chip">Activation</div>
-      <div class="rec-chip">Strength</div>
-      <div class="rec-chip">Pain Soothe</div>
+      <div class="rec-chip">01 Activation Mode</div>
+      <div class="rec-chip">02 Strength Mode</div>
+      <div class="rec-chip">06 Chronic Mode</div>
     </div>
     <div class="rec-list">
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="zap" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">Activation</div><div class="ri-meta">Apr 16, 9:30 AM · 100%</div></div>
+        <div class="ri-info"><div class="ri-name">01 Activation Mode</div><div class="ri-meta">Apr 16, 9:30 AM · 100%</div></div>
         <div class="ri-right"><div class="ri-val">24:00</div><div class="ri-sub">🙂</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="dumbbell" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">Strength</div><div class="ri-meta">Apr 16, 10:15 AM · 85%</div></div>
+        <div class="ri-info"><div class="ri-name">02 Strength Mode</div><div class="ri-meta">Apr 16, 10:15 AM · 85%</div></div>
         <div class="ri-right"><div class="ri-val">20:24</div><div class="ri-sub">😐</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fff3e0"><i data-lucide="heart-pulse" style="width:18px;height:18px;color:#e65100"></i></div>
-        <div class="ri-info"><div class="ri-name">Pain Soothe</div><div class="ri-meta">Apr 15, 8:30 PM · 100%</div></div>
+        <div class="ri-info"><div class="ri-name">06 Chronic Mode</div><div class="ri-meta">Apr 15, 8:30 PM · 100%</div></div>
         <div class="ri-right"><div class="ri-val">20:00</div><div class="ri-sub">😄</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="zap" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">Activation</div><div class="ri-meta">Apr 14, 9:00 AM · 100%</div></div>
+        <div class="ri-info"><div class="ri-name">01 Activation Mode</div><div class="ri-meta">Apr 14, 9:00 AM · 100%</div></div>
         <div class="ri-right"><div class="ri-val">24:00</div><div class="ri-sub">😄</div></div>
       </div>
     </div>

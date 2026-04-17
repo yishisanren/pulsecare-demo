@@ -5,6 +5,8 @@ path: "功能三 > 问卷评估 > 疼痛评估结果（风险项）"
 
 ### 评估结果 · 臀腿疼痛（风险项） / Assessment Result · Hip-Leg Pain (Safety Gate)
 
+> 本页规则以《电疗坐垫问卷输出逻辑》+ PRD 3.3 模块 2 Q1 选项定义为唯一真值源。
+
 ---
 
 ### 触发条件 / Trigger
@@ -14,8 +16,8 @@ Q1 选了任一风险项（前 5 项）/ Q1 selected any risk item (first 5)
 ### Q1 选项清单 / Q1 Options
 
 **题干 / Question**：
-- 中文：过去一周，您是否出现以下情况？（多选）
-- English: In the past week, have you experienced any of the following? (Multiple choice)
+- 中文：Do you have any of the following along with the pain?（多选）
+- English: Do you have any of the following along with the pain? (Multiple choice)
 
 | 选项 | 中文 | English | 触发安全门控 |
 |---|---|---|---|
@@ -34,9 +36,16 @@ Q1 选了任一风险项（前 5 项）/ Q1 selected any risk item (first 5)
 
 ### 规则 / Rule
 
-- 不进入后续评估题（安全门控直接跳出）/ Skip remaining assessment questions
+- 不进入后续评估题（安全门控直接退出）/ Skip remaining assessment questions
 - 不显示 NRS 得分、分型、严重程度 / NRS score, classification, severity hidden
 - 不推荐任何训练模式 / No training mode recommended
+
+### 页面结构 / Page Structure
+
+- 顶部红色警告图标 + 警告文案
+- 风险项清单（展示触发的具体项）
+- 免责声明
+- 底部按钮：`返回主页 / Back to Home`
 
 ---
 
@@ -44,4 +53,4 @@ Q1 选了任一风险项（前 5 项）/ Q1 selected any risk item (first 5)
 
 **中文**：本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。
 
-**English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.
+**English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical diagnosis or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.

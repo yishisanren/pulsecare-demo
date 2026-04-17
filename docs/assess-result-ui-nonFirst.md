@@ -5,51 +5,50 @@ path: "功能三 > 问卷评估 > 尿失禁评估结果（非首次）"
 
 ### 评估结果 · 尿失禁（非首次） / Assessment Result · Urinary Incontinence (Follow-up)
 
+> 本页规则以《电疗坐垫问卷输出逻辑》为唯一真值源，与 PRD 3.4 保持一致。
+> 分型 / 严重程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见 `assess-result-first.md`。
+
 ---
 
 ### 与首次的差异 / Difference from First Assessment
 
 | 场景 / Section | 中文 | English |
 |------|------|---------|
-| 趋势图 | 显示最近 7 次评估的百分比趋势 | Shows trend of last 7 assessment scores (%) |
-| 页面结构 | 顶部新增趋势图，其他板块与首次相同 | Trend chart added on top; other sections same as first assessment |
+| 趋势图 | 顶部新增单条曲线趋势图，最多显示最近 7 次评估 | Single-line trend chart added on top, showing up to 7 most recent assessments |
+| 纵轴 | 百分比（0–100%） | Percentage (0–100%) |
+| 单点数据 | 1 次数据显示 1 个点 | A single data point if only one assessment exists |
+| 其他结构 | 与首次评估完全相同 | All other sections identical to first assessment |
 
 ---
 
-### 分型文案 / Classification (3IQ × UDI-6 Q9 / Q10)
+### 分型文案（完整 16 条）与严重程度 + 训练频次（完整 16 条）
 
-| 3IQ 主类型 | Q9 <2 / Q10 <2 | Q9 <2 / Q10 ≥2 | Q9 ≥2 / Q10 <2 | Q9 ≥2 / Q10 ≥2 |
-|---|---|---|---|---|
-| **Stress** | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿，同时存在 Urgency 症状<br/>Primarily stress urinary incontinence, with some urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
-| **Urge** | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 主要为 Urge 漏尿，同时存在 Stress 症状<br/>Primarily urge urinary incontinence, with some stress symptoms. | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
-| **Mixed** | 为 Mixed 漏尿，同时存在 Urgency 与 Stress 症状<br/>Mixed urinary incontinence, with both urgency and stress symptoms. | 为 Mixed 漏尿，存在 Stress 症状<br/>Mixed urinary incontinence, with stress symptoms. | 为 Mixed 漏尿，存在 Urgency 症状<br/>Mixed urinary incontinence, with urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
-| **Other** | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. |
+详见首次评估结果页：[`assess-result-first.md`](./assess-result-first.md)。非首次评估沿用相同规则。
+
+See first-assessment page for full 16-row classification + 16-row severity × frequency tables. Follow-up assessment uses the same rules.
 
 ---
 
-### 严重程度 + 训练频次 / Severity + Training Frequency
-
-基于 ICIQ 区间 × UDI-6 是否 ≥33 × IIQ-7 是否 ≥9.5 输出。详见首次评估结果页完整 32 条映射表。
-Based on ICIQ × UDI-6 ≥33 × IIQ-7 ≥9.5. See first-assessment page for full 32-row mapping.
-
-| ICIQ | UDI-6 | IIQ-7 | 严重程度 / Severity | 频次 |
-|---|---|---|---|---|
-| 0–5 | <33 | <9.5 | 症状 slight / Slight symptoms | 2次/周 × 4周 |
-| 0–5 | ≥33 | ≥9.5 | 症状 moderate，生活质量受影响 / Moderate, QoL affected | 3次/周 × 7周 |
-| 6–12 | ≥33 | ≥9.5 | 症状 severe，生活质量受影响 / Severe, QoL affected | 4次/周 × 9周 |
-| 13–18 | ≥33 | ≥9.5 | 症状 very severe，生活质量受影响 / Very severe, QoL affected | 5次/周 × 9周 |
-| 19–21 | ≥33 | ≥9.5 | 症状 very severe，生活质量受影响 / Very severe, QoL affected | 5次/周 × 9周 |
-
----
-
-### 推荐模式 / Recommended Mode
+### 模式映射 / Mode Mapping
 
 | 3IQ 主类型 | 推荐模式 |
 |---|---|
-| Stress | Mode 8 · SUI 模式 / SUI Mode |
-| Urge | Mode 9 · UUI 模式 / UUI Mode |
-| Mixed | Mode 8 + Mode 9 交替 / SUI + UUI alternating |
-| Other | 不推荐模式，建议转诊 / Not recommended; refer to specialist |
+| Stress | 08 SUI Mode · 08 压力性尿失禁模式 |
+| Urge | 09 UUI Mode · 09 急迫性尿失禁模式 |
+| Mixed | 08 SUI Mode（主），同时存在 Urgency 时并入 09 UUI Mode |
+| Other | 不推荐模式，建议转诊 |
+
+---
+
+### 页面结构 / Page Structure
+
+1. 趋势图（单模块单条曲线）
+2. 评估得分（大字百分比 + 原始分 ICIQ X/21 · UDI-6 标准化 · IIQ-7 X/21）
+3. 分型结果卡片
+4. 严重程度卡片
+5. 推荐训练计划卡片
+6. 免责声明
+7. 底部按钮：`Customize Training Plan` / `Skip for Now`
 
 ---
 
@@ -57,4 +56,4 @@ Based on ICIQ × UDI-6 ≥33 × IIQ-7 ≥9.5. See first-assessment page for full
 
 **中文**：本评估及训练建议仅供个人健康管理参考，不构成医疗评估或医疗建议。个性化推荐基于您自行填写的问卷和使用数据，不代表临床改善证明。如症状持续、加重或出现异常，请及时咨询专业医疗人员。
 
-**English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical evaluation or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.
+**English**: This assessment and training recommendations are for personal wellness reference only. They do not constitute medical diagnosis or medical advice. Personalized suggestions are based on your self-reported data and do not represent clinical outcomes. If symptoms persist, worsen, or become unusual, please consult a qualified healthcare professional.

@@ -11,19 +11,22 @@ path: "功能四 > 训练执行 > 模式选择面板"
 
 ### 九种内置模式
 
-| 编号 | 名称 | 类型 | 时长 | 描述 |
-|------|------|------|------|------|
-| 01 | Activation | Basic · EMS | 15 min | 唤醒盆底肌群 |
-| 02 | Strength | Basic · EMS | 20 min | 增强肌肉力量 |
-| 03 | Endurance | Basic · EMS | 15 min | 提升耐力 |
-| 04 | Functional | Advanced · EMS | 20 min | 功能性训练 |
-| 05 | Relaxation Cycle | Advanced · EMS | 20 min | 放松循环 |
-| 06 | Pain Soothe | Pain · TENS | 20 min | 镇痛舒缓 |
-| 07 | Quick Pain Relief | Pain · TENS | 30 min | 快速止痛 |
-| 08 | SUI Training | UI | 20 min | 压力性尿失禁 |
-| 09 | UUI Training | UI | 20 min | 急迫性尿失禁 |
+> 命名规则：`编号 英文名（中文名）`。详见 PRD 4.2。
+
+| 编号 | 英文名 / EN | 中文名 | 类型 | 单次时长 | 适用模块 | 描述 |
+|------|-------------|--------|------|----------|----------|------|
+| 01 | Activation Mode | 激活模式 | 基础 · EMS | 15 min | 模块 3 | 唤醒盆底和臀腿肌群 |
+| 02 | Strength Mode | 力量模式 | 进阶 · EMS | 20 min | 模块 3 | 增强肌肉力量 |
+| 03 | Endurance Mode | 耐力模式 | 进阶 · EMS | 15 min | 模块 3 | 提升肌肉耐力 |
+| 04 | Function Mode | 功能模式 | 进阶 · EMS | 20 min | 模块 3 | 改善功能性表现 |
+| 05 | Relaxation Cycle Mode | 放松循环模式 | 恢复 · EMS | 20 min | 模块 3 | 缓解肌肉疲劳 |
+| 06 | Chronic Mode | 慢性疼痛模式 | 疼痛 · TENS | 20 min | 模块 2 | 缓解慢性疼痛（长期钝痛、酸痛、神经性痛）|
+| 07 | Acute Mode | 急性疼痛模式 | 疼痛 · TENS | 30 min | 模块 2 | 快速镇痛（急性肌肉痉挛、锐痛、刺痛）|
+| 08 | SUI Mode | 压力性尿失禁模式 | 训练 · UI | 20 min | 模块 1 | 针对 Stress Urinary Incontinence 的电刺激训练 |
+| 09 | UUI Mode | 急迫性尿失禁模式 | 训练 · UI | 20 min | 模块 1 | 针对 Urge Urinary Incontinence 的电刺激训练 |
 
 ### 交互规则
 - 点击选中模式 → 面板关闭 → 首页卡片更新为选中模式
-- 默认选中第一个模式（Activation）
+- 默认选中第一个模式（01 Activation Mode · 激活模式）
 - 底部面板形式，支持滚动浏览全部模式
+- 累计使用 >60 分钟/日 提示用户休息（中间休息 ≤5 分钟按连续计算）
