@@ -2627,15 +2627,11 @@ async function updatePRDContent(pageId) {
 }
 
 function parseFrontmatter(raw) {
-  const m = raw.match(/^---
-([sS]*?)
----
-([sS]*)$/);
+  const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
   if (!m) return { title: '', path: '', body: raw };
   const meta = {};
-  m[1].split('
-').forEach(line => {
-    const kv = line.match(/^(w+):s*(.*)$/);
+  m[1].split('\n').forEach(line => {
+    const kv = line.match(/^(\w+):\s*(.*)$/);
     if (kv) {
       let v = kv[2].trim();
       if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
