@@ -3,13 +3,13 @@ title: "3.4 尿失禁评估结果·无症状"
 path: "功能三 > 问卷评估 > 尿失禁评估结果（无症状）"
 ---
 
-### 评估结果 · 尿失禁无症状
+### 评估结果 · 尿失禁无症状 / Assessment Result · No Urinary Incontinence Symptoms
 
 ---
 
 ### 触发条件 / Trigger
 
-3IQ Q1 = No（从未漏尿）/ 3IQ Q1 = No (never leaks)
+3IQ Q1 = No（从未漏尿） / 3IQ Q1 = No (never leaks)
 
 ### 文案 / Copy
 
@@ -19,7 +19,7 @@ path: "功能三 > 问卷评估 > 尿失禁评估结果（无症状）"
 
 ### 规则 / Rule
 
-- 不显示分型、评分等级、生活质量影响等模块 / Classification, Score Level, QoL modules are hidden
+- 不显示分型、严重程度、生活质量影响等模块 / Classification, severity, QoL modules are hidden
 - 不推荐训练计划 / No training plan recommended
 
 ---

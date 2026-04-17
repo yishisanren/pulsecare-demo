@@ -3,110 +3,119 @@ title: "3.4 评估结果·非首次多模块"
 path: "功能三 > 问卷评估 > 评估结果（非首次多模块）"
 ---
 
-### 评估结果 · 多模块（非首次）
+### 评估结果 · 多模块（非首次） / Assessment Result · Multi-Module (Follow-up)
 
 ---
 
-### 尿失禁模块 / Urinary Incontinence Module
+## 模块 1 · 尿失禁 / Module 1 · Urinary Incontinence
 
-#### 分型文案 / Classification (PRD 原文：中文)
+### 分型文案 / Classification (3IQ × UDI-6 Q9 / Q10)
 
-| 主类型 × 次级特征 | 中文（PRD 原文） | English |
-|-------------------|------------------|---------|
-| Stress 无次级 | 主要为 Stress 漏尿 | Predominantly Stress incontinence |
-| Stress + Urgency | 主要为 Stress 漏尿，同时存在 Urgency 症状 | Predominantly Stress, with Urgency symptoms |
-| Stress + Urgency + Stress | 主要为 Stress 漏尿，同时存在 Urgency 与 Stress 症状 | Predominantly Stress, with both Urgency and Stress symptoms |
-| Urge 无次级 | 主要为 Urge 漏尿 | Predominantly Urge incontinence |
-| Urge + Stress | 主要为 Urge 漏尿，同时存在 Stress 症状 | Predominantly Urge, with Stress symptoms |
-| Urge + Urgency + Stress | 主要为 Urge 漏尿，同时存在 Urgency 与 Stress 症状 | Predominantly Urge, with both Urgency and Stress symptoms |
-| Mixed 无次级 | 为 Mixed 漏尿 | Mixed incontinence |
-| Mixed + Stress | 为 Mixed 漏尿，存在 Stress 症状 | Mixed incontinence, with Stress symptoms |
-| Mixed + Urgency | 为 Mixed 漏尿，存在 Urgency 症状 | Mixed incontinence, with Urgency symptoms |
-| Mixed + Urgency + Stress | 为 Mixed 漏尿，同时存在 Urgency 与 Stress 症状 | Mixed incontinence, with both Urgency and Stress symptoms |
-| Other | 非典型机制，需进一步评估 | Atypical pattern, further evaluation recommended |
+| 3IQ 主类型 | Q9 <2 / Q10 <2 | Q9 <2 / Q10 ≥2 | Q9 ≥2 / Q10 <2 | Q9 ≥2 / Q10 ≥2 |
+|---|---|---|---|---|
+| **Stress** | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿，同时存在 Urgency 症状<br/>Primarily stress urinary incontinence, with some urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Urge** | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 主要为 Urge 漏尿，同时存在 Stress 症状<br/>Primarily urge urinary incontinence, with some stress symptoms. | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Mixed** | 为 Mixed 漏尿，同时存在 Urgency 与 Stress 症状<br/>Mixed urinary incontinence, with both urgency and stress symptoms. | 为 Mixed 漏尿，存在 Stress 症状<br/>Mixed urinary incontinence, with stress symptoms. | 为 Mixed 漏尿，存在 Urgency 症状<br/>Mixed urinary incontinence, with urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Other** | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 同左 | 同左 | 同左 |
 
-#### 评分等级 / Score Level
+### 严重程度 + 频次（简表） / Severity + Frequency (summary)
 
-- ICIQ 0-5 → **Level 1**
-- ICIQ 6-12 → **Level 2**
-- ICIQ 13-18 → **Level 3**
-- ICIQ 19-21 → **Level 4**
-- UDI-6 百分制 ≥33 → 评分等级升一级（封顶 Level 4） / UDI-6 score ≥33 → upgrade one level (cap at Level 4)
+详见尿失禁首次评估结果页完整 32 条映射。/ See first-assessment page for full 32-row table.
 
-#### 生活质量影响 / Quality of Life Impact
+| ICIQ | UDI-6 | IIQ-7 | 严重程度 / Severity | 频次 |
+|---|---|---|---|---|
+| 0–5 | <33 | <9.5 | 症状 slight / Slight | 2次/周 × 4周 |
+| 6–12 | ≥33 | ≥9.5 | 症状 severe，QoL 受影响 / Severe, QoL affected | 4次/周 × 9周 |
+| 13–18 | ≥33 | ≥9.5 | 症状 very severe / Very severe, QoL affected | 5次/周 × 9周 |
+| 19–21 | — | — | 症状 very severe / Very severe | 5次/周 × 8-9周 |
 
-| IIQ-7 | 中文 | English |
-|-------|------|---------|
-| <9.5 | 生活质量未受显著影响 | No significant impact on quality of life |
-| ≥9.5 | 生活质量受影响 | Quality of life impacted |
+### 推荐模式 / Recommended Mode
 
-#### 无症状场景 / No Symptoms
+| 3IQ 主类型 | 推荐模式 |
+|---|---|
+| Stress | Mode 8 · SUI 模式 / SUI Mode |
+| Urge | Mode 9 · UUI 模式 / UUI Mode |
+| Mixed | Mode 8 + Mode 9 交替 / SUI + UUI alternating |
+| Other | 不推荐模式，建议转诊 / Not recommended; refer to specialist |
+
+### 无症状场景 / No Symptoms
 
 | 场景 | 中文 | English |
 |------|------|---------|
-| Q1=No（从未漏尿） | 未检测到尿失禁症状，暂无需训练 | No urinary incontinence symptoms detected. Training not required. |
+| 3IQ Q1 = No | 未检测到尿失禁症状，暂无需训练 | No urinary incontinence symptoms detected. Training not required. |
 
 ---
 
-### 疼痛模块 / Pain Module
+## 模块 2 · 臀腿疼痛 / Module 2 · Hip-Leg Pain
 
-#### 分型文案 / Classification
+### 分型文案 / Classification (Q2 × Q3)
 
-| Q2 描述词 | 中文类型（PRD 原文） | English |
-|-----------|----------------------|---------|
-| Cramping / Tightening / Spasm | 急性肌肉痛 | Acute Muscular Pain |
-| Sharp / Stabbing / Shooting | 急性组织痛 | Acute Tissue Pain |
-| Aching / Dull / Heavy | 慢性伤害感受痛 | Chronic Nociceptive Pain |
-| Burning / Tingling / Electric | 慢性神经痛 | Chronic Neuropathic Pain |
-| Pain with Light Touch | 慢性神经敏化 | Chronic Neural Sensitization |
-| Comes and Goes | 混合型 | Mixed Type |
+| Q2 类型 | 示例 / Example |
+|---|---|
+| Acute / Muscle-related | 产后早期肌肉紧张或痉挛 / Early postpartum muscle tension or spasm |
+| Acute Nociceptive | 产后早期急性伤害感受痛 / Early postpartum acute nociceptive pain |
+| Chronic Nociceptive | 长期慢性伤害感受痛 / Long-term chronic nociceptive pain |
+| Chronic Neuropathic | 慢性神经痛 / Chronic neuropathic pain |
+| Chronic Mixed | 慢性混合型疼痛 / Chronic mixed pain |
 
-#### 评分等级 / Score Level (NRS 0-10)
+详见疼痛首次评估结果页完整 15 条映射。/ See first-assessment page for full 15-row mapping.
 
-- NRS 0 → **Level 1（无症状，不训练）** / Level 1 (No symptoms, no training)
-- NRS 1-3 → **Level 2**
-- NRS 4-6 → **Level 3**
-- NRS 7-10 → **Level 4**
+### 严重程度 + 频次 / Severity + Frequency (NRS)
 
-#### 特殊场景 / Special Scenarios
+| NRS | 严重程度 / Severity | 推荐模式 | 频次 |
+|---|---|---|---|
+| 0 | 无症状 / No symptoms | — | 无需 TENS / No TENS |
+| 1–3 | 轻度 / Mild | Mode 6 或 Mode 7（按类型） | 3次/周 × 2周 |
+| 4–6 | 中度 / Moderate | Mode 6 或 Mode 7（按类型） | 5次/周 × 3周 |
+| 7–10 | 重度 / Severe | Mode 6 或 Mode 7 + 转诊 | 5次/周 × 4周 |
+
+**Mode 命名**：Mode 6 · 镇痛舒缓 / Chronic Pain Relief · Mode 7 · 止痛快速缓解 / Acute Relief
+
+### 特殊场景 / Special Scenarios
 
 | 场景 | 中文 | English |
 |------|------|---------|
-| Q1 选风险项 | ⚠️ 请在使用本设备前咨询专业医疗人员 | ⚠️ Please contact a healthcare professional before using the device. |
+| Q1 选风险项（前 5 项） | ⚠️ 请先咨询专业医生后再使用本设备。 | ⚠️ Please contact a healthcare professional before using the device. |
 | NRS = 0 | 未检测到疼痛症状，日常活动不受影响 | No pain detected. Normal activity is not affected. |
 
 ---
 
-### 臀腿模块 / Hip & Leg Module
+## 模块 3 · 臀腿功能 / Module 3 · Hip-Leg Function
 
-#### 维度判定 / Dimension Criteria
+### 维度判定 / Dimension Criteria
 
-- Control = (Q1+Q16+Q17+Q18+Q19+Q20+Q23) / 21
-- Endurance = (Q2+Q3+Q5+Q6+Q7+Q8+Q9+Q10+Q12+Q14+Q16+Q24) / 36
-- Strength = (Q4+Q9+Q10+Q11+Q12+Q13+Q14+Q15+Q16+Q20) / 30
-- 维度得分 ≥0.3 = 受损 / Dimension score ≥0.3 = impaired
+PGQ-25 删除 Q19 后共 24 题，总分 72。/ Q19 removed; 24 items, total = 72.
 
-#### 分型结果 / Classification (8 种组合)
+- Control 控制力 = (Q1 + Q16 + Q17 + Q18 + Q20 + Q23) / 18
+- Endurance 耐力 = (Q2 + Q3 + Q4 + Q5 + Q6 + Q15 + Q22) / 21
+- Strength 力量 = (Q7 + Q8 + Q9 + Q10 + Q11 + Q12 + Q13 + Q14 + Q21 + Q24) / 30
+- 维度得分 ≥0.3 = 受损 / ≥0.3 = impaired
 
-| Control | Endurance | Strength | 中文（PRD 原文） | English |
-|---------|-----------|----------|------------------|---------|
-| ✓ | ✓ | ✓ | 控制、耐力、力量均受损 | All three dimensions impaired |
-| ✓ | ✓ | ✗ | 控制 + 耐力 受损 | Control + Endurance impaired |
-| ✓ | ✗ | ✓ | 控制 + 力量 受损 | Control + Strength impaired |
-| ✓ | ✗ | ✗ | 控制 受损 | Control impaired |
-| ✗ | ✓ | ✓ | 耐力 + 力量 受损 | Endurance + Strength impaired |
-| ✗ | ✓ | ✗ | 耐力 受损 | Endurance impaired |
-| ✗ | ✗ | ✓ | 力量 受损 | Strength impaired |
-| ✗ | ✗ | ✗ | 功能良好，无需训练 | Good function, no training recommended |
+### 分型结果 / Classification (8 种组合)
 
-#### 影响程度 / Impact Level (PGQ%)
+| C | E | S | 中文 | English | 推荐模式 |
+|---|---|---|---|---|---|
+| ✓ | ✓ | ✓ | 控制、耐力、力量均受限 | Marked limitations in control, endurance, and strength | Mode 4 |
+| ✓ | ✓ | ✗ | 控制+耐力 受限 | Control + endurance limitations | Mode 1 + Mode 3 |
+| ✓ | ✗ | ✓ | 控制+力量 受限 | Control + strength limitations | Mode 1 + Mode 2 |
+| ✓ | ✗ | ✗ | 控制 受限 | Control limitations | Mode 1 |
+| ✗ | ✓ | ✓ | 耐力+力量 受限 | Endurance + strength limitations | Mode 3 + Mode 2 |
+| ✗ | ✓ | ✗ | 耐力 受限 | Endurance limitations | Mode 3 |
+| ✗ | ✗ | ✓ | 力量 受限 | Strength limitations | Mode 2 |
+| ✗ | ✗ | ✗ | 功能良好，不推荐 | Good function; no training recommended | — |
 
-| PGQ% | 中文（PRD 原文） | English |
-|------|------------------|---------|
-| 0-20% | Level 1（功能良好，不训练） | Level 1 (Good function, no training) |
-| 20-40% | Level 2 · 轻度影响 | Level 2 · Mild impact |
-| 40-60% | Level 3 · 中度影响 | Level 3 · Moderate impact |
-| > 60% | Level 4 · 重度影响 | Level 4 · Severe impact |
+**Mode 命名**：Mode 1 激活 / Activation · Mode 2 力量 / Strength · Mode 3 耐力 / Endurance · Mode 4 功能 / Functional
+
+### 影响程度 + 频次 / Impact + Frequency (PGQ%)
+
+**PGQ% = 实际总分 ÷ 72 × 100%**
+
+| PGQ% | 影响程度 / Impact | 频次 | 周数 |
+|---|---|---|---|
+| 0–20% | 功能良好，不训练 / Good function | 不推荐 | — |
+| 20–40% | 轻度影响 / Mild impact | 3次/周 | 2周 |
+| 40–60% | 中度影响 / Moderate impact | 4次/周 | 3周 |
+| >60% | 重度影响 / Severe impact | 5次/周 | 5周 |
 
 ---
 

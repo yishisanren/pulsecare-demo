@@ -3,7 +3,7 @@ title: "3.4 疼痛评估结果·无症状"
 path: "功能三 > 问卷评估 > 疼痛评估结果（无症状）"
 ---
 
-### 评估结果 · 疼痛无症状
+### 评估结果 · 臀腿疼痛无症状 / Assessment Result · No Pain Symptoms
 
 ---
 
@@ -15,12 +15,14 @@ NRS = 0（无疼痛）/ NRS = 0 (No pain)
 
 | 中文 | English |
 |------|---------|
+| 无症状，不训练 | No symptoms; no training needed |
 | 未检测到疼痛症状，日常活动不受影响 | No pain detected. Normal activity is not affected. |
 
 ### 规则 / Rule
 
-- 不显示分型、评分等级模块 / Classification, Score Level modules are hidden
+- 不显示分型、严重程度模块 / Classification, severity modules are hidden
 - 不推荐训练计划 / No training plan recommended
+- 无需 TENS / No TENS recommended
 
 ---
 

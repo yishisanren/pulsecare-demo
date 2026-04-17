@@ -1,9 +1,9 @@
 ---
-title: "3.4 臀腿评估结果·功能良好"
-path: "功能三 > 问卷评估 > 臀腿评估结果（功能良好）"
+title: "3.4 臀腿功能评估结果·功能良好"
+path: "功能三 > 问卷评估 > 臀腿功能评估结果（功能良好）"
 ---
 
-### 评估结果 · 臀腿无症状
+### 评估结果 · 臀腿功能良好 / Assessment Result · Good Hip-Leg Function
 
 ---
 
@@ -15,12 +15,11 @@ Control、Endurance、Strength 三维度得分均 <0.3 / All three dimension sco
 
 | 中文 | English |
 |------|---------|
-| 功能良好 | Good Function |
-| 您的下肢功能良好，无需训练 | Your hip and leg function is good. No training recommended. |
+| 功能良好，不推荐。 | Good function; no training recommended. |
 
 ### 规则 / Rule
 
-- 不显示维度评估、分型、评分等级模块 / Dimension, Classification, Level modules are hidden
+- 不显示维度评估、分型、影响程度模块 / Dimension, classification, impact modules are hidden
 - 不推荐训练计划 / No training plan recommended
 
 ---

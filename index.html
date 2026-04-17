@@ -1124,38 +1124,38 @@ const pages = {
 
   'assess-select': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('home-connected')">取消</span>
-    <span class="q-step-label">Screening</span>
+    <span class="q-step-label">筛选与路由</span>
     <div style="width:50px"></div>
   </div>
   <div class="assess-page">
     <div class="assess-body">
-      <div class="assess-subtitle">Screening &amp; Routing</div>
-      <div class="assess-desc">Please select all that apply to you. This helps us choose the right questionnaire modules.</div>
+      <div class="assess-subtitle">筛选与路由</div>
+      <div class="assess-desc">请勾选您当前的情况（可多选），我们会据此加载对应的问卷模块。</div>
       <div id="screen-opts">
         <div class="module-option sel" data-screen="A" onclick="handleScreenOpt(this)">
           <div class="mo-icon" style="background:#fce4ec"><i data-lucide="droplets" style="width:22px;height:22px;color:#c4787a"></i></div>
-          <div class="mo-info"><div class="mo-name">A. Urinary Leakage</div><div class="mo-desc">I experience involuntary urine leakage during daily activities, exercise, coughing, or sneezing</div></div>
+          <div class="mo-info"><div class="mo-name">A. 尿失禁</div><div class="mo-desc">尿液不自主漏出 / 憋不住尿 / 在咳嗽、运动、用力时漏尿</div></div>
           <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
         </div>
         <div class="module-option sel" data-screen="B" onclick="handleScreenOpt(this)">
           <div class="mo-icon" style="background:#fff3e0"><i data-lucide="flame" style="width:22px;height:22px;color:#e65100"></i></div>
-          <div class="mo-info"><div class="mo-name">B. Pelvic / Lower-Back Pain</div><div class="mo-desc">I have persistent or recurring pain in the pelvic region, lower back, or hip area</div></div>
+          <div class="mo-info"><div class="mo-name">B. 臀腿疼痛</div><div class="mo-desc">臀部或大腿存在疼痛或不适</div></div>
           <div class="mo-check"><i data-lucide="check" style="width:14px;height:14px;color:#fff"></i></div>
         </div>
         <div class="module-option" data-screen="C" onclick="handleScreenOpt(this)">
           <div class="mo-icon" style="background:#e8f5e9"><i data-lucide="footprints" style="width:22px;height:22px;color:#2e7d32"></i></div>
-          <div class="mo-info"><div class="mo-name">C. Pelvic Organ Prolapse Symptoms</div><div class="mo-desc">I feel heaviness, pressure, or a bulging sensation in the vaginal or pelvic area</div></div>
+          <div class="mo-info"><div class="mo-name">C. 臀腿功能</div><div class="mo-desc">臀部、大腿或下肢力量、稳定性或活动能力方面的问题</div></div>
           <div class="mo-check"></div>
         </div>
         <div class="module-option" data-screen="D" onclick="handleScreenOptD(this)">
           <div class="mo-icon" style="background:#f0f0f0"><i data-lucide="minus-circle" style="width:22px;height:22px;color:#999"></i></div>
-          <div class="mo-info"><div class="mo-name">D. None of the Above</div><div class="mo-desc">I do not have any of these symptoms but would like general pelvic floor training</div></div>
+          <div class="mo-info"><div class="mo-name">D. 以上都不是</div><div class="mo-desc">没有上述症状，希望进行一般盆底训练</div></div>
           <div class="mo-check"></div>
         </div>
       </div>
     </div>
     <div class="assess-footer">
-      <button id="screen-start-btn" class="btn-primary" onclick="goTo('assess-q-incont')">Start Assessment</button>
+      <button id="screen-start-btn" class="btn-primary" onclick="goTo('assess-q-incont')">开始评估</button>
     </div>
   </div>`,
 
@@ -1185,37 +1185,37 @@ const pages = {
 
   'assess-q-pain': () => h.statusBar() + `<div class="q-nav">
     <span class="q-cancel" onclick="goTo('assess-exit-dialog')">取消</span>
-    <span class="q-step-label">Question 1 of 4</span>
+    <span class="q-step-label">第 1 题（共 4 题）</span>
     <div style="width:50px"></div>
   </div>
   <div class="q-progress-bar"><div class="q-progress-fill" style="width:${(1/4*100).toFixed(0)}%"></div></div>
   <div class="assess-page">
-    <div class="q-module-tag pain">Pain &mdash; Risk Screening</div>
+    <div class="q-module-tag pain">臀腿疼痛 · 安全门控</div>
     <div class="q-body">
-      <div class="q-title">Do you have any of the following along with the pain?</div>
-      <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5">Select all that apply. These items screen for red-flag conditions requiring medical referral before starting EMS training.</div>
+      <div class="q-title">过去一周，您是否出现以下情况？</div>
+      <div style="font-size:12px;color:#999;margin-bottom:16px;line-height:1.5">可多选。选中任一风险项将暂停评估并建议先咨询医生。</div>
       <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Fever or unexplained weight loss</span>
-      </div>
-      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Numbness or tingling in legs / saddle area</span>
-      </div>
-      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Loss of bladder or bowel control (new onset)</span>
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">发热</span>
       </div>
       <div class="q-option sel" onclick="this.classList.toggle('sel');handlePainNone()">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">Pain that wakes me from sleep</span>
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">伤口处红肿加剧</span>
       </div>
       <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">History of cancer</span>
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">恶臭分泌物</span>
+      </div>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">单侧腿部突然严重肿胀</span>
+      </div>
+      <div class="q-option" onclick="this.classList.toggle('sel');handlePainNone()">
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">麻木或大小便失禁</span>
       </div>
       <div class="q-option" id="pain-none-opt" onclick="handlePainNoneClick(this)">
-        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">None of the above</span>
+        <div class="qo-radio" style="border-radius:4px"></div><span class="qo-text">无（继续评估）</span>
       </div>
     </div>
     <div class="q-btns">
-      <button class="btn-prev" onclick="goTo('assess-q-incont')">Previous</button>
-      <button class="btn-next submit" onclick="goTo('assess-loading')">Next</button>
+      <button class="btn-prev" onclick="goTo('assess-q-incont')">上一步</button>
+      <button class="btn-next submit" onclick="goTo('assess-loading')">下一步</button>
     </div>
   </div>`,
 
@@ -1288,48 +1288,24 @@ const pages = {
     <div class="result-body">
       <!-- Score highlight -->
       <div style="text-align:center;padding:24px 16px 16px">
-        <div style="font-size:13px;color:#999;margin-bottom:4px">Overall Score</div>
+        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分</div>
         <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">57<span style="font-size:24px;font-weight:600">%</span></div>
-        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ-UI SF: 12 / 21</div>
+        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ：12 / 21 · UDI-6：36 · IIQ-7：8.0</div>
       </div>
 
       <!-- Classification -->
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div class="rc-row"><div><div class="rc-label">尿失禁分型 (3IQ)</div><div class="rc-value" style="font-size:14px;font-weight:600">主要为Stress 漏尿</div></div></div>
+          <div class="rc-row"><div><div class="rc-label">尿失禁分型（3IQ × UDI-6 Q9/Q10）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">主要为 Stress 漏尿，同时存在 Urgency 症状</div></div></div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Severity (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 2</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:57%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 轻微 · Level 2 中度 · Level 3 较重 · Level 4 严重（等级越高，症状越严重）</div>
-        </div>
-      </div>
-
-      <!-- QoL impact -->
-      <div class="result-section">
-        <div class="result-section-title">生活质量影响</div>
-        <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="width:8px;height:8px;border-radius:50%;background:#4caf50"></div>
-            <span style="font-size:14px;font-weight:500;color:#2e7d32">生活质量未受显著影响</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Combined output -->
-      <div class="result-section">
-        <div class="result-section-title">综合结论</div>
-        <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">症状中度，生活质量未受显著影响。</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">症状 severe，生活质量未受显著影响</div>
         </div>
       </div>
 
@@ -1339,7 +1315,7 @@ const pages = {
         <div class="result-card" style="background:#fdf0f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1395,28 +1371,23 @@ const pages = {
       <div style="text-align:center;padding:24px 16px 16px">
         <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分</div>
         <div style="font-size:52px;font-weight:800;color:#e65100;line-height:1">50<span style="font-size:24px;font-weight:600">%</span></div>
-        <div style="font-size:12px;color:#999;margin-top:4px">NRS 得分：5 / 10</div>
+        <div style="font-size:12px;color:#999;margin-top:4px">NRS：5 / 10 · 持续 >6 周</div>
       </div>
 
       <!-- Classification -->
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">慢性伤害感受痛（Chronic Nociceptive Pain）</div>
+          <div class="rc-row"><div><div class="rc-label">疼痛类型（Q2 描述词 × Q3 持续时间）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">慢性伤害感受痛 · 持续 >6 周</div></div></div>
+          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期慢性伤害感受痛，建议结合训练与专科评估。</div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Severity (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="font-size:13px;color:#666;margin-top:8px">NRS 4-6 分，中等强度疼痛</div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 无疼痛 · Level 2 轻度 · Level 3 中度 · Level 4 重度（等级越高，疼痛越严重）</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度疼痛</div>
         </div>
       </div>
 
@@ -1426,7 +1397,7 @@ const pages = {
         <div class="result-card" style="background:#fff8f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · Chronic Pain Relief</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">5 次</span>/周</div>
@@ -1457,7 +1428,7 @@ const pages = {
     <div class="result-body">
       <div style="text-align:center;padding:60px 24px">
         <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
-        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">无疼痛</div>
+        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">无症状，不训练</div>
         <div style="font-size:14px;color:#999;line-height:1.6">未检测到疼痛症状，日常活动不受影响。</div>
       </div>
       <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #475569;">
@@ -1478,9 +1449,19 @@ const pages = {
   </div>
   <div class="result-page">
     <div class="result-body">
-      <div style="text-align:center;padding:60px 24px">
+      <div style="text-align:center;padding:40px 24px 16px">
         <div style="width:72px;height:72px;border-radius:50%;background:#fce4ec;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="alert-triangle" style="width:36px;height:36px;color:#c62828"></i></div>
-        <div style="font-size:16px;font-weight:700;color:#c62828;line-height:1.6">&#9888;&#65039; 请在使用本设备前咨询专业医疗人员。</div>
+        <div style="font-size:16px;font-weight:700;color:#c62828;line-height:1.6;margin-bottom:8px">&#9888;&#65039; 请先咨询专业医生后再使用本设备。</div>
+        <div style="font-size:12px;color:#999;line-height:1.6">检测到以下风险项，已暂停评估并不推荐任何模式。</div>
+      </div>
+      <div class="result-section" style="margin:0 16px 16px">
+        <div class="result-card" style="background:#fff5f5;border:1px solid #fce4ec">
+          <div style="font-size:12px;color:#c62828;font-weight:600;margin-bottom:8px">触发的风险项</div>
+          <div style="font-size:13px;color:#333;line-height:1.8">
+            · 伤口处红肿加剧<br/>
+            · 单侧腿部突然严重肿胀
+          </div>
+        </div>
       </div>
       <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #475569;">
         <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
@@ -1524,27 +1505,23 @@ const pages = {
       <div style="text-align:center;padding:16px 16px 16px">
         <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分</div>
         <div style="font-size:52px;font-weight:800;color:#e65100;line-height:1">50<span style="font-size:24px;font-weight:600">%</span></div>
-        <div style="font-size:12px;color:#999;margin-top:4px">NRS 得分：5 / 10</div>
+        <div style="font-size:12px;color:#999;margin-top:4px">NRS：5 / 10 · 持续 >6 周</div>
       </div>
 
       <!-- Classification -->
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">慢性伤害感受痛（Chronic Nociceptive Pain）</div>
+          <div class="rc-row"><div><div class="rc-label">疼痛类型（Q2 描述词 × Q3 持续时间）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">慢性伤害感受痛 · 持续 >6 周</div></div></div>
+          <div style="font-size:12px;color:#666;margin-top:8px;line-height:1.5">长期慢性伤害感受痛，建议结合训练与专科评估。</div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Severity (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 无疼痛 · Level 2 轻度 · Level 3 中度 · Level 4 重度（等级越高，疼痛越严重）</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度疼痛</div>
         </div>
       </div>
 
@@ -1554,7 +1531,7 @@ const pages = {
         <div class="result-card" style="background:#fff8f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · Chronic Pain Relief</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
             <div><span style="font-weight:600">5 次</span>/周</div>
@@ -1585,24 +1562,25 @@ const pages = {
     <div class="result-body">
       <!-- Score highlight -->
       <div style="text-align:center;padding:24px 16px 16px">
-        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分（PGQ）</div>
+        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分（PGQ%）</div>
         <div style="font-size:52px;font-weight:800;color:#2e7d32;line-height:1">45<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">PGQ 得分：32.4 / 72</div>
       </div>
 
       <!-- Three dimension bars -->
       <div class="result-section">
-        <div class="result-section-title">维度评估</div>
+        <div class="result-section-title">维度评估（≥0.3 判定为受限）</div>
         <div class="result-card">
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">控制力 Control</span><span style="color:#e65100;font-weight:600">0.4 （≥0.3 受损）</span></div>
-            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#e65100;border-radius:3px"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">控制力 Control</span><span style="color:#e65100;font-weight:600">0.44 （受限）</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:44%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （≥0.3 受损）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.2 （&lt;0.3 良好）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
           </div>
         </div>
@@ -1612,20 +1590,15 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损</div>
+          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有明显受限。</div></div></div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Impact (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">影响程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:75%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 功能良好 · Level 2 轻度受限 · Level 3 中度受限 · Level 4 重度受限（等级越高，受限越严重）</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度影响</div>
         </div>
       </div>
 
@@ -1635,11 +1608,16 @@ const pages = {
         <div class="result-card" style="background:#e8f5e9">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · 激活 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · 耐力 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333;margin-top:12px">
+            <div><span style="font-weight:600">4 次</span>/周</div>
+            <div><span style="font-weight:600">3</span> 周</div>
+            <div>共 <span style="font-weight:600">12</span> 次</div>
           </div>
         </div>
       </div>
@@ -1665,8 +1643,8 @@ const pages = {
     <div class="result-body">
       <div style="text-align:center;padding:60px 24px 24px">
         <div style="width:72px;height:72px;border-radius:50%;background:#e8f5e9;margin:0 auto 20px;display:flex;align-items:center;justify-content:center"><i data-lucide="check-circle" style="width:36px;height:36px;color:#4caf50"></i></div>
-        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">功能良好</div>
-        <div style="font-size:14px;color:#999;line-height:1.6">您的下肢功能良好，无需训练。</div>
+        <div style="font-size:18px;font-weight:700;color:#1a1a1a;margin-bottom:8px">功能良好，不推荐训练</div>
+        <div style="font-size:14px;color:#999;line-height:1.6">三个维度得分均 &lt;0.3，您的下肢功能良好，无需训练。</div>
       </div>
       <div class="disclaimer-box" style="background: #F5F7FA; border-left: 3px solid #94A3B8; padding: 12px 14px; border-radius: 6px; margin: 16px; font-size: 11px; line-height: 1.5; color: #475569;">
         <div style="font-weight: 600; margin-bottom: 4px;">&#9888;&#65039; 免责声明</div>
@@ -1708,24 +1686,25 @@ const pages = {
 
       <!-- Score highlight -->
       <div style="text-align:center;padding:16px 16px 16px">
-        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分（PGQ）</div>
+        <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分（PGQ%）</div>
         <div style="font-size:52px;font-weight:800;color:#2e7d32;line-height:1">45<span style="font-size:24px;font-weight:600">%</span></div>
+        <div style="font-size:12px;color:#999;margin-top:4px">PGQ 得分：32.4 / 72</div>
       </div>
 
       <!-- Three dimension bars -->
       <div class="result-section">
-        <div class="result-section-title">维度评估</div>
+        <div class="result-section-title">维度评估（≥0.3 判定为受限）</div>
         <div class="result-card">
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">控制力 Control</span><span style="color:#e65100;font-weight:600">0.4 （≥0.3 受损）</span></div>
-            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:#e65100;border-radius:3px"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">控制力 Control</span><span style="color:#e65100;font-weight:600">0.44 （受限）</span></div>
+            <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:44%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div style="margin-bottom:12px">
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （≥0.3 受损）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">耐力 Endurance</span><span style="color:#e65100;font-weight:600">0.35 （受限）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:35%;height:100%;background:#e65100;border-radius:3px"></div></div>
           </div>
           <div>
-            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.2 （&lt;0.3 良好）</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:4px"><span style="color:#333;font-weight:500">力量 Strength</span><span style="color:#4caf50;font-weight:600">0.20 （良好）</span></div>
             <div style="height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:20%;height:100%;background:#4caf50;border-radius:3px"></div></div>
           </div>
         </div>
@@ -1735,20 +1714,15 @@ const pages = {
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">控制力 + 耐力 受损</div>
+          <div class="rc-row"><div><div class="rc-label">功能受限维度（C+E）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">您的下肢在控制和耐力方面有明显受限。</div></div></div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Impact (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">影响程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:75%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 功能良好 · Level 2 轻度受限 · Level 3 中度受限 · Level 4 重度受限（等级越高，受限越严重）</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">中度影响</div>
         </div>
       </div>
 
@@ -1758,11 +1732,16 @@ const pages = {
         <div class="result-card" style="background:#e8f5e9">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · 激活 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
           </div>
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:12px">
             <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · 耐力 · 每次 15 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
+          </div>
+          <div style="display:flex;gap:16px;font-size:13px;color:#333;margin-top:12px">
+            <div><span style="font-weight:600">4 次</span>/周</div>
+            <div><span style="font-weight:600">3</span> 周</div>
+            <div>共 <span style="font-weight:600">12</span> 次</div>
           </div>
         </div>
       </div>
@@ -1822,20 +1801,18 @@ const pages = {
             <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#c4787a"></div><span style="font-size:14px;font-weight:600">尿失禁</span></div>
             <div style="font-size:22px;font-weight:800;color:#c4787a">38<span style="font-size:14px">%</span></div>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="severity-badge mild">Level 1</span>
-          </div>
-          <div style="font-size:13px;color:#333;margin-bottom:10px">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
+          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">症状 slight，生活质量未受显著影响</div>
           <div style="background:#fdf0f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
               <div><span style="font-weight:600">3 次</span>/周</div>
-              <div><span style="font-weight:600">4</span> 周</div>
-              <div>共 <span style="font-weight:600">12</span> 次</div>
+              <div><span style="font-weight:600">6</span> 周</div>
+              <div>共 <span style="font-weight:600">18</span> 次</div>
             </div>
           </div>
         </div>
@@ -1845,23 +1822,21 @@ const pages = {
       <div class="result-section" style="margin-bottom:10px">
         <div class="result-card" style="padding:16px">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#e65100"></div><span style="font-size:14px;font-weight:600">疼痛</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#e65100"></div><span style="font-size:14px;font-weight:600">臀腿疼痛</span></div>
             <div style="font-size:22px;font-weight:800;color:#e65100">50<span style="font-size:14px">%</span></div>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="font-size:13px;color:#333;margin-bottom:10px">慢性伤害感受痛</div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">慢性伤害感受痛 · 持续 >6 周</div>
+          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">中度疼痛 · 长期慢性伤害感受痛，建议结合训练与专科评估。</div>
           <div style="background:#fff8f0;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#e65100;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">06</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · Chronic Pain Relief</div><div style="font-size:11px;color:#999">TENS · 每次 20 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 6 · 镇痛舒缓</div><div style="font-size:11px;color:#999">慢性疼痛 TENS · 每次 20 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
-              <div><span style="font-weight:600">3 次</span>/周</div>
+              <div><span style="font-weight:600">5 次</span>/周</div>
               <div><span style="font-weight:600">3</span> 周</div>
-              <div>共 <span style="font-weight:600">9</span> 次</div>
+              <div>共 <span style="font-weight:600">15</span> 次</div>
             </div>
           </div>
         </div>
@@ -1871,22 +1846,20 @@ const pages = {
       <div class="result-section" style="margin-bottom:10px">
         <div class="result-card" style="padding:16px">
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#2e7d32"></div><span style="font-size:14px;font-weight:600">臀腿</span></div>
+            <div style="display:flex;align-items:center;gap:8px"><div style="width:8px;height:8px;border-radius:50%;background:#2e7d32"></div><span style="font-size:14px;font-weight:600">臀腿功能</span></div>
             <div style="font-size:22px;font-weight:800;color:#2e7d32">45<span style="font-size:14px">%</span></div>
           </div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px">
-            <span class="severity-badge moderate">Level 3</span>
-          </div>
-          <div style="font-size:13px;color:#333;margin-bottom:10px">控制力 + 耐力 受损</div>
+          <div style="font-size:13px;color:#333;margin-bottom:6px;line-height:1.5;font-weight:600">您的下肢在控制和耐力方面有明显受限。</div>
+          <div style="font-size:12px;color:#666;margin-bottom:10px;line-height:1.5">中度影响</div>
           <div style="background:#e8f5e9;border-radius:10px;padding:12px">
             <div style="font-size:12px;font-weight:600;color:#999;margin-bottom:6px">推荐训练计划</div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">01</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · Activation</div><div style="font-size:11px;color:#999">EMS · 每次 15 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 1 · 激活模式</div><div style="font-size:11px;color:#999">EMS · 控制力训练 · 每次 15 分钟</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
               <div style="width:32px;height:32px;border-radius:50%;background:#2e7d32;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">03</span></div>
-              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · Endurance</div><div style="font-size:11px;color:#999">EMS · 每次 15 分钟</div></div>
+              <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 3 · 耐力模式</div><div style="font-size:11px;color:#999">EMS · 耐力训练 · 每次 15 分钟</div></div>
             </div>
             <div style="display:flex;gap:16px;font-size:13px;color:#333">
               <div><span style="font-weight:600">4 次</span>/周</div>
@@ -1939,36 +1912,22 @@ const pages = {
       <div style="text-align:center;padding:16px 16px 16px">
         <div style="font-size:13px;color:#999;margin-bottom:4px">评估得分</div>
         <div style="font-size:52px;font-weight:800;color:#c4787a;line-height:1">40<span style="font-size:24px;font-weight:600">%</span></div>
-        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ 总分：8 / 21</div>
+        <div style="font-size:12px;color:#999;margin-top:4px">ICIQ：8 / 21 · UDI-6：38 · IIQ-7：12.5</div>
       </div>
 
       <!-- Classification -->
       <div class="result-section">
         <div class="result-section-title">分型结果</div>
         <div class="result-card">
-          <div style="font-size:14px;color:#333;line-height:1.6">主要为 Stress 漏尿，同时存在 Urgency 症状</div>
+          <div class="rc-row"><div><div class="rc-label">尿失禁分型（3IQ × UDI-6 Q9/Q10）</div><div class="rc-value" style="font-size:14px;font-weight:600;line-height:1.5">主要为 Stress 漏尿，同时存在 Urgency 症状</div></div></div>
         </div>
       </div>
 
-      <!-- Level -->
+      <!-- Severity (替换 Level) -->
       <div class="result-section">
-        <div class="result-section-title">评分等级</div>
+        <div class="result-section-title">严重程度</div>
         <div class="result-card">
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="severity-badge mild">Level 2</span>
-          </div>
-          <div style="margin-top:8px;height:6px;background:#f0f0f0;border-radius:3px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#f9c74f,#e65100);border-radius:3px"></div></div>
-          <div style="display:flex;justify-content:space-between;font-size:10px;color:#bbb;margin-top:4px"><span>Level 1</span><span>Level 2</span><span>Level 3</span><span>Level 4</span></div>
-          <div style="font-size:11px;color:#999;margin-top:8px;line-height:1.4">Level 1 轻微 · Level 2 中度 · Level 3 较重 · Level 4 严重（等级越高，症状越严重）</div>
-        </div>
-      </div>
-
-      <!-- QoL -->
-      <div class="result-section">
-        <div class="result-section-title">生活质量影响</div>
-        <div class="result-card">
-          <div style="font-size:14px;color:#333">生活质量受影响</div>
-          <div style="font-size:12px;color:#999;margin-top:4px">IIQ-7 得分：12.5 （≥9.5）</div>
+          <div style="font-size:14px;color:#333;line-height:1.6;font-weight:600">症状 moderate，生活质量已受影响</div>
         </div>
       </div>
 
@@ -1978,12 +1937,12 @@ const pages = {
         <div class="result-card" style="background:#fdf0f0">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
             <div style="width:32px;height:32px;border-radius:50%;background:#c4787a;display:flex;align-items:center;justify-content:center"><span style="font-size:11px;font-weight:700;color:#fff">08</span></div>
-            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI Program</div><div style="font-size:11px;color:#999">UI · 每次 20 分钟</div></div>
+            <div><div style="font-size:14px;font-weight:600;color:#1a1a1a">Mode 8 · SUI 模式</div><div style="font-size:11px;color:#999">压力性尿失禁 · 每次 20 分钟</div></div>
           </div>
           <div style="display:flex;gap:16px;font-size:13px;color:#333">
-            <div><span style="font-weight:600">4 次</span>/周</div>
+            <div><span style="font-weight:600">3 次</span>/周</div>
             <div><span style="font-weight:600">7</span> 周</div>
-            <div>共 <span style="font-weight:600">28</span> 次</div>
+            <div>共 <span style="font-weight:600">21</span> 次</div>
           </div>
         </div>
       </div>
@@ -2524,20 +2483,21 @@ const pages = {
 
   'rec-assessment': () => { setTimeout(()=>{ if(!window._skipConfirmed) showResumePlanModal(); },500); return h.statusBar() + `<div class="nav-bar">
     <div class="back-btn" onclick="goTo('home-connected')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
-    <span class="title">Assessment Records</span>
+    <span class="title">评估记录</span>
     <div style="width:32px"></div>
   </div>
   <div class="rec-page">
     <div class="rec-header">
-      <div class="rec-sub">Last assessed: Apr 14, 2026</div>
+      <div class="rec-sub">最近评估：2026-04-14</div>
     </div>
     <div class="rec-chips" style="padding-top:0">
-      <div class="rec-chip active">Incontinence</div>
-      <div class="rec-chip">Pain</div>
+      <div class="rec-chip active">尿失禁</div>
+      <div class="rec-chip">疼痛</div>
+      <div class="rec-chip">臀腿功能</div>
     </div>
     <div class="rec-chart">
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-        <div><span class="severity-badge mild" style="font-size:11px">Level 2</span></div>
+        <div><span class="severity-badge mild" style="font-size:11px">症状 slight</span></div>
       </div>
       <svg width="100%" height="80" viewBox="0 0 300 80">
         <line x1="20" y1="0" x2="20" y2="70" stroke="#f0f0f0" stroke-width="1"/>
@@ -2559,33 +2519,33 @@ const pages = {
       </svg>
     </div>
     <div class="data-note" style="background: #F0F8FF; border-left: 3px solid #4A90E2; padding: 10px 12px; border-radius: 6px; margin: 12px 16px; font-size: 11px; line-height: 1.5; color: #4A6B8A;">
-      <div style="font-weight: 600; margin-bottom: 3px;">&#128202; Data Note</div>
-      <div>This trend is based on your self-reported assessment data, reflecting your subjective feelings over time, not clinical outcomes. Personalized recommendations update dynamically based on your records.</div>
+      <div style="font-weight: 600; margin-bottom: 3px;">&#128202; 数据说明</div>
+      <div>趋势基于您自行填写的评估数据，反映主观感受随时间的变化，不代表临床结论。个性化推荐会根据您的记录动态更新。</div>
     </div>
     <div style="padding:8px 16px;display:flex;justify-content:space-between;align-items:center">
-      <span style="font-size:13px;font-weight:600;color:#1a1a1a">History</span>
-      <span style="font-size:12px;color:#c4787a;font-weight:500;cursor:pointer">Compare</span>
+      <span style="font-size:13px;font-weight:600;color:#1a1a1a">历史记录</span>
+      <span style="font-size:12px;color:#c4787a;font-weight:500;cursor:pointer">对比</span>
     </div>
     <div class="rec-list">
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Apr 14, 2026 · 10:30 AM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge mild" style="font-size:10px;padding:2px 8px">Mild</span></div><div class="ri-sub">8/21</div></div>
+        <div class="ri-info"><div class="ri-name">尿失禁评估</div><div class="ri-meta">2026-04-14 · 10:30</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge mild" style="font-size:10px;padding:2px 8px">slight</span></div><div class="ri-sub">ICIQ 8/21</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Mar 1, 2026 · 2:15 PM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Level 2</span></div><div class="ri-sub">12/21</div></div>
+        <div class="ri-info"><div class="ri-name">尿失禁评估</div><div class="ri-meta">2026-03-01 · 14:15</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">moderate</span></div><div class="ri-sub">ICIQ 12/21</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Jan 15, 2026 · 9:00 AM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">Level 2</span></div><div class="ri-sub">14/21</div></div>
+        <div class="ri-info"><div class="ri-name">尿失禁评估</div><div class="ri-meta">2026-01-15 · 09:00</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge moderate" style="font-size:10px;padding:2px 8px">moderate</span></div><div class="ri-sub">ICIQ 14/21</div></div>
       </div>
       <div class="rec-item">
         <div class="ri-icon" style="background:#fce4ec"><i data-lucide="clipboard-check" style="width:18px;height:18px;color:#c4787a"></i></div>
-        <div class="ri-info"><div class="ri-name">ICIQ Assessment</div><div class="ri-meta">Dec 10, 2025 · 11:00 AM</div></div>
-        <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">Level 3</span></div><div class="ri-sub">17/21</div></div>
+        <div class="ri-info"><div class="ri-name">尿失禁评估</div><div class="ri-meta">2025-12-10 · 11:00</div></div>
+        <div class="ri-right"><div class="ri-val"><span class="severity-badge severe" style="font-size:10px;padding:2px 8px">severe</span></div><div class="ri-sub">ICIQ 17/21</div></div>
       </div>
     </div>
   </div>`; },

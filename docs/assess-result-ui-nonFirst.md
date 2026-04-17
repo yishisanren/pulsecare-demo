@@ -3,49 +3,53 @@ title: "3.4 尿失禁评估结果·非首次"
 path: "功能三 > 问卷评估 > 尿失禁评估结果（非首次）"
 ---
 
-### 评估结果 · 尿失禁（非首次）
+### 评估结果 · 尿失禁（非首次） / Assessment Result · Urinary Incontinence (Follow-up)
 
 ---
 
 ### 与首次的差异 / Difference from First Assessment
 
-| 场景 | 中文 | English |
+| 场景 / Section | 中文 | English |
 |------|------|---------|
 | 趋势图 | 显示最近 7 次评估的百分比趋势 | Shows trend of last 7 assessment scores (%) |
 | 页面结构 | 顶部新增趋势图，其他板块与首次相同 | Trend chart added on top; other sections same as first assessment |
 
-### 分型文案（与首次一致） / Classification Copy
+---
 
-| 主类型 (Q3) | 无次级特征 | +Stress | +Urgency | +Urgency+Stress |
-|------|------|------|------|------|
-| a = Stress | 主要为 Stress 漏尿 | 同左 | +同时存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
-| b = Urge | 主要为 Urge 漏尿 | +同时存在 Stress 症状 | 同左 | +同时存在 Urgency 与 Stress 症状 |
-| c = Other | 非典型机制，需进一步评估 | — | — | — |
-| d = Mixed | 为 Mixed 漏尿 | +存在 Stress 症状 | +存在 Urgency 症状 | +同时存在 Urgency 与 Stress 症状 |
+### 分型文案 / Classification (3IQ × UDI-6 Q9 / Q10)
 
-次级特征判定：UDI-6 Q9 ≥2 → 加 urgency 标签；Q10 ≥2 → 加 stress 标签
+| 3IQ 主类型 | Q9 <2 / Q10 <2 | Q9 <2 / Q10 ≥2 | Q9 ≥2 / Q10 <2 | Q9 ≥2 / Q10 ≥2 |
+|---|---|---|---|---|
+| **Stress** | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿<br/>Primarily stress urinary incontinence. | 主要为 Stress 漏尿，同时存在 Urgency 症状<br/>Primarily stress urinary incontinence, with some urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Urge** | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 主要为 Urge 漏尿，同时存在 Stress 症状<br/>Primarily urge urinary incontinence, with some stress symptoms. | 主要为 Urge 漏尿<br/>Primarily urge urinary incontinence. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Mixed** | 为 Mixed 漏尿，同时存在 Urgency 与 Stress 症状<br/>Mixed urinary incontinence, with both urgency and stress symptoms. | 为 Mixed 漏尿，存在 Stress 症状<br/>Mixed urinary incontinence, with stress symptoms. | 为 Mixed 漏尿，存在 Urgency 症状<br/>Mixed urinary incontinence, with urgency symptoms. | 同时存在 Urgency 与 Stress 症状<br/>Both urgency and stress symptoms are present. |
+| **Other** | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. | 非典型机制，需进一步评估<br/>Atypical mechanism; further evaluation recommended. |
 
-### 评分等级 / Score Level
+---
 
-- ICIQ 总分 → 基础 Level：0-5 Level 1 / 6-12 Level 2 / 13-18 Level 3 / 19-21 Level 4
-- UDI-6 百分制 ≥33 → Level 升一级（封顶 Level 4）
-- IIQ-7 ≥9.5 → 标记"生活质量受影响"
+### 严重程度 + 训练频次 / Severity + Training Frequency
 
-### 生活质量影响 / Quality of Life
+基于 ICIQ 区间 × UDI-6 是否 ≥33 × IIQ-7 是否 ≥9.5 输出。详见首次评估结果页完整 32 条映射表。
+Based on ICIQ × UDI-6 ≥33 × IIQ-7 ≥9.5. See first-assessment page for full 32-row mapping.
 
-| IIQ-7 | 中文 | English |
-|-------|------|---------|
-| <9.5 | 生活质量未受显著影响 | No significant impact on quality of life |
-| ≥9.5 | 生活质量受影响 | Quality of life impacted |
+| ICIQ | UDI-6 | IIQ-7 | 严重程度 / Severity | 频次 |
+|---|---|---|---|---|
+| 0–5 | <33 | <9.5 | 症状 slight / Slight symptoms | 2次/周 × 4周 |
+| 0–5 | ≥33 | ≥9.5 | 症状 moderate，生活质量受影响 / Moderate, QoL affected | 3次/周 × 7周 |
+| 6–12 | ≥33 | ≥9.5 | 症状 severe，生活质量受影响 / Severe, QoL affected | 4次/周 × 9周 |
+| 13–18 | ≥33 | ≥9.5 | 症状 very severe，生活质量受影响 / Very severe, QoL affected | 5次/周 × 9周 |
+| 19–21 | ≥33 | ≥9.5 | 症状 very severe，生活质量受影响 / Very severe, QoL affected | 5次/周 × 9周 |
 
-### 推荐训练计划 / Recommended Training Plan
+---
 
-按最终 Level × QoL × 类型查训练频次映射表 / Query frequency map by final Level × QoL × Type
+### 推荐模式 / Recommended Mode
 
-设备模式映射：
-- Stress/Mixed → Mode 8 (SUI)
-- Urge → Mode 9 (UUI)
-- Other → 不映射
+| 3IQ 主类型 | 推荐模式 |
+|---|---|
+| Stress | Mode 8 · SUI 模式 / SUI Mode |
+| Urge | Mode 9 · UUI 模式 / UUI Mode |
+| Mixed | Mode 8 + Mode 9 交替 / SUI + UUI alternating |
+| Other | 不推荐模式，建议转诊 / Not recommended; refer to specialist |
 
 ---
 
