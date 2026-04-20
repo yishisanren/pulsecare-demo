@@ -2559,8 +2559,26 @@ function showPage(el) {
   document.getElementById('phone').innerHTML = pages[el.dataset.page]();
   if (window.lucide) lucide.createIcons();
 
+  // 更新 URL hash（不触发 hashchange 循环）
+  const targetHash = '#/' + el.dataset.page;
+  if (location.hash !== targetHash) {
+    history.replaceState(null, '', targetHash);
+  }
+
   // 更新PRD内容
   updatePRDContent(el.dataset.page);
+}
+
+function navigateToHash() {
+  const pageId = (location.hash || '').replace(/^#\/?/, '');
+  if (!pageId) return false;
+  const el = document.querySelector('.sidebar-item[data-page="' + pageId + '"]');
+  if (el) {
+    showPage(el);
+    el.scrollIntoView({ block: 'nearest' });
+    return true;
+  }
+  return false;
 }
 
 const prdCache = {};
@@ -2610,8 +2628,11 @@ function parseFrontmatter(raw) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  showPage(document.querySelector('.sidebar-item.active'));
+  if (!navigateToHash()) {
+    showPage(document.querySelector('.sidebar-item.active'));
+  }
 });
+window.addEventListener('hashchange', navigateToHash);
 </script>
 <div id="skip-confirm-modal" class="modal-overlay" onclick="hideSkipConfirm()">
   <div class="modal-box" onclick="event.stopPropagation()">

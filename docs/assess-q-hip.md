@@ -6,12 +6,12 @@ path: "功能三 > 问卷评估 > 模块3：臀腿功能"
 
 ## 模块 3：臀腿功能评估（Pelvic Girdle Questionnaire，PGQ）
 
-> **合规说明**：原始 PGQ 共 25 题。根据合规意见删除 Q19（Have a normal sex life），实际投放 **24 题**。下文题干列表保留 Excel 原始 25 题题号，Q19 标注"合规剔除，不展示、不计分"。
+> **合规说明**：原始 PGQ 共 25 题。根据合规意见删除 Q19（Have a normal sex life），实际投放 **24 题**。
 > Per compliance guidance, Q19 (Have a normal sex life) is removed; **24 items total**.
 
 **指导语**：To what extent do you find it problematic to carry out the activities listed below because of pelvic girdle pain? For each activity check (√) the box that best describes how you are today.
 
-### Part A：Activity（Q1–Q20，剔除 Q19，实际 19 题）
+### Part A：Activity（Q1–Q20，共 19 题）
 
 **引导语**：How problematic is it for you because of your pelvic girdle pain to:
 
@@ -23,9 +23,9 @@ path: "功能三 > 问卷评估 > 模块3：臀腿功能"
 | To a small extent（轻微困难） | 1 |
 | To some extent（中度困难） | 2 |
 | To a large extent（重度困难） | 3 |
-| Not applicable（仅 Q19、Q20 可选） | NA（从分子分母同时去掉） |
+| Not applicable（仅 Q20 可选） | NA（从分子分母同时去掉） |
 
-**20 个活动题干**（Q19 合规剔除）：
+**19 个活动题干**：
 
 | 题号 | 问题题干 |
 |------|------|
@@ -47,7 +47,6 @@ path: "功能三 > 问卷评估 > 模块3：臀腿功能"
 | Q16 | Carry out sporting activities |
 | Q17 | Lie down |
 | Q18 | Roll over in bed |
-| ~~Q19~~ | ~~Have a normal sex life~~（**合规剔除，不展示、不计分**） |
 | Q20 | Push something with one foot（可选 NA） |
 
 ### Part B：Symptom（Q21–Q25）
@@ -81,7 +80,7 @@ path: "功能三 > 问卷评估 > 模块3：臀腿功能"
 
 | 维度 | 求和题号 | 标准化公式 | 受限阈值 |
 |---|---|---|---|
-| Control 控制力 | Q1 + Q16 + Q17 + Q18 + Q20 + Q23（**6 道题**，Q19 已删除） | 实际总得分 / **18** | ≥ 0.3 |
+| Control 控制力 | Q1 + Q16 + Q17 + Q18 + Q20 + Q23（**6 道题**） | 实际总得分 / **18** | ≥ 0.3 |
 | Endurance 耐力 | Q2 + Q3 + Q5 + Q6 + Q7 + Q8 + Q9 + Q10 + Q12 + Q14 + Q16 + Q24（**12 道题**） | 实际总得分 / **36** | ≥ 0.3 |
 | Strength 力量 | Q4 + Q9 + Q10 + Q11 + Q12 + Q13 + Q14 + Q15 + Q16 + Q20（**10 道题**） | 实际总得分 / **30** | ≥ 0.3 |
 
@@ -92,4 +91,4 @@ path: "功能三 > 问卷评估 > 模块3：臀腿功能"
 
 ---
 
-> 题干与选项文案严格依据《问卷评估需求 20260129》Excel「模块3：下肢功能」原文；Q19 因合规要求剔除，对应维度公式（Control 维度）已同步调整。详细推荐模式映射见 PRD 3.4 模块 3 结果计算（`assess-result-hip-first.md`）。
+> 题干与选项文案依据《问卷评估需求 20260129》Excel「模块3：下肢功能」原文；Q19（Have a normal sex life）因合规要求剔除，实际投放 24 题，Control 维度公式已同步调整为 6 题 / 18 分。详细推荐模式映射见 PRD 3.4 模块 3 结果计算（`assess-result-hip-first.md`）。
