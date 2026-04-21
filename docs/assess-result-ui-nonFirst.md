@@ -6,7 +6,7 @@ path: "功能三 > 问卷评估 > 尿失禁评估结果（非首次）"
 ### 评估结果 · 尿失禁（非首次） / Assessment Result · Urinary Incontinence (Follow-up)
 
 > 本页规则以《电疗坐垫问卷输出逻辑》为唯一真值源，与 PRD 3.4 保持一致。
-> 分型 / 严重程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见 `assess-result-first.md`。
+> 分型 / 严重程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见"评估结果 · 尿失禁首次"页面。
 
 ---
 
@@ -23,7 +23,7 @@ path: "功能三 > 问卷评估 > 尿失禁评估结果（非首次）"
 
 ### 分型文案（完整 16 条）与严重程度 + 训练频次（完整 16 条）
 
-详见首次评估结果页：[`assess-result-first.md`](./assess-result-first.md)。非首次评估沿用相同规则。
+详见"评估结果 · 尿失禁首次"页面。非首次评估沿用相同规则。
 
 See first-assessment page for full 16-row classification + 16-row severity × frequency tables. Follow-up assessment uses the same rules.
 

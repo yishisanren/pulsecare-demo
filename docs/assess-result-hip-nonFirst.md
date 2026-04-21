@@ -6,7 +6,7 @@ path: "功能三 > 问卷评估 > 臀腿功能评估结果（非首次）"
 ### 评估结果 · 臀腿功能（非首次） / Assessment Result · Hip-Leg Function (Follow-up)
 
 > 本页规则以《电疗坐垫问卷输出逻辑》为唯一真值源，与 PRD 3.4 保持一致。
-> 维度公式 / 分型文案 / 影响程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见 `assess-result-hip-first.md`。
+> 维度公式 / 分型文案 / 影响程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见"评估结果 · 臀腿首次"页面。
 
 ---
 
@@ -37,7 +37,7 @@ path: "功能三 > 问卷评估 > 臀腿功能评估结果（非首次）"
 
 ### 分型文案（8 条）+ PGQ% 影响程度（4 档）
 
-详见首次评估结果页：[`assess-result-hip-first.md`](./assess-result-hip-first.md)。非首次评估沿用相同规则。
+详见"评估结果 · 臀腿首次"页面。非首次评估沿用相同规则。
 
 See first-assessment page for the full 8-row classification + PGQ% impact table. Follow-up assessment uses the same rules.
 

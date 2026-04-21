@@ -33,9 +33,9 @@ User selected 2 or 3 modules in screening & routing and completed the assessment
 
 ### 分型文案（16 条 · 完整版）与严重程度 + 训练频次（16 条 · 完整版）
 
-详见尿失禁首次评估结果页：[`assess-result-first.md`](./assess-result-first.md)。多模块合并页沿用相同规则。
+详见"评估结果 · 尿失禁首次"页面。多模块合并页沿用相同规则。
 
-See `assess-result-first.md` for the full 16-row classification and severity × frequency tables.
+See "评估结果 · 尿失禁首次" page for the full 16-row classification and severity × frequency tables.
 
 ### 模式映射 / Mode Mapping
 
@@ -58,9 +58,9 @@ See `assess-result-first.md` for the full 16-row classification and severity × 
 
 ### 分型文案（15 条）+ NRS 严重程度（4 档）
 
-详见疼痛首次评估结果页：[`assess-result-pain-first.md`](./assess-result-pain-first.md)。多模块合并页沿用相同规则。
+详见"评估结果 · 疼痛首次"页面。多模块合并页沿用相同规则。
 
-See `assess-result-pain-first.md` for the full 15-row Q2 × Q3 classification + NRS severity table.
+See "评估结果 · 疼痛首次" page for the full 15-row Q2 × Q3 classification + NRS severity table.
 
 ### 模式映射 / Mode Mapping
 
@@ -95,9 +95,9 @@ See `assess-result-pain-first.md` for the full 15-row Q2 × Q3 classification + 
 
 ### 分型文案（8 条）+ PGQ% 影响程度（4 档）
 
-详见臀腿首次评估结果页：[`assess-result-hip-first.md`](./assess-result-hip-first.md)。多模块合并页沿用相同规则。
+详见"评估结果 · 臀腿首次"页面。多模块合并页沿用相同规则。
 
-See `assess-result-hip-first.md` for the full 8-row classification + PGQ% impact table.
+See "评估结果 · 臀腿首次" page for the full 8-row classification + PGQ% impact table.
 
 ### 模式映射 / Mode Mapping
 

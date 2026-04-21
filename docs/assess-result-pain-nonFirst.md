@@ -6,7 +6,7 @@ path: "功能三 > 问卷评估 > 疼痛评估结果（非首次）"
 ### 评估结果 · 臀腿疼痛（非首次） / Assessment Result · Hip-Leg Pain (Follow-up)
 
 > 本页规则以《电疗坐垫问卷输出逻辑》为唯一真值源，与 PRD 3.4 保持一致。
-> 分型 / 严重程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见 `assess-result-pain-first.md`。
+> 分型 / 严重程度 / 训练频次 / 模式映射逻辑与首次评估完全相同，详见"评估结果 · 疼痛首次"页面。
 
 ---
 
@@ -21,7 +21,7 @@ path: "功能三 > 问卷评估 > 疼痛评估结果（非首次）"
 
 ### 分型文案（15 条）与严重程度 + 训练频次（NRS 4 档）
 
-详见首次评估结果页：[`assess-result-pain-first.md`](./assess-result-pain-first.md)。非首次评估沿用相同规则。
+详见"评估结果 · 疼痛首次"页面。非首次评估沿用相同规则。
 
 See first-assessment page for full 15-row Q2 × Q3 classification + NRS severity table. Follow-up assessment uses the same rules.
 
