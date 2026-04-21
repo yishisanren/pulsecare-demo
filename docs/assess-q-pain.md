@@ -1,12 +1,12 @@
 ---
-title: "3.3 疼痛评估问卷 (Red-Flag + Pain Descriptor + NRS)"
+title: "3.3 疼痛评估问卷 (Red-Flag + Pain Descriptor + Duration + NRS)"
 path: "功能三 > 问卷评估 > 疼痛问卷"
 ---
 
 
 ## 3.3 疼痛评估问卷
 
-包含安全筛查（红旗） + 疼痛描述词 + 持续时间 + 分部位 NRS + 疼痛性状 / 频率 / 单次时长。
+共 4 题：Q1 安全筛查（红旗） + Q2 疼痛描述词 + Q3 疼痛持续时间 + Q4 当前疼痛强度（总体 NRS）。
 
 ### Q1：Red-Flag 安全筛查
 
