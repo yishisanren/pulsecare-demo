@@ -52,12 +52,12 @@ PGQ 有效满分 = 24 × 3 = **72**
 
 **PGQ% = 实际总分 ÷ 72 × 100%**
 
-| PGQ% | 影响程度文案（中文） | Output Message (EN) | 训练频次 | 周数 |
-|---|---|---|---|---|
-| 0–20% | 很小影响 / 基本无功能受限 | Minimal impact / essentially no functional limitation | 不推荐 | — |
-| 20–40% | 轻度影响 | Mild impact | 3 次/周 | 2 周 |
-| 40–60% | 中度功能受限 | Moderate functional limitation | 4 次/周 | 3 周 |
-| >60% | 重度影响，临床显著功能受限 | Severe impact; clinically significant functional limitation | 5 次/周 | 5 周 |
+| PGQ%   | 影响程度文案（中文）     | Output Message (EN)                                   | 训练频次  | 周数  |
+| ------ | -------------- | ----------------------------------------------------- | ----- | --- |
+| 0–20%  | 很小影响 / 基本无功能受限 | Minimal impact / essentially no functional limitation | 不推荐   | —   |
+| 20–40% | 轻度影响           | Mild impact                                           | 3 次/周 | 2 周 |
+| 40–60% | 中度功能受限         | Moderate functional limitation                        | 4 次/周 | 3 周 |
+| >60%   | 重度影响，显著功能受限    | Severe impact; significant functional limitation      | 5 次/周 | 5 周 |
 
 ---
 
