@@ -52,43 +52,8 @@ path: "功能三 > 问卷评估 > 疼痛问卷"
 **题型**：11 分量表
 **选项**：no pain【 0 —— 1 —— 2 —— 3 —— 4 —— 5 —— 6 —— 7 —— 8 —— 9 —— 10 】worst pain
 
-### Q4–Q6：分部位 NRS
 
-| 题号 | 问题题干 | 选项 |
-|------|------|------|
-| Q4 | Pelvic Pain / Uterine Cramping | (0–10) |
-| Q5 | Lower Back Pain | (0–10) |
-| Q6 | Leg Pain / Cramps | (0–10) |
 
-### 疼痛性状（Pain Quality）
-
-**题干**：Pain Quality (check all that apply):
-**题型**：多选
-**选项**：
-
-- ☐ Dull：Continuous, deep ache
-- ☐ Sharp：Sudden, intense, stabbing pain
-- ☐ Burning：Hot, tingling, or stinging sensation
-- ☐ Cramping：Tight, squeezing, or intermittent pain
-- ☐ Throbbing：Pulsating, rhythmic pain
-- ☐ Shooting：Pain traveling along a nerve path
-- ☐ Aching：Generalized, mild to moderate discomfort
-- ☐ Other: __________
-
-### 疼痛频率 / 单次时长
-
-| 项目 | 选项 |
-|------|------|
-| Pain Frequency | ☐ Constant ☐ Intermittent ☐ Frequency per day |
-| Duration per episode | __________ minutes |
-
-### 其他部位 NRS
-
-| 项目 | 选项 | 备注 |
-|------|------|------|
-| Perineal or Surgical Wound Pain | (0–10) | 有手术时评估 |
-| Breast Pain / Engorgement | (0–10) | — |
-| Other (specify): __________ | (0–10) | — |
 
 ---
 
