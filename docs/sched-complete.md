@@ -22,11 +22,11 @@ path: "功能五 > 训练日程管理 > 完成引导"
 - 显示所有完成模块的汇总统计
 - 依次引导评估各个症状模块
 
-**双模式日程完成**
-- 触发条件：**两个模式都跑完**为周期结束（不是其中一个跑完就触发）
-- 统一弹一次完成页，文案：`Congratulations! You have completed your [模块名] training plan (covering [模式1] and [模式2]).`
-- 分别展示两个模式的训练次数 / 累计时长 / 完成率（顺序与计划生成 Step 3 一致：08 SUI → 09 UUI 或 06 Chronic → 07 Acute）
-- 引导重新评估该模块（一次评估，不分别引导）
+<span class="v14-add">**双模式日程完成**</span>
+- <span class="v14-add">触发条件：**两个模式都跑完**为周期结束（不是其中一个跑完就触发）</span>
+- <span class="v14-add">统一弹一次完成页，文案：`Congratulations! You have completed your [模块名] training plan (covering [模式1] and [模式2]).`</span>
+- <span class="v14-add">分别展示两个模式的训练次数 / 累计时长 / 完成率（顺序与计划生成 Step 3 一致：08 SUI → 09 UUI 或 06 Chronic → 07 Acute）</span>
+- <span class="v14-add">引导重新评估该模块（一次评估，不分别引导）</span>
 
 ### 重新评估引导
 **引导文案**

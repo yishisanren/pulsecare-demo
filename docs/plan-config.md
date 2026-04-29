@@ -41,36 +41,36 @@ path: "功能五 > 训练日程管理 > 计划生成"
 
 ### Step 3: 模式确认
 - 显示评估推荐的训练模式
-- 模式信息：名称、时长、类型（EMS / TENS / UI）
+- 模式信息：名称、时长、类型（<span class="v14-change">EMS / TENS / UI</span>）
 - 锁定状态：不可修改，显示锁定图标
 
-**单模式分型**：仅展示 1 个推荐模式，文案 `This mode is recommended based on your assessment results.`
+<span class="v14-add">**单模式分型**：仅展示 1 个推荐模式，文案 `This mode is recommended based on your assessment results.`</span>
 
-**双模式分型（Mixed）**：上下排列展示 2 个推荐模式，**无主副之分**，**整体锁定不可修改 / 不可拆分 / 不可移除其中一个**，文案 `These modes are recommended based on your assessment results.`
+<span class="v14-add">**双模式分型（Mixed）**：上下排列展示 2 个推荐模式，**无主副之分**，**整体锁定不可修改 / 不可拆分 / 不可移除其中一个**，文案 `These modes are recommended based on your assessment results.`</span>
 
-| 触发场景 | 双模式组合 | 展示顺序 |
+| <span class="v14-add">触发场景</span> | <span class="v14-add">双模式组合</span> | <span class="v14-add">展示顺序</span> |
 |---|---|---|
-| 尿失禁 Mixed | 08 SUI Mode + 09 UUI Mode | 08 SUI（20 min）→ 09 UUI（20 min） |
-| 疼痛 Mixed Acute + Chronic | 06 Chronic Mode + 07 Acute Mode | 06 Chronic（20 min）→ 07 Acute（30 min） |
+| <span class="v14-add">尿失禁 Mixed</span> | <span class="v14-add">08 SUI Mode + 09 UUI Mode</span> | <span class="v14-add">08 SUI（20 min）→ 09 UUI（20 min）</span> |
+| <span class="v14-add">疼痛 Mixed Acute + Chronic</span> | <span class="v14-add">06 Chronic Mode + 07 Acute Mode</span> | <span class="v14-add">06 Chronic（20 min）→ 07 Acute（30 min）</span> |
 
 ### Step 4: 训练提醒时间
 - 时间滚轮选择器：默认当前时间
 - "No reminder"开关选项
 - 设置后应用于所有训练日
 
-**双模式日程**：仅设 1 个提醒时间，提醒触发时引导用户当天完成 2 个任务（不分别提醒）。
+<span class="v14-add">**双模式日程**：仅设 1 个提醒时间，提醒触发时引导用户当天完成 2 个任务（不分别提醒）。</span>
 
-### 双模式日程的共享配置
+### <span class="v14-add">双模式日程的共享配置</span>
 
-双模式日程（仅 Mixed 分型触发）的 Step 1–4 配置全部按"一日程"整体处理：
+<span class="v14-add">双模式日程（仅 Mixed 分型触发）的 Step 1–4 配置全部按"一日程"整体处理：</span>
 
-| 配置项 | 双模式处理方式 |
+| <span class="v14-add">配置项</span> | <span class="v14-add">双模式处理方式</span> |
 |---|---|
-| Step 1 训练周期 | 共用 1 个周期（取对应模块的频次表） |
-| Step 2 训练频次/日期 | 共用 1 个频次和日期选择，2 个模式不分别取值 |
-| Step 3 训练模式 | 上下排列 2 个模式，整体锁定 |
-| Step 4 提醒时间 | 仅设 1 个提醒，当天提醒一次引导完成 2 个任务 |
-| 颜色槽 | 共用 1 个颜色槽，日历圆点同色 |
+| <span class="v14-add">Step 1 训练周期</span> | <span class="v14-add">共用 1 个周期（取对应模块的频次表）</span> |
+| <span class="v14-add">Step 2 训练频次/日期</span> | <span class="v14-add">共用 1 个频次和日期选择，2 个模式不分别取值</span> |
+| <span class="v14-add">Step 3 训练模式</span> | <span class="v14-add">上下排列 2 个模式，整体锁定</span> |
+| <span class="v14-add">Step 4 提醒时间</span> | <span class="v14-add">仅设 1 个提醒，当天提醒一次引导完成 2 个任务</span> |
+| <span class="v14-add">颜色槽</span> | <span class="v14-add">共用 1 个颜色槽，日历圆点同色</span> |
 
 ### 底部按钮逻辑
 - 单模块：所有步骤完成后显示"Generate Training Plan"

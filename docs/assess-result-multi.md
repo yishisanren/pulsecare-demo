@@ -42,9 +42,9 @@ See "评估结果 · 尿失禁首次" page for the full 16-row classification an
 | 3IQ 主类型 | 推荐模式 |
 |---|---|
 | Stress | 08 SUI Mode · 08 压力性尿失禁模式 |
-| Urge（不含 Stress 次特征） | 09 UUI Mode · 09 急迫性尿失禁模式 |
-| Urge（含 Stress 次特征） | 08 SUI Mode · 08 压力性尿失禁模式 |
-| **Mixed** | **双模式自动启用：08 SUI Mode + 09 UUI Mode** |
+| <span class="v14-change">Urge（不含 Stress 次特征）</span> | 09 UUI Mode · 09 急迫性尿失禁模式 |
+| <span class="v14-add">Urge（含 Stress 次特征）</span> | <span class="v14-add">08 SUI Mode · 08 压力性尿失禁模式</span> |
+| **<span class="v14-change">Mixed</span>** | <span class="v14-change">**双模式自动启用：08 SUI Mode + 09 UUI Mode**</span> |
 | Other | 不推荐模式，建议转诊 |
 
 ### 0 分态 / No Symptoms
@@ -69,9 +69,9 @@ See "评估结果 · 疼痛首次" page for the full 15-row Q2 × Q3 classificat
 |---|---|
 | Acute / Muscle-related、Acute nociceptive | 07 Acute Mode · 07 急性疼痛模式 |
 | Chronic nociceptive、Chronic neuropathic(-like) | 06 Chronic Mode · 06 慢性疼痛模式 |
-| **Mixed Acute + Chronic** | **双模式自动启用：06 Chronic Mode + 07 Acute Mode**（每个训练日同时完成两个模式） |
+| **<span class="v14-change">Mixed Acute + Chronic</span>** | <span class="v14-change">**双模式自动启用：06 Chronic Mode + 07 Acute Mode**（每个训练日同时完成两个模式）</span> |
 
-> **Mixed → 双模式日程（v1.4）**：尿失禁 Mixed (08+09) 与疼痛 Mixed (06+07) 均自动生成"双模式日程"——一日程绑 2 模式（无主副、上下排列），不可修改/拆分/移除。当天生成 2 个独立任务卡片，共用周期/频次/颜色槽/提醒。详见日程管理相关页面。
+> <span class="v14-add">**Mixed → 双模式日程（v1.4）**：尿失禁 Mixed (08+09) 与疼痛 Mixed (06+07) 均自动生成"双模式日程"——一日程绑 2 模式（无主副、上下排列），不可修改/拆分/移除。当天生成 2 个独立任务卡片，共用周期/频次/颜色槽/提醒。详见日程管理相关页面。</span>
 
 ### 特殊场景 / Special Scenarios
 

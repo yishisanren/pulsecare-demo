@@ -28,9 +28,9 @@ path: "功能五 > 训练日程管理 > 单模块计划"
 
 用户可手动调整（点击日期切换选中/取消）。
 
-### 双模式日程触发场景
-即使是单模块评估，命中 Mixed 分型也会触发双模式日程：
-- 仅评估尿失禁，结果为 Mixed → 触发 08 SUI + 09 UUI 双模式日程
-- 仅评估疼痛，结果为 Mixed Acute + Chronic → 触发 06 Chronic + 07 Acute 双模式日程
+### <span class="v14-add">双模式日程触发场景</span>
+<span class="v14-add">即使是单模块评估，命中 Mixed 分型也会触发双模式日程：</span>
+- <span class="v14-add">仅评估尿失禁，结果为 Mixed → 触发 08 SUI + 09 UUI 双模式日程</span>
+- <span class="v14-add">仅评估疼痛，结果为 Mixed Acute + Chronic → 触发 06 Chronic + 07 Acute 双模式日程</span>
 
-此时配置项的"训练模式"列锁定为 2 个模式整体（上下排列展示），其他配置项（周期/日期/提醒）按"一日程"共享。
+<span class="v14-add">此时配置项的"训练模式"列锁定为 2 个模式整体（上下排列展示），其他配置项（周期/日期/提醒）按"一日程"共享。</span>

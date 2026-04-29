@@ -17,7 +17,7 @@ path: "功能三 > 问卷评估 > 疼痛评估结果（首次）"
 | Acute nociceptive | 急性 伤害感受性 | 07 Acute Mode · 07 急性疼痛模式 |
 | Chronic nociceptive | 慢性 伤害感受性 | 06 Chronic Mode · 06 慢性疼痛模式 |
 | Chronic neuropathic-like / Chronic neuropathic | 慢性类神经病理性 / 慢性神经病理性 | 06 Chronic Mode · 06 慢性疼痛模式 |
-| Mixed Acute + Chronic | 混合型（急性+慢性） | **双模式自动启用：06 Chronic Mode + 07 Acute Mode**（每个训练日同时完成两个模式）|
+| Mixed Acute + Chronic | 混合型（急性+慢性） | <span class="v14-change">**双模式自动启用：06 Chronic Mode + 07 Acute Mode**（每个训练日同时完成两个模式）</span>|
 
 ---
 
@@ -41,13 +41,13 @@ Based on Q2 type (5) × Q3 duration (3), **15 classification + 15 mode-plan outp
 | Chronic neuropathic-like / Chronic neuropathic | <1 week | 早期神经性疼痛（灼热、刺痛、麻木）。产后刚出现时需关注疼痛发展。 | Early neuropathic pain (burning, tingling, numbness). Monitor closely when it first appears postpartum. | 使用 06 Chronic Mode 缓解，同时观察症状变化。 | Use "06 Chronic Mode" for relief; monitor symptom changes. |
 | Chronic neuropathic-like / Chronic neuropathic | 1–6 weeks | 持续神经性疼痛（烧灼感、针刺感、麻木）。产后中期慢性疼痛常见。 | Persistent neuropathic pain (burning, pins-and-needles, numbness). Common in mid-postpartum chronic pain. | 使用 06 Chronic Mode 日常缓解疼痛，注意避免加重因素。 | Use "06 Chronic Mode" for daily pain relief; avoid aggravating factors. |
 | Chronic neuropathic-like / Chronic neuropathic | >6 weeks | 长期神经性疼痛（灼热、刺痛、麻木、轻触痛）。超过 6 周持续存在，提示慢性机制主导。 | Long-term neuropathic pain (burning, tingling, numbness, allodynia). Persistence beyond 6 weeks suggests a chronic mechanism dominates. | 建议 06 Chronic Mode 日常使用，并咨询专业康复或医生评估。 | Recommend daily "06 Chronic Mode"; consult a rehab specialist or clinician for evaluation. |
-| Mixed Acute + Chronic | <1 week | 同时存在急性痉挛/刺痛和持续背景痛。产后早期即可出现混合疼痛。 | Both acute spasm/stabbing and persistent background pain are present. Mixed pain can appear in the early postpartum period. | 每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，缓解背景痛与急性触发痛。 | Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day to address both background and acute pain. |
-| Mixed Acute + Chronic | 1–6 weeks | 混合疼痛，既有急性刺痛/痉挛，又有持续酸痛或神经性痛。产后恢复中期常见。 | Mixed pain with both acute stabbing/spasm and persistent aching or neuropathic pain. Common in mid-postpartum recovery. | 每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，覆盖混合疼痛。 | Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day to cover mixed pain. |
-| Mixed Acute + Chronic | >6 weeks | 持续混合疼痛，背景慢性痛加急性触发痛。超过 6 周仍存在，提示慢性机制明显。 | Persistent mixed pain combining chronic background pain and acute triggers. Persistence over 6 weeks suggests a clearly chronic mechanism. | 每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，并考虑专业评估。 | Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day; consider professional evaluation. |
+| Mixed Acute + Chronic | <1 week | 同时存在急性痉挛/刺痛和持续背景痛。产后早期即可出现混合疼痛。 | Both acute spasm/stabbing and persistent background pain are present. Mixed pain can appear in the early postpartum period. | <span class="v14-change">每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，缓解背景痛与急性触发痛。</span> | <span class="v14-change">Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day to address both background and acute pain.</span> |
+| Mixed Acute + Chronic | 1–6 weeks | 混合疼痛，既有急性刺痛/痉挛，又有持续酸痛或神经性痛。产后恢复中期常见。 | Mixed pain with both acute stabbing/spasm and persistent aching or neuropathic pain. Common in mid-postpartum recovery. | <span class="v14-change">每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，覆盖混合疼痛。</span> | <span class="v14-change">Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day to cover mixed pain.</span> |
+| Mixed Acute + Chronic | >6 weeks | 持续混合疼痛，背景慢性痛加急性触发痛。超过 6 周仍存在，提示慢性机制明显。 | Persistent mixed pain combining chronic background pain and acute triggers. Persistence over 6 weeks suggests a clearly chronic mechanism. | <span class="v14-change">每个训练日同时完成 06 Chronic Mode 与 07 Acute Mode，并考虑专业评估。</span> | <span class="v14-change">Complete both "06 Chronic Mode" and "07 Acute Mode" on each training day; consider professional evaluation.</span> |
 
 ---
 
-> **Mixed Acute + Chronic → 双模式日程（v1.4 新规则）**：自动生成"双模式日程"——一条日程绑定 2 个模式，**上下排列展示，无主副之分**，**不可修改 / 不可拆分 / 不可移除其中一个**。每个训练日生成 **2 个独立任务卡片**，顺序固定：`06 Chronic Mode (20 min)` → `07 Acute Mode (30 min)`。两模式共用同一周期、同一频次、共用 1 个颜色槽（日历圆点同色）、1 个提醒时间。详见日程管理相关页面。
+> <span class="v14-add">**Mixed Acute + Chronic → 双模式日程（v1.4 新规则）**：自动生成"双模式日程"——一条日程绑定 2 个模式，**上下排列展示，无主副之分**，**不可修改 / 不可拆分 / 不可移除其中一个**。每个训练日生成 **2 个独立任务卡片**，顺序固定：`06 Chronic Mode (20 min)` → `07 Acute Mode (30 min)`。两模式共用同一周期、同一频次、共用 1 个颜色槽（日历圆点同色）、1 个提醒时间。详见日程管理相关页面。</span>
 
 ---
 
