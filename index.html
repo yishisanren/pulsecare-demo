@@ -523,6 +523,12 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
   </div>
   <div class="sidebar-list">
     <div class="sidebar-group">
+      <div class="sidebar-group-title">📋 文档</div>
+      <div class="sidebar-item" data-page="changelog" onclick="showPage(this)">
+        <span class="dot" style="background:#f9a825"></span>更新日志
+      </div>
+    </div>
+    <div class="sidebar-group">
       <div class="sidebar-group-title">设备主页</div>
       <div class="sidebar-item active" data-page="home-connected" onclick="showPage(this)">
         <span class="dot green"></span>已连接 · 有训练任务
@@ -693,13 +699,6 @@ body { font-family: 'Inter', -apple-system, sans-serif; background: #f0f0f0; dis
         <span class="dot blue"></span>评估记录
       </div>
       <!-- train-mood merged into train-complete pages -->
-
-      <div class="sidebar-item" style="margin-top: 16px; border-top: 1px solid #e5e5e5; padding-top: 12px;">
-        <strong style="color:#1a1a1a;font-size:12px;">📋 文档</strong>
-      </div>
-      <div class="sidebar-item" data-page="changelog" onclick="showPage(this)">
-        <span class="dot" style="background:#f9a825"></span>更新日志
-      </div>
       </div>
     </div>
   </div>
@@ -963,14 +962,33 @@ function planFormHTML(modeName, icon, modeMeta, recWeeks, recDays) {
   const presets = {1:[2],2:[1,4],3:[0,2,4],4:[0,2,4,6],5:[0,1,2,4,5],6:[0,1,2,3,4,5],7:[0,1,2,3,4,5,6]};
   const selDays = presets[recDays] || presets[3];
 
+  // 支持双模式:modeName 传数组 [{name,icon,meta},{name,icon,meta}] 即渲染双模式
+  const isDual = Array.isArray(modeName);
+  const recText = isDual
+    ? 'These modes are recommended based on your assessment results.'
+    : 'This mode is recommended based on your assessment results.';
+  const modeCards = isDual
+    ? modeName.map(m => `
+      <div class="mode-confirm-card" style="margin-bottom:8px">
+        <div class="mc-icon"><i data-lucide="${m.icon}" style="width:26px;height:26px;color:#c4787a"></i></div>
+        <div class="mc-info">
+          <div class="mc-name">${m.name}</div>
+          <div class="mc-meta">${m.meta}</div>
+        </div>
+      </div>`).join('')
+    : `<div class="mode-confirm-card" style="margin-bottom:8px">
+        <div class="mc-icon"><i data-lucide="${icon}" style="width:26px;height:26px;color:#c4787a"></i></div>
+        <div class="mc-info">
+          <div class="mc-name">${modeName}</div>
+          <div class="mc-meta">${modeMeta}</div>
+        </div>
+      </div>`;
+
   return `<div class="plan-step-title" style="margin-bottom:4px">Training Mode</div>
-    <div class="mode-confirm-card" style="margin-bottom:20px">
-      <div class="mc-icon"><i data-lucide="${icon}" style="width:26px;height:26px;color:#c4787a"></i></div>
-      <div class="mc-info">
-        <div class="mc-name">${modeName}</div>
-        <div class="mc-meta">${modeMeta}</div>
-        <div class="mc-lock"><i data-lucide="lock" style="width:12px;height:12px;color:#bbb"></i> Auto-selected based on assessment</div>
-      </div>
+    <div style="font-size:11px;color:#888;margin-bottom:10px;line-height:1.5">${recText}</div>
+    ${modeCards}
+    <div style="display:flex;align-items:center;gap:6px;margin:8px 0 20px;font-size:11px;color:#999">
+      <i data-lucide="lock" style="width:12px;height:12px;color:#bbb"></i> Auto-selected based on assessment${isDual?' · locked as a pair':''}
     </div>
     <div class="plan-step-title" style="margin-bottom:4px">Duration</div>
     <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;padding:12px 16px;background:#f8f8f8;border-radius:12px">
@@ -1999,8 +2017,14 @@ const pages = {
     state.planTab = state.planTab || 0;
     const tabs = ['Incontinence','Pain'];
     const configs = [
-      planFormHTML('01 Activation Mode','zap','Basic · EMS · 15 mins per session',6,4),
-      planFormHTML('06 Chronic Mode','heart-pulse','Pain · TENS · 20 mins per session',6,3),
+      planFormHTML([
+        {name:'08 SUI Mode', icon:'zap',         meta:'UI · EMS · 20 mins per session'},
+        {name:'09 UUI Mode', icon:'activity',    meta:'UI · EMS · 20 mins per session'},
+      ],null,null,6,4),
+      planFormHTML([
+        {name:'06 Chronic Mode', icon:'heart-pulse', meta:'Pain · TENS · 20 mins per session'},
+        {name:'07 Acute Mode',   icon:'flame',       meta:'Pain · TENS · 30 mins per session'},
+      ],null,null,6,3),
     ];
     const tabHtml = tabs.map((t,i) => `<div class="plan-tab${i===state.planTab?' active':''}" onclick="state.planTab=${i};goTo('plan-config')">${t}</div>`).join('');
     const isLast = state.planTab === tabs.length - 1;
@@ -2023,23 +2047,32 @@ const pages = {
   'plan-preview': () => {
     state.previewTab = state.previewTab || 0;
     const dayNames = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+    // 双模式日程:1 条计划绑定 2 个模式(modes 数组),共用 color/days/freq/weeks
     const plans = [
-      { name: 'Incontinence', mode: '08 SUI Mode', freq: '4x/week', time: '20 min', color: '#c4787a', total: 24, weeks: 6, days: [0,2,4,6] },
-      { name: 'Pain', mode: '06 Chronic Mode', freq: '3x/week', time: '20 min', color: '#e65100', total: 18, weeks: 6, days: [0,2,4] },
+      { name: 'Incontinence', color: '#c4787a', freq: '4x/week', weeks: 6, days: [0,2,4,6],
+        modes: [{name:'08 SUI', time:'20 min'},{name:'09 UUI', time:'20 min'}] },
+      { name: 'Pain',         color: '#e65100', freq: '3x/week', weeks: 6, days: [0,2,4],
+        modes: [{name:'06 Chronic', time:'20 min'},{name:'07 Acute', time:'30 min'}] },
     ];
     const p = plans[state.previewTab];
+    const totalSessions = p.days.length * p.weeks * p.modes.length;
     const tabHtml = plans.map((pl,i) => `<div class="plan-tab${i===state.previewTab?' active':''}" onclick="state.previewTab=${i};goTo('plan-preview')">${pl.name}</div>`).join('');
     const startDate = new Date(2026,3,14);
     const weeksHtml = Array.from({length:2},(_,wi) => {
       const wStart = new Date(startDate);wStart.setDate(wStart.getDate()+wi*7);
       const wEnd = new Date(wStart);wEnd.setDate(wEnd.getDate()+6);
       const title = `Week ${wi+1} · ${['Jan','Feb','Mar','Apr','May','Jun'][wStart.getMonth()]} ${wStart.getDate()} – ${['Jan','Feb','Mar','Apr','May','Jun'][wEnd.getMonth()]} ${wEnd.getDate()}`;
+      // 每个训练日里上下两行展示 2 个模式
       const trainingDays = p.days.map(di => {
         const dd = new Date(wStart);dd.setDate(dd.getDate()+di);
-        return `<div class="pw-day"><div class="pwd-date">${dayNames[di]} ${dd.getDate()}</div><div class="pw-day-dot" style="background:${p.color}"></div><div class="pwd-name">${p.mode}</div><div class="pwd-time">${p.time}</div></div>`;
+        const modeRows = p.modes.map(m =>
+          `<div class="pwd-name">${m.name} ${m.time}</div>`
+        ).join('');
+        return `<div class="pw-day"><div class="pwd-date">${dayNames[di]} ${dd.getDate()}</div><div class="pw-day-dot" style="background:${p.color}"></div>${modeRows}</div>`;
       }).join('');
       return `<div class="preview-week"><div class="pw-title">${title}</div><div class="pw-days">${trainingDays}</div></div>`;
     }).join('');
+    const modeSummary = p.modes.map(m => `${m.name} · ${m.time}`).join(' + ');
     return h.statusBar() + `<div class="nav-bar">
       <div class="back-btn" onclick="goTo('plan-config')"><i data-lucide="chevron-left" style="width:24px;height:24px;color:#1a1a1a"></i></div>
       <span class="title">Plan Preview</span>
@@ -2050,8 +2083,9 @@ const pages = {
       <div class="plan-body">
         <div class="preview-summary">
           <div class="ps-row"><span class="ps-label">Duration</span><span class="ps-value">${p.weeks} weeks · Apr 14 – May 25</span></div>
-          <div class="ps-row"><span class="ps-label">Mode</span><span class="ps-value">${p.mode} · ${p.freq} · ${p.time}</span></div>
-          <div class="ps-row"><span class="ps-label">Total sessions</span><span class="ps-value">${p.total} sessions</span></div>
+          <div class="ps-row"><span class="ps-label">Modes</span><span class="ps-value">${modeSummary}</span></div>
+          <div class="ps-row"><span class="ps-label">Frequency</span><span class="ps-value">${p.freq}</span></div>
+          <div class="ps-row"><span class="ps-label">Total sessions</span><span class="ps-value">${totalSessions} sessions</span></div>
           <div class="ps-row"><span class="ps-label">Reminder</span><span class="ps-value">8:30 PM daily</span></div>
         </div>
         ${weeksHtml}
