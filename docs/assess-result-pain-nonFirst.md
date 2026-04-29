@@ -33,7 +33,9 @@ See first-assessment page for full 15-row Q2 × Q3 classification + NRS severity
 |---|---|
 | Acute / Muscle-related、Acute nociceptive | 07 Acute Mode · 07 急性疼痛模式 |
 | Chronic nociceptive、Chronic neuropathic(-like) | 06 Chronic Mode · 06 慢性疼痛模式 |
-| Mixed Acute + Chronic | 06 Chronic Mode（日常）+ 07 Acute Mode（发作时） |
+| **Mixed Acute + Chronic** | **双模式自动启用：06 Chronic Mode + 07 Acute Mode**（每个训练日同时完成两个模式） |
+
+> **Mixed → 双模式日程（v1.4）**：一日程绑 2 模式（无主副、上下排列），不可修改/拆分/移除。当天 2 个独立任务卡片，顺序固定 `06 Chronic (20 min)` → `07 Acute (30 min)`，共用周期/频次/颜色槽/提醒。
 
 ---
 

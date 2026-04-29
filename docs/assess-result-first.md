@@ -59,9 +59,12 @@ Primary type by 3IQ Q3; secondary features by UDI-6 Q9 (Urgency, threshold ≥2)
 | 3IQ 主类型 | 推荐模式 / Recommended Mode |
 |---|---|
 | Stress（含 Stress+Urgency 次特征） | 08 SUI Mode · 08 压力性尿失禁模式 |
-| Urge（含 Urgency 特征） | 09 UUI Mode · 09 急迫性尿失禁模式 |
-| Mixed | 08 SUI Mode（主），同时存在 Urgency 时训练计划可并入 09 UUI Mode / 08 SUI Mode primary; 09 UUI Mode may be added when urgency coexists |
+| Urge（不含 Stress 次特征） | 09 UUI Mode · 09 急迫性尿失禁模式 |
+| Urge（含 Stress 次特征） | 08 SUI Mode · 08 压力性尿失禁模式 |
+| **Mixed** | **双模式自动启用：08 SUI Mode + 09 UUI Mode**（无主副、无条件，不依赖 Q9 Urgency） |
 | Other | 不推荐模式，建议转诊 / Not recommended; refer to specialist |
+
+> **Mixed → 双模式日程（v1.4 新规则）**：Mixed 主类型自动生成"双模式日程"——一条日程绑定 2 个模式，**上下排列展示，无主副之分**，**不可修改 / 不可拆分 / 不可移除其中一个**。每个训练日生成 **2 个独立任务卡片**，顺序固定：`08 SUI Mode (20 min)` → `09 UUI Mode (20 min)`。两模式共用同一周期、同一频次、共用 1 个颜色槽（日历圆点同色）、1 个提醒时间。详见日程管理相关页面。
 
 ---
 

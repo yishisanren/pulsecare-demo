@@ -34,9 +34,12 @@ See first-assessment page for full 16-row classification + 16-row severity × fr
 | 3IQ 主类型 | 推荐模式 |
 |---|---|
 | Stress | 08 SUI Mode · 08 压力性尿失禁模式 |
-| Urge | 09 UUI Mode · 09 急迫性尿失禁模式 |
-| Mixed | 08 SUI Mode（主），同时存在 Urgency 时并入 09 UUI Mode |
+| Urge（不含 Stress 次特征） | 09 UUI Mode · 09 急迫性尿失禁模式 |
+| Urge（含 Stress 次特征） | 08 SUI Mode · 08 压力性尿失禁模式 |
+| **Mixed** | **双模式自动启用：08 SUI Mode + 09 UUI Mode**（无主副、无条件） |
 | Other | 不推荐模式，建议转诊 |
+
+> **Mixed → 双模式日程（v1.4）**：Mixed 主类型自动生成"双模式日程"——一日程绑 2 模式（无主副、上下排列），不可修改/拆分/移除。当天生成 2 个独立任务卡片，顺序固定 `08 SUI (20 min)` → `09 UUI (20 min)`，共用周期/频次/颜色槽/提醒。
 
 ---
 

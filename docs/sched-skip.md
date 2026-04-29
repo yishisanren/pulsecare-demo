@@ -33,3 +33,9 @@ path: "功能五 > 训练日程管理 > 请假流程"
 当一天有多个模块训练时：
 - "Skip Session"：仅跳过长按的那个任务
 - "Skip All Today's Sessions"：跳过当天所有模块的任务
+
+### 双模式日程的任务粒度请假
+当天的 2 个任务（如 08 SUI + 09 UUI 或 06 Chronic + 07 Acute）可**分别 Skip**：
+- 允许只 Skip 其中 1 个，另 1 个保持 Pending 或正常完成
+- 同一双模式日程当天 2 任务也属于"多任务场景"，长按 Skip 后弹出"Skip this session / Skip all today's sessions / Cancel"
+- **只 Skip 双模式中的 1 个任务，不计入连续请假天数**（详见连续请假提醒页）
